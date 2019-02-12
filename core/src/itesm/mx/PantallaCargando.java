@@ -1,8 +1,46 @@
 package itesm.mx;
 
-public class PantallaCargando {
+import com.badlogic.gdx.Screen;
+
+public class PantallaCargando implements Screen{
+
     private final Principal principal;
     public PantallaCargando(Principal principal) {
         this.principal=principal;
+    }
+
+    @Override
+    public void show() {
+        
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
