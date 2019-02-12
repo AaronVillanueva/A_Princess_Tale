@@ -4,6 +4,9 @@ import com.badlogic.gdx.Screen;
 
 public class PantallaCargando implements Screen{
 
+    public static final int ANCHO = 1280;
+    public static final int ALTO = 720;
+
     private final Principal principal;
     public PantallaCargando(Principal principal) {
         this.principal=principal;
