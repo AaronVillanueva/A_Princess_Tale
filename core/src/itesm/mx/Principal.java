@@ -1,5 +1,6 @@
 package itesm.mx;
 // Mafer H
+//Alejandro C
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
