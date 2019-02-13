@@ -36,7 +36,7 @@ public class PantallaCargando implements Screen{
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        textFondo = new Texture("loadingPrincess.PNG");
+        textFondo = new Texture("PantallaCargando.PNG");
 //
     }
 
