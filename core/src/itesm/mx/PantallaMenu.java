@@ -39,6 +39,7 @@ public class PantallaMenu extends Pantalla implements Screen {
         batch.begin();
         batch.draw(textFondo, 0, 0);
         //escenaMenu.draw();
+
         batch.end();
     }
 
