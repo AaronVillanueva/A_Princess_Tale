@@ -3,8 +3,12 @@ package itesm.mx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class Pantalla {
     public static final int ANCHO = 1280;
@@ -34,6 +38,12 @@ public class Pantalla {
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
+    }
+    public ImageButton crearImgBtn(String path){
+        Texture textBtn=new Texture(path);
+        TextureRegionDrawable trdBtnPlay=new TextureRegionDrawable(new TextureRegion(textBtn));
+        ImageButton btn=new ImageButton(trdBtnPlay);
+        return btn;
     }
 
 }
