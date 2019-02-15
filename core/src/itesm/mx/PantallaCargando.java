@@ -10,9 +10,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaCargando extends Pantalla implements Screen{
-    private final Principal principal;
     private int posX = 0;
-    private Texture textFondo;
 
     //Tiempo
     private float contadorTiempo =0;
@@ -24,14 +22,8 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     @Override
     public void show() {
-        camara = new OrthographicCamera(ANCHO, ALTO);
-        camara.position.set(ANCHO/2, ALTO/2, 0);
-        camara.update();
-        //Vista
-        vista = new StretchViewport(ANCHO, ALTO);
-        batch = new SpriteBatch();
+        inicializarCamaraBatch();
         textFondo = new Texture("Pantallas/PantallaCargando.PNG");
-//
     }
 
     @Override
@@ -69,9 +61,7 @@ public class PantallaCargando extends Pantalla implements Screen{
     public void hide() {
 
     }
-
-    @Override
-    public void dispose() {
-
-    }
+    //PantallaCargando ya hace dispose de su batch y textFondo
+    //@Override
+    //public void dispose() { }
 }

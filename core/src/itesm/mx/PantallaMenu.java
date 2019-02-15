@@ -15,12 +15,7 @@ public class PantallaMenu extends Pantalla implements Screen {
 
     @Override
     public void show() {
-        camara = new OrthographicCamera(ANCHO, ALTO);
-        camara.position.set(ANCHO/2, ALTO/2, 0);
-        camara.update();
-        //Vista
-        vista = new StretchViewport(ANCHO, ALTO);
-        batch = new SpriteBatch();
+        inicializarCamaraBatch();
         textFondo = new Texture("Pantallas/PantallaMenu.PNG");
     }
 
@@ -52,8 +47,6 @@ public class PantallaMenu extends Pantalla implements Screen {
 
     }
 
-    @Override
-    public void dispose() {
-
-    }
+    //@Override
+    //public void dispose() {}
 }
