@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-
-public class Pantalla {
+//Pantalla genérica
+public abstract class Pantalla {
     public static final int ANCHO = 1280;
     public static final int ALTO = 720;
     protected OrthographicCamera camara; //cámara
@@ -39,6 +39,8 @@ public class Pantalla {
         vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
     }
+
+
     public ImageButton crearImgBtn(String path){
         Texture textBtn=new Texture(path);
         TextureRegionDrawable trdBtn=new TextureRegionDrawable(new TextureRegion(textBtn));

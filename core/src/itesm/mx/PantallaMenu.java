@@ -1,12 +1,15 @@
 package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 import java.awt.Image;
+import java.util.Vector;
 
 public class PantallaMenu extends Pantalla implements Screen {
 
@@ -22,6 +25,7 @@ public class PantallaMenu extends Pantalla implements Screen {
         inicializarShow();
         crearFondo("Pantallas/PantallaMenu.PNG");
         inicializarBotones();
+        Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void inicializarBotones() {
@@ -39,7 +43,6 @@ public class PantallaMenu extends Pantalla implements Screen {
         batch.begin();
         batch.draw(textFondo, 0, 0);
         //escenaMenu.draw();
-
         batch.end();
     }
 
@@ -61,6 +64,56 @@ public class PantallaMenu extends Pantalla implements Screen {
     @Override
     public void hide() {
 
+    }
+
+    private class ProcesadorEntrada implements InputProcessor {
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 v3 = new Vector3(screenX, screenY,0);
+            camara.unproject(v3);
+            //Verifica botón jugar
+            float altoRegionBtn = btnJugar.getY()+ btnJugar.getHeight();
+            if(v3.y<=ALTO-100 && v3.y>=ALTO-290 && v3.x<=860 && v3.x>=400){
+                //Quiere jugar
+                principal.setScreen( new PantallaCargando(principal));
+            }
+            return true;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
+        }
     }
 
     //@Override

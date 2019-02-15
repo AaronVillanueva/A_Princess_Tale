@@ -3,9 +3,22 @@ package itesm.mx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class PantallaCargando extends Pantalla implements Screen{
+public class PantallaCargando implements Screen{
+
+    public static final int ANCHO = 1280;
+    public static final int ALTO = 720;
+    private final Principal principal;
+    private OrthographicCamera camara; //cámara
+    private Viewport vista;
+    private SpriteBatch batch;
     private int posX = 0;
+    private Texture textFondo;
 
     //Tiempo
     private float contadorTiempo =0;
@@ -17,9 +30,14 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     @Override
     public void show() {
-        //inicializa camara,camara update,batch y vista
-        inicializarShow();
-        crearFondo("Pantallas/PantallaCargando.PNG");
+        camara = new OrthographicCamera(ANCHO, ALTO);
+        camara.position.set(ANCHO/2, ALTO/2, 0);
+        camara.update();
+        //Vista
+        vista = new StretchViewport(ANCHO, ALTO);
+        batch = new SpriteBatch();
+        textFondo = new Texture("loadingPrincess.PNG");
+//
     }
 
     @Override
@@ -29,13 +47,16 @@ public class PantallaCargando extends Pantalla implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camara.combined);
-        contadorTiempo+=delta;
-        if(contadorTiempo>=2){
-            principal.setScreen(new PantallaMenu(principal));
-        }
         batch.begin();
         batch.draw(textFondo, 0, 0);
         batch.end();
+
+        //prueba tiempo
+        contadorTiempo += delta;
+        if(contadorTiempo>=2){
+            //Contó 2 segundos
+            principal.setScreen(new PantallaMenu(principal));
+        }
     }
 
     @Override
@@ -57,7 +78,9 @@ public class PantallaCargando extends Pantalla implements Screen{
     public void hide() {
 
     }
-    //PantallaCargando ya hace dispose de su batch y textFondo
-    //@Override
-    //public void dispose() { }
+
+    @Override
+    public void dispose() {
+
+    }
 }
