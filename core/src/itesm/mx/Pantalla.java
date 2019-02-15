@@ -13,5 +13,5 @@ public class Pantalla {
     protected SpriteBatch batch;
     private int posX = 0;
     protected Texture textFondo;
-
+    protected Principal principal;
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaMenu extends Pantalla implements Screen {
 
-    private final Principal principal;
     private int posX = 0;
 
     public PantallaMenu(Principal principal){this.principal=principal;}
@@ -22,12 +21,15 @@ public class PantallaMenu extends Pantalla implements Screen {
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        textFondo = new Texture("Pantallas/PantallaCargando.PNG");
+        textFondo = new Texture("Pantallas/PantallaMenu.PNG");
     }
 
     @Override
     public void render(float delta) {
-
+        batch.setProjectionMatrix(camara.combined);
+        batch.begin();
+        batch.draw(textFondo, 0, 0);
+        batch.end();
     }
 
     @Override
