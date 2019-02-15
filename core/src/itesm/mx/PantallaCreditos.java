@@ -2,17 +2,12 @@ package itesm.mx;
 
 import com.badlogic.gdx.Screen;
 
-public class PantallaMenu extends Pantalla implements Screen {
-
-    private int posX = 0;
-
-    public PantallaMenu(Principal principal){this.principal=principal;}
+public class PantallaCreditos extends Pantalla implements Screen {
 
     @Override
     public void show() {
-        //inicializa camara,camara update,batch y vista
         inicializarShow();
-        crearFondo("Pantallas/PantallaMenu.PNG");
+        crearFondo("Pantallas/PantallaCreditos.PNG");
     }
 
     @Override
@@ -42,7 +37,4 @@ public class PantallaMenu extends Pantalla implements Screen {
     public void hide() {
 
     }
-
-    //@Override
-    //public void dispose() {}
 }

@@ -3,11 +3,6 @@ package itesm.mx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaCargando extends Pantalla implements Screen{
     private int posX = 0;
@@ -22,8 +17,9 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     @Override
     public void show() {
-        inicializarCamaraBatch();
-        textFondo = new Texture("Pantallas/PantallaCargando.PNG");
+        //inicializa camara,camara update,batch y vista
+        inicializarShow();
+        crearFondo("Pantallas/PantallaCargando.PNG");
     }
 
     @Override

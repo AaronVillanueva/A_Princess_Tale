@@ -19,7 +19,15 @@ public class Pantalla {
         batch.dispose();
         textFondo.dispose();
     }
-    public void inicializarCamaraBatch(){
+
+    //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
+    //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
+    public void crearFondo(String fondo){
+        textFondo = new Texture(fondo);
+    }
+
+    //Este metodo inicializa la camara, batch y la vista
+    public void inicializarShow(){
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
