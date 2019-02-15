@@ -36,7 +36,7 @@ public class Pantalla {
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
         //Vista
-        vista = new StretchViewport(ANCHO, ALTO);
+        vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
     }
     public ImageButton crearImgBtn(String path){
