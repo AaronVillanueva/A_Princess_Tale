@@ -41,8 +41,8 @@ public class Pantalla {
     }
     public ImageButton crearImgBtn(String path){
         Texture textBtn=new Texture(path);
-        TextureRegionDrawable trdBtnPlay=new TextureRegionDrawable(new TextureRegion(textBtn));
-        ImageButton btn=new ImageButton(trdBtnPlay);
+        TextureRegionDrawable trdBtn=new TextureRegionDrawable(new TextureRegion(textBtn));
+        ImageButton btn=new ImageButton(trdBtn);
         return btn;
     }
 
