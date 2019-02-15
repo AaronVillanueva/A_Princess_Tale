@@ -35,4 +35,5 @@ public class Pantalla {
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
     }
+
 }
