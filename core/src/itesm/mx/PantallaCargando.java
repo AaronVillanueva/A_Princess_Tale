@@ -36,7 +36,7 @@ public class PantallaCargando implements Screen{
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        textFondo = new Texture("PantallaCargando.PNG");
+        textFondo = new Texture("Pantallas/PantallaCargando.PNG");
 //
     }
 
@@ -47,6 +47,10 @@ public class PantallaCargando implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camara.combined);
+        contadorTiempo+=delta;
+        if(contadorTiempo>=2){
+            principal.setScreen(new PantallaMenu(principal));
+        }
         batch.begin();
         batch.draw(textFondo, 0, 0);
         batch.end();
