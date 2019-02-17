@@ -74,7 +74,7 @@ public class PantallaMenu extends Pantalla implements Screen {
 
             if(v3.y<=ALTO-100 && v3.y>=ALTO-290 && v3.x<=860 && v3.x>=400){
                 //Quiere jugar
-                principal.setScreen( new PantallaCargando(principal));
+                principal.setScreen( new TestNivel1(principal));
             }
             if(v3.y<=ALTO-315 && v3.y>=ALTO-450 && v3.x<=570 && v3.x>=415){
 
