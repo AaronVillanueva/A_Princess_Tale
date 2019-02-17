@@ -103,6 +103,14 @@ public class PantallaMenu extends Pantalla implements Screen {
 
                 principal.setScreen( new PantallaAyuda(principal));
             }
+            if(v3.y<=ALTO-315 && v3.y>=ALTO-450 && v3.x<=870 && v3.x>=745){
+
+                principal.setScreen( new PantallaAyuda(principal));
+            }
+            if(v3.y<=ALTO-460 && v3.y>=ALTO-545 && v3.x<=755 && v3.x>=515){
+                principal.setScreen( new PantallaCreditos(principal));
+            }
+
 
 
 
