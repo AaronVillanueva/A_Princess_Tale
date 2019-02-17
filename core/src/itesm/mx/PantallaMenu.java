@@ -8,14 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
-import java.awt.Image;
-import java.util.Vector;
-
 public class PantallaMenu extends Pantalla implements Screen {
-
-    private int posX = 0;
-    private Stage escenaMenu;
-    private ImageButton btnJugar;
 
     public PantallaMenu(Principal principal){this.principal=principal;}
 
@@ -25,14 +18,6 @@ public class PantallaMenu extends Pantalla implements Screen {
         inicializarShow();
         crearFondo("Pantallas/PantallaMenu.PNG");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
-    }
-
-    //método temporal dispuesto a mejoras y corrección de bug transparencia
-    private void inicializarBotones() {
-        escenaMenu=new Stage(vista);
-        btnJugar=crearImgBtn("Botones/BotonJugar.png");
-        btnJugar.setPosition(300,200);
-        escenaMenu.addActor(btnJugar);
     }
 
     @Override
