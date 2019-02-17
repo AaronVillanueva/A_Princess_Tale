@@ -9,16 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class PantallaCargando implements Screen{
+public class PantallaCargando extends Pantalla implements Screen{
 
-    public static final int ANCHO = 1280;
-    public static final int ALTO = 720;
-    private final Principal principal;
-    private OrthographicCamera camara; //cámara
-    private Viewport vista;
-    private SpriteBatch batch;
     private int posX = 0;
-    private Texture textFondo;
 
     //Tiempo
     private float contadorTiempo =0;

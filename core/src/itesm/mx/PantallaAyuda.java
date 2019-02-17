@@ -4,6 +4,8 @@ import com.badlogic.gdx.Screen;
 
 public class PantallaAyuda extends Pantalla implements Screen {
 
+    public PantallaAyuda(Principal principal){this.principal=principal;}
+
     @Override
     public void show() {
         inicializarShow();

@@ -3,6 +3,8 @@ package itesm.mx;
 import com.badlogic.gdx.Screen;
 
 public class PantallaControles extends Pantalla implements Screen {
+
+    public PantallaControles(Principal principal){this.principal=principal;}
     @Override
     public void show() {
         inicializarShow();

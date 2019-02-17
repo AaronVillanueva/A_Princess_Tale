@@ -1,9 +1,12 @@
 package itesm.mx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -38,6 +41,7 @@ public abstract class Pantalla {
         //Vista
         vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
+        Gdx.input.setInputProcessor(new Pantalla.ProcesadorEntrada());
     }
 
 
@@ -48,4 +52,62 @@ public abstract class Pantalla {
         return btn;
     }
 
+    //metodo super raro de prueba ree
+    public void ree(){
+        System.out.println("reeeee1");
+    }
+
+    //La clase pantallacargando tiene por defecto el boton atras implementado para PantallaMenu
+    //cualquier otra pantalla que tenga un boton adicional/menos hace override a esta clase
+    private class ProcesadorEntrada implements InputProcessor {
+
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            Vector3 v3 = new Vector3(screenX, screenY,0);
+            camara.unproject(v3);
+            //Verifica botón jugar
+
+            if(v3.y<=ALTO-20 && v3.y>=ALTO-160 && v3.x<=195 && v3.x>=20){
+                //Quiere jugar
+                principal.setScreen( new PantallaMenu(principal));
+            }
+            return true;
+
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
+        }
+    }
 }

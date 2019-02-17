@@ -2,14 +2,14 @@ package itesm.mx;
 
 import com.badlogic.gdx.Screen;
 
-public class PantallaCreditos extends Pantalla implements Screen {
+public class PantallaAjustes extends Pantalla implements Screen {
 
-    public PantallaCreditos(Principal principal){this.principal=principal;}
+    public PantallaAjustes(Principal principal){this.principal=principal;}
 
     @Override
     public void show() {
         inicializarShow();
-        crearFondo("Pantallas/PantallaCreditos.PNG");
+        crearFondo("Pantallas/PantallaAjustes.PNG");
     }
 
     @Override

@@ -24,10 +24,10 @@ public class PantallaMenu extends Pantalla implements Screen {
         //inicializa camara,camara update,batch y vista
         inicializarShow();
         crearFondo("Pantallas/PantallaMenu.PNG");
-        inicializarBotones();
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
+    //método temporal dispuesto a mejoras y corrección de bug transparencia
     private void inicializarBotones() {
         escenaMenu=new Stage(vista);
         btnJugar=crearImgBtn("Botones/BotonJugar.png");
@@ -42,7 +42,6 @@ public class PantallaMenu extends Pantalla implements Screen {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
-        //escenaMenu.draw();
         batch.end();
     }
 
@@ -87,11 +86,26 @@ public class PantallaMenu extends Pantalla implements Screen {
             Vector3 v3 = new Vector3(screenX, screenY,0);
             camara.unproject(v3);
             //Verifica botón jugar
-            float altoRegionBtn = btnJugar.getY()+ btnJugar.getHeight();
+
             if(v3.y<=ALTO-100 && v3.y>=ALTO-290 && v3.x<=860 && v3.x>=400){
                 //Quiere jugar
                 principal.setScreen( new PantallaCargando(principal));
             }
+            if(v3.y<=ALTO-315 && v3.y>=ALTO-450 && v3.x<=570 && v3.x>=415){
+
+                principal.setScreen( new PantallaAjustes(principal));
+            }
+            if(v3.y<=ALTO-315 && v3.y>=ALTO-450 && v3.x<=730 && v3.x>=575){
+
+                principal.setScreen( new PantallaControles(principal));
+            }
+            if(v3.y<=ALTO-315 && v3.y>=ALTO-450 && v3.x<=870 && v3.x>=745){
+
+                principal.setScreen( new PantallaAyuda(principal));
+            }
+
+
+
             return true;
         }
 
