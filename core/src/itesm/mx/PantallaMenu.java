@@ -16,7 +16,7 @@ public class PantallaMenu extends Pantalla implements Screen {
     public void show() {
         //inicializa camara,camara update,batch y vista
         inicializarShow();
-        crearFondo("Pantallas/PantallaMenu.PNG");
+        crearFondo("Pantallas/PantallaMenu.png");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
