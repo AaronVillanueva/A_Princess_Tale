@@ -9,7 +9,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
     @Override
     public void show() {
         inicializarShow();
-        crearFondo("Pantallas/PantallaAjustes.PNG");
+        crearFondo("Pantallas/PantallaAjustes.png");
     }
 
     @Override

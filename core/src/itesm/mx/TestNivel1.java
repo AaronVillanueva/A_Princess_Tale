@@ -21,7 +21,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void show() {
         inicializarShow();
-        crearFondo("Pantallas/Nivel1.png");
+        crearFondo("Pantallas/Nivel1.PNG");
         textCereza = new Texture("ITEMS/Cereza.png");
         spriteCereza = new Sprite(textCereza);
         textStar = new Texture("ITEMS/Star.png");
@@ -106,6 +106,9 @@ public class TestNivel1 extends Pantalla implements Screen {
 
             Vector3 v3 = new Vector3(screenX, screenY,0);
             camara.unproject(v3);
+            if(v3.x > 0 && v3.x < 150 && v3.y< ALTO && v3.y>ALTO-150){
+                principal.setScreen(new PantallaMenu(principal));
+            }
             if(v3.x>ANCHO/2 && spritePrincesa.getX()<ANCHO-100){
                 spritePrincesa.setPosition(spritePrincesa.getX()+10, spritePrincesa.getY());
             }
