@@ -2,6 +2,7 @@ package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 //Pantalla genérica
-public abstract class Pantalla {
+public abstract class Pantalla implements Screen {
     public static final int ANCHO = 1280;
     public static final int ALTO = 720;
     protected OrthographicCamera camara; //cámara

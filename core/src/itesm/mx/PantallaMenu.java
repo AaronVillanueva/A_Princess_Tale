@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
-public class PantallaMenu extends Pantalla implements Screen {
+public class PantallaMenu extends Pantalla {
 
     public PantallaMenu(Principal principal){this.principal=principal;}
 
