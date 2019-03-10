@@ -4,30 +4,126 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class PantallaMenu extends Pantalla {
 
-    public PantallaMenu(Principal principal){this.principal=principal;}
+    private Stage stage;
+
+    public PantallaMenu(Principal principal){
+        this.principal=principal;
+    }
 
     @Override
     public void show() {
+
+
         //inicializa camara,camara update,batch y vista
         inicializarShow();
+        stage = new Stage(vista);
+        crearBotones();
         crearFondo("Pantallas/Pantalla_Menu.png");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    private void crearBotones() {
+
+        // Botón Jugar
+        Texture texturaBtnJugar = new Texture("Botones/Btn_Menu/Btn_Jugar.png");
+        TextureRegion textureRegionBtnJugar = new TextureRegion(texturaBtnJugar);
+        TextureRegionDrawable textureRegionDrawableBtnJugar = new TextureRegionDrawable(textureRegionBtnJugar);
+        ImageButton btnJugar = new ImageButton(textureRegionDrawableBtnJugar);
+        btnJugar.setPosition(ANCHO/2-300, ALTO/2-30);
+
+        // Botón controles
+        Texture texturaBtnControles = new Texture("Botones/Btn_Menu/Btn_Controles.png");
+        TextureRegion textureRegionBtnControles = new TextureRegion(texturaBtnControles);
+        TextureRegionDrawable textureRegionDrawableBtnControles = new TextureRegionDrawable(textureRegionBtnControles);
+        ImageButton btnControles = new ImageButton(textureRegionDrawableBtnControles);
+        btnControles.setPosition(ANCHO/2-300, ALTO/2-150);
+
+
+        // Botón Configuración
+        Texture texturaBtnConf = new Texture("Botones/Btn_Menu/Btn_Configuracion.png");
+        TextureRegion textureRegionBtnConf = new TextureRegion(texturaBtnConf);
+        TextureRegionDrawable textureRegionDrawableBtnConf = new TextureRegionDrawable(textureRegionBtnConf);
+        ImageButton btnConf = new ImageButton(textureRegionDrawableBtnConf);
+        btnConf.setPosition(ANCHO/2-300+btnConf.getWidth()+20, ALTO/2-150);
+
+        // Botón Créditos
+        Texture texturaBtnCred = new Texture("Botones/Btn_Menu/Btn_Creditos.png");
+        TextureRegion textureRegionBtnCred = new TextureRegion(texturaBtnCred);
+        TextureRegionDrawable textureRegionDrawableBtnCred = new TextureRegionDrawable(textureRegionBtnCred);
+        ImageButton btnCred = new ImageButton(textureRegionDrawableBtnCred);
+        btnCred.setPosition(ANCHO/2-300+btnConf.getWidth()+140, ALTO/2-135);
+
+
+        stage.addActor(btnJugar);
+        stage.addActor(btnControles);
+        stage.addActor(btnConf);
+        stage.addActor(btnCred);
+
+        // Agregar Listeners
+
+        btnJugar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new TestNivel1(principal));
+            }
+        });
+
+        btnControles.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new PantallaControles(principal));
+            }
+        });
+
+        btnConf.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new PantallaAjustes(principal));
+            }
+        });
+
+        btnCred.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new PantallaCreditos(principal));
+            }
+        });
+
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
+        stage.act(Gdx.graphics.getDeltaTime());
         batch.end();
+        stage.draw();
     }
 
     @Override
@@ -68,7 +164,7 @@ public class PantallaMenu extends Pantalla {
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            Vector3 v3 = new Vector3(screenX, screenY,0);
+            /*Vector3 v3 = new Vector3(screenX, screenY,0);
             camara.unproject(v3);
             //Verifica botón jugar
 
@@ -97,9 +193,9 @@ public class PantallaMenu extends Pantalla {
             }
 
 
+                */
 
-
-            return true;
+            return false;
         }
 
         @Override

@@ -44,14 +44,14 @@ public class TestNivel1 extends Pantalla implements Screen {
         batch.begin();
         batch.draw(textFondo, 0, 0);
 
-        if(spriteCereza.getX()>spritePrincesa.getX()){
+        if(spriteCereza.getX()>spritePrincesa.getX()+20){
             spriteCereza.draw(batch);
         }
 
         spriteEstrella.setPosition(spriteEstrella.getX()-0.5f, spriteEstrella.getY());
         spriteCereza.setPosition(spriteCereza.getX()-0.5f, spriteCereza.getY());
 
-        if(spriteEstrella.getX()>spritePrincesa.getX()){
+        if(spriteEstrella.getX()>spritePrincesa.getX()+20){
             spriteEstrella.draw(batch);
         }
         spritePrincesa.draw(batch);
