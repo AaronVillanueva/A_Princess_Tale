@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import javax.xml.soap.Text;
@@ -16,15 +17,18 @@ public class Personaje {
 
     //Test
     public Personaje(){
-        cargarText("Wrumper/WrumperCorriendo/wrumper_00000.png");
+        cargarText("Wrumper/WrumperCorriendo/c_1.png");
     }
-
+    public Animation<TextureRegion> caminando;
+    public TextureAtlas atlas;
     public void cargarText(String path){
         int frames=1;
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
+
+        caminando=new Animation<TextureRegion>((float) .5,atlas.findRegions("c"),Animation.PlayMode.LOOP);
         //animacion = new Animation(0.15f,texturaPersonaje[0][3],texturaPersonaje[0][2],texturaPersonaje[0][1]);
         //animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion = 0;
