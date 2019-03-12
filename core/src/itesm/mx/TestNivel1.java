@@ -16,6 +16,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private Sprite spriteEstrella;
     private Texture textCereza;
     private Sprite spriteCereza;
+    private Personaje test;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -35,7 +36,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         spritePrincesa.setSize(150, 200);
         spritePrincesa.setPosition(30, ALTO/2-170);
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
-
+        test=new Personaje();
     }
 
     @Override
@@ -55,6 +56,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             spriteEstrella.draw(batch);
         }
         spritePrincesa.draw(batch);
+        test.render(batch);
         batch.end();
     }
 
