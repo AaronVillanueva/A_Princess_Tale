@@ -12,16 +12,16 @@ import javax.xml.soap.Text;
 
 public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
-    private Animation animC;
+    private Animation animC,animQ,animA;
     private Sprite sprite;
     private float timerAnimacion;
     private PersonajeEstado estado;
+
+
     //Test
     public Personaje(){
         cargarText("Wrumper/WrumperCorriendo/c_1.png");
     }
-    public Animation<TextureRegion> caminando;
-    public TextureAtlas atlas;
 
     public void cargarText(String path){
         int frames=1;
@@ -30,18 +30,31 @@ public class Personaje {
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
 
-        animacion(texturaPersonaje[1],animC);
+        crearAnimacion(texturaPersonaje[1],animC);
 
         sprite = new Sprite(texturaPersonaje[0][0]);
         sprite.setPosition(0,64);
     }
 
-    private void animacion(TextureRegion[] text,Animation animac){
+    private void crearAnimacion(TextureRegion[] text,Animation animac){
         animac = new Animation(0.15f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public void render(SpriteBatch batch){
+
+        switch (estado){
+            case quieto:
+                animacion=animQ;
+                break;
+            case caminando:
+                animacion=animC;
+                break;
+            case atacando:
+                animacion=animA;
+                break;
+        }
+
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         batch.draw(sprite,sprite.getX(),sprite.getY());
@@ -56,7 +69,7 @@ public class Personaje {
         sprite.setPosition(sprite.getX()+dx,sprite.getY()+dy);
     }
 
-    public float getX() {
+    public float getX(){
         return sprite.getX();
     }
     public float getY(){
