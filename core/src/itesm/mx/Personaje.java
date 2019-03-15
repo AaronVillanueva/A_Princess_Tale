@@ -12,6 +12,7 @@ import javax.xml.soap.Text;
 
 public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
+    private Animation animC;
     private Sprite sprite;
     private float timerAnimacion;
     private PersonajeEstado estado;
@@ -21,6 +22,7 @@ public class Personaje {
     }
     public Animation<TextureRegion> caminando;
     public TextureAtlas atlas;
+
     public void cargarText(String path){
         int frames=1;
         Texture textura=new Texture(path);
@@ -28,21 +30,20 @@ public class Personaje {
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
 
-        caminando=new Animation<TextureRegion>((float) .5,atlas.findRegions("c"),Animation.PlayMode.LOOP);
-        //animacion = new Animation(0.15f,texturaPersonaje[0][3],texturaPersonaje[0][2],texturaPersonaje[0][1]);
-        //animacion.setPlayMode(Animation.PlayMode.LOOP);
-        timerAnimacion = 0;
-        // Quieto
+        animacion(texturaPersonaje[1],animC);
+
         sprite = new Sprite(texturaPersonaje[0][0]);
         sprite.setPosition(0,64);
     }
-    private void animacion(PersonajeEstado est){
 
+    private void animacion(TextureRegion[] text,Animation animac){
+        animac = new Animation(0.15f,text);
+        animac.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public void render(SpriteBatch batch){
-        //timerAnimacion+=Gdx.graphics.getDeltaTime();
-        //TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
+        timerAnimacion+=Gdx.graphics.getDeltaTime();
+        TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         batch.draw(sprite,sprite.getX(),sprite.getY());
     }
     public void moverX(float dx){
@@ -60,6 +61,12 @@ public class Personaje {
     }
     public float getY(){
         return sprite.getY();
+    }
+    public float getHeight(){
+        return sprite.getHeight();
+    }
+    public float getWidth() {
+        return sprite.getWidth();
     }
 
 }
