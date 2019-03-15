@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 public class TestNivel1 extends Pantalla implements Screen {
 
-    private Estrella testEstrella;
+
     private Personaje test;
     private LinkedList<Item> listaItems;
 
@@ -22,17 +23,16 @@ public class TestNivel1 extends Pantalla implements Screen {
     public void show() {
         inicializarShow();
         listaItems = new LinkedList<Item>();
-        crearFondo("Pantallas/Nivel1.PNG");
+        crearFondo("Nivel1/Nivel1Base.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         test=new Personaje();
-        testEstrella = new Estrella(ANCHO/2, ALTO);
-        listaItems.add(testEstrella);
+
     }
 
     @Override
     public void render(float delta) {
-
+        generarItems();
         batch.setProjectionMatrix(camara.combined);
         for(int i = 0; i<listaItems.size();i++){
             Item currentItem = listaItems.get(i);
@@ -49,6 +49,22 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         test.render(batch);
         batch.end();
+    }
+
+    private void generarItems() {
+        int randomNum = MathUtils.random(0, 1000);
+        if(randomNum ==1){
+            int coordX = MathUtils.random(80, (int)ANCHO/2-80);
+            int coordY = MathUtils.random(ALTO/2, ALTO);
+            Estrella estrellita = new Estrella(coordX, coordY);
+            listaItems.add(estrellita);
+        }
+        else if(randomNum ==2){
+            int coordX = MathUtils.random(80, (int)ANCHO/2-80);
+            int coordY = MathUtils.random(ALTO/2, ALTO);
+            Cereza cereza = new Cereza(coordX, coordY);
+            listaItems.add(cereza);
+        }
     }
 
     @Override
