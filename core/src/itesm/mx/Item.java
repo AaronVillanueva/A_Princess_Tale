@@ -9,43 +9,30 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public abstract class Item{
+    public Sprite sprite;
 
-    protected Sprite sprite;
-    private Animation animacion; //cuanto tiempo pasa entre frames
-    private float timerAnimacion;
-    protected Personaje princesa;
 
-    public Item(float x, float y, String path, Personaje princesa){
-        Texture textura = new Texture(path);
+    public Item(float x, float y, String camino){
+        Texture textura = new Texture(camino);
         TextureRegion region = new TextureRegion(textura);
+        sprite = new Sprite(region);
         sprite.setPosition(x,y);
-        timerAnimacion = 0;
-        this.princesa = princesa;
+        sprite.setSize(100,60);
+    }
+
+    public void moverY(int dy){
+            sprite.setPosition(sprite.getX(), sprite.getY()+dy);
+    }
+
+    public void moverX(int dx){
+        sprite.setPosition(sprite.getX()+dx, sprite.getY());
     }
 
     public void render(SpriteBatch batch){
-        timerAnimacion += Gdx.graphics.getDeltaTime();
-        TextureRegion region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
-        batch.draw(region, sprite.getX(), sprite.getY());
+        //batch.draw(sprite, sprite.getX(), sprite.getY());
+        System.out.println("Sí llegué aquí: " + sprite.getX() + ", " + sprite.getY());
+        sprite.draw(batch);
     }
 
-    public void moverX(float dx){
-        sprite.setPosition(sprite.getX()+dx, sprite.getY());
-
-    }
-
-    public float getX() {
-        return sprite.getX();
-    }
-
-    public void caer(){
-        if(sprite.getY()>300){
-            sprite.setPosition(sprite.getX(), sprite.getY()-1);
-        }
-    }
-
-    public abstract void efectoItem();
-
-
-
+    public abstract void generarEfecto(Personaje personaje);
 }

@@ -8,54 +8,45 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 public class TestNivel1 extends Pantalla implements Screen {
 
-    private Texture textPrincesa;
-    private Sprite spritePrincesa;
-    private Texture textStar;
-    private Sprite spriteEstrella;
-    private Texture textCereza;
-    private Sprite spriteCereza;
+    private Estrella testEstrella;
     private Personaje test;
+    private LinkedList<Item> listaItems;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
     public void show() {
         inicializarShow();
+        listaItems = new LinkedList<Item>();
         crearFondo("Pantallas/Nivel1.PNG");
-        textCereza = new Texture("ITEMS/Cereza.png");
-        spriteCereza = new Sprite(textCereza);
-        textStar = new Texture("ITEMS/Star.png");
-        spriteEstrella = new Sprite(textStar);
-        textPrincesa = new Texture("Pantallas/Princesa.png");
-        spritePrincesa = new Sprite(textPrincesa);
-        spriteEstrella.setSize(100,75);
-        spriteEstrella.setPosition(600, ALTO/2-115);
-        spriteCereza.setSize(100, 75);
-        spriteCereza.setPosition(200, ALTO/2-115);
-        spritePrincesa.setSize(150, 200);
-        spritePrincesa.setPosition(30, ALTO/2-170);
+
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         test=new Personaje();
+        testEstrella = new Estrella(ANCHO/2, ALTO);
+        listaItems.add(testEstrella);
     }
 
     @Override
     public void render(float delta) {
+
         batch.setProjectionMatrix(camara.combined);
+        for(int i = 0; i<listaItems.size();i++){
+            Item currentItem = listaItems.get(i);
+            if(currentItem.sprite.getY()>ALTO/2-200){
+                currentItem.moverY(-1);
+            }
+        }
         batch.begin();
         batch.draw(textFondo, 0, 0);
-
-        if(spriteCereza.getX()>spritePrincesa.getX()+20){
-            spriteCereza.draw(batch);
+        // dibujamos items (si existen)
+        for(int i = 0; i<listaItems.size();i++){
+            listaItems.get(i).render(batch);
         }
 
-        spriteEstrella.setPosition(spriteEstrella.getX()-0.5f, spriteEstrella.getY());
-        spriteCereza.setPosition(spriteCereza.getX()-0.5f, spriteCereza.getY());
-
-        if(spriteEstrella.getX()>spritePrincesa.getX()+20){
-            spriteEstrella.draw(batch);
-        }
-        spritePrincesa.draw(batch);
         test.render(batch);
         batch.end();
     }
@@ -83,13 +74,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private class ProcesadorEntradaJuego implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {
-            if(keycode==Input.Keys.RIGHT && spritePrincesa.getX()<ANCHO){
-                spritePrincesa.setPosition(spritePrincesa.getX()+10, spritePrincesa.getY());
-            }
 
-            else if(keycode==Input.Keys.LEFT && spritePrincesa.getX()>0){
-                spritePrincesa.setPosition(spritePrincesa.getX()-10, spritePrincesa.getY());
-            }
             return true;
         }
 
@@ -105,19 +90,6 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-            Vector3 v3 = new Vector3(screenX, screenY,0);
-            camara.unproject(v3);
-            if(v3.x > 0 && v3.x < 150 && v3.y< ALTO && v3.y>ALTO-150){
-                principal.setScreen(new PantallaMenu(principal));
-            }
-            if(v3.x>ANCHO/2 && spritePrincesa.getX()<ANCHO-100){
-                spritePrincesa.setPosition(spritePrincesa.getX()+10, spritePrincesa.getY());
-            }
-
-            else if(v3.x<ANCHO/2 && spritePrincesa.getX()>15){
-                spritePrincesa.setPosition(spritePrincesa.getX()-10, spritePrincesa.getY());
-            }
 
             return true;
         }
