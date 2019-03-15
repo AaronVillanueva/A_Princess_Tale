@@ -52,14 +52,14 @@ public class TestNivel1 extends Pantalla implements Screen {
     }
 
     private void generarItems() {
-        int randomNum = MathUtils.random(0, 1000);
+        int randomNum = MathUtils.random(0, 4000);
         if(randomNum ==1){
             int coordX = MathUtils.random(80, (int)ANCHO/2-80);
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Estrella estrellita = new Estrella(coordX, coordY);
             listaItems.add(estrellita);
         }
-        else if(randomNum ==2){
+        else if(randomNum ==300){
             int coordX = MathUtils.random(80, (int)ANCHO/2-80);
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Cereza cereza = new Cereza(coordX, coordY);
