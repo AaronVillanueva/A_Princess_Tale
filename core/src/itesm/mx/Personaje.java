@@ -14,7 +14,7 @@ public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
     private Sprite sprite;
     private float timerAnimacion;
-
+    private PersonajeEstado estado;
     //Test
     public Personaje(){
         cargarText("Wrumper/WrumperCorriendo/c_1.png");
@@ -35,6 +35,9 @@ public class Personaje {
         // Quieto
         sprite = new Sprite(texturaPersonaje[0][0]);
         sprite.setPosition(0,64);
+    }
+    private void animacion(PersonajeEstado est){
+
     }
 
     public void render(SpriteBatch batch){
