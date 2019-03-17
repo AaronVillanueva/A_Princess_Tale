@@ -21,6 +21,7 @@ public class Personaje {
     //Test
     public Personaje(){
         cargarText("Wrumper/WrumperCorriendo/c_1.png");
+        sprite.setPosition(10,10);
     }
 
     public void cargarText(String path){
@@ -30,7 +31,10 @@ public class Personaje {
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
 
-        crearAnimacion(texturaPersonaje[1],animC);
+        //Darle la fila de la animación correspondiente
+        crearAnimacion(texturaPersonaje[0],animQ);
+        crearAnimacion(texturaPersonaje[0],animC);
+        crearAnimacion(texturaPersonaje[0],animA);
 
         sprite = new Sprite(texturaPersonaje[0][0]);
         sprite.setPosition(0,64);
