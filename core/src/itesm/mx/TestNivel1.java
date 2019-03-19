@@ -17,6 +17,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     private Wrumper testW;
     private Elya testE;
+    private WrumperVolador testV;
     private LinkedList<Item> listaItems;
 
     public TestNivel1(Principal principal){this.principal=principal;}
@@ -29,6 +30,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testW=new Wrumper();
+        testV=new WrumperVolador();
 
     }
 
@@ -57,6 +59,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         testE.render(batch);
         testW.render(batch);
+        testV.render(batch);
         batch.end();
     }
 
