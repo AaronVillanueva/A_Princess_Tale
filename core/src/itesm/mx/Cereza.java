@@ -7,7 +7,8 @@ public class Cereza extends Item {
     }
 
     @Override
-    public void generarEfecto(Personaje personaje) {
+    public void generarEfecto(Elya elya) {
         // Aquí se modifica el atributo deseado del personaje
+
     }
 }

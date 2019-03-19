@@ -36,5 +36,5 @@ public abstract class Item{
         sprite.draw(batch);
     }
 
-    public abstract void generarEfecto(Personaje personaje);
+    public abstract void generarEfecto(Elya elya);
 }

@@ -13,7 +13,7 @@ import javax.xml.soap.Text;
 public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
     public Animation animC,animQ,animA;
-    private Sprite sprite;
+    public Sprite sprite;
     private float timerAnimacion;
     private PersonajeEstado estado;
 

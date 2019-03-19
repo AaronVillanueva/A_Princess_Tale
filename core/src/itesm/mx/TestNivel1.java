@@ -15,7 +15,6 @@ import java.util.Random;
 public class TestNivel1 extends Pantalla implements Screen {
 
 
-    private Wrumper testW;
     private Elya testE;
     private LinkedList<Item> listaItems;
 
@@ -25,10 +24,9 @@ public class TestNivel1 extends Pantalla implements Screen {
         inicializarShow();
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
-
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
-        testW=new Wrumper();
+        testE.sprite.setY(ALTO/2);
 
     }
 
@@ -36,14 +34,16 @@ public class TestNivel1 extends Pantalla implements Screen {
     public void render(float delta) {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
-        desplazarItem();
-
-
+        desplazarItems();
         batch.begin();
         batch.draw(textFondo, 0, 0);
-
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
+        ciclarItems(delta);
+        testE.render(batch);
+        batch.end();
+    }
 
+    private void ciclarItems(float delta) {
         for(Item item: listaItems){
             item.render(batch);
             item.tiempoTranscurrido+=delta;
@@ -54,13 +54,9 @@ public class TestNivel1 extends Pantalla implements Screen {
             }
 
         }
-
-        testE.render(batch);
-        testW.render(batch);
-        batch.end();
     }
 
-    private void desplazarItem() {
+    private void desplazarItems() {
         for(int i = 0; i<listaItems.size();i++){
             Item currentItem = listaItems.get(i);
 

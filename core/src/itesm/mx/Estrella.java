@@ -8,7 +8,7 @@ public class Estrella extends Item{
     }
 
     @Override
-    public void generarEfecto(Personaje personaje) {
+    public void generarEfecto(Elya personaje) {
         // Aquí se modifica el atributo deseado del personaje
     }
 }
