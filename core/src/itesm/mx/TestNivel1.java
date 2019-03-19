@@ -15,7 +15,7 @@ import java.util.Random;
 public class TestNivel1 extends Pantalla implements Screen {
 
 
-    private Elya testE;
+    private Wrumper testE;
     private LinkedList<Item> listaItems;
 
     public TestNivel1(Principal principal){this.principal=principal;}
@@ -26,7 +26,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearFondo("Nivel1/Nivel1Base.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
-        testE=new Elya();
+        testE=new Wrumper();
 
     }
 
