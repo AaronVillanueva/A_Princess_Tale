@@ -25,6 +25,7 @@ public class Personaje {
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
         //Darle la fila de la animación correspondiente
         //crearAnimacion(texturaPersonaje[0],animQ);
+        System.out.println(textura.getWidth());
         animC = new Animation(0.15f,texturaPersonaje[0]);
         animC.setPlayMode(Animation.PlayMode.LOOP);
 
