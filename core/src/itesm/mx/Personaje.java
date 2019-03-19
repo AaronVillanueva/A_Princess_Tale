@@ -46,7 +46,7 @@ public class Personaje {
     }
 
     public void render(SpriteBatch batch){
-
+        estado=PersonajeEstado.caminando;
         switch (estado){
             case quieto:
                 animacion=animQ;
