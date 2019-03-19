@@ -19,24 +19,18 @@ public class Personaje {
 
 
     //Test
-    public Personaje(){
-        cargarText("Wrumper/WrumperCorriendo/c_1.png");
-        sprite.setPosition(10,10);
-    }
 
-    public void cargarText(String path){
-        int frames=1;
+    public void cargarText(String path,int frames){
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
-
+        System.out.println("Reeee    "+textura.getWidth()+"     "+texturaPersonaje[0].length);
         //Darle la fila de la animación correspondiente
-        crearAnimacion(texturaPersonaje[0],animQ);
+        //crearAnimacion(texturaPersonaje[0],animQ);
         crearAnimacion(texturaPersonaje[0],animC);
-        crearAnimacion(texturaPersonaje[0],animA);
-
-        sprite = new Sprite(texturaPersonaje[0][0]);
+        //crearAnimacion(texturaPersonaje[0],animA);
+        sprite = new Sprite(texturaPersonaje[0][1]);
         sprite.setPosition(0,64);
     }
 
@@ -61,8 +55,9 @@ public class Personaje {
 
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
-        batch.draw(sprite,sprite.getX(),sprite.getY());
+        batch.draw(region,sprite.getX(),sprite.getY());
     }
+
     public void moverX(float dx){
         sprite.setPosition(sprite.getX()+dx,sprite.getY());
     }
@@ -72,7 +67,6 @@ public class Personaje {
     public void mover(float dx, float dy){
         sprite.setPosition(sprite.getX()+dx,sprite.getY()+dy);
     }
-
     public float getX(){
         return sprite.getX();
     }
