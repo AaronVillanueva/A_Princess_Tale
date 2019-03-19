@@ -69,5 +69,8 @@ public class Personaje {
     public float getWidth() {
         return sprite.getWidth();
     }
-
+    public void setPos(float x,float y){
+        sprite.setY(y);
+        sprite.setX(x);
+    }
 }
