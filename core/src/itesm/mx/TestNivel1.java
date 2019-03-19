@@ -34,36 +34,55 @@ public class TestNivel1 extends Pantalla implements Screen {
     public void render(float delta) {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
-        for(int i = 0; i<listaItems.size();i++){
-            Item currentItem = listaItems.get(i);
-            if(currentItem.sprite.getY()>ALTO/2-200){
-                currentItem.moverY(-1);
-            }
-        }
+        desplazarItem();
+
+
         batch.begin();
         batch.draw(textFondo, 0, 0);
-        // dibujamos items (si existen)
-        for(int i = 0; i<listaItems.size();i++){
-            listaItems.get(i).render(batch);
+
+        // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
+
+        for(Item item: listaItems){
+            item.render(batch);
+            item.tiempoTranscurrido+=delta;
+            if(item.tiempoTranscurrido>=15){
+                listaItems.remove(item);
+                System.out.println("Elimino aquí");
+                break;
+            }
+
         }
 
         testE.render(batch);
         batch.end();
     }
 
+    private void desplazarItem() {
+        for(int i = 0; i<listaItems.size();i++){
+            Item currentItem = listaItems.get(i);
+
+            if(currentItem.sprite.getY()>ALTO/2-200){
+                currentItem.moverY(-1);
+            }
+
+        }
+    }
+
     private void generarItems() {
-        int randomNum = MathUtils.random(0, 4000);
+        int randomNum = MathUtils.random(0, 1000);
         if(randomNum ==1){
             int coordX = MathUtils.random(80, (int)ANCHO/2-80);
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Estrella estrellita = new Estrella(coordX, coordY);
             listaItems.add(estrellita);
+            estrellita.tiempoTranscurrido = 0;
         }
         else if(randomNum ==300){
             int coordX = MathUtils.random(80, (int)ANCHO/2-80);
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Cereza cereza = new Cereza(coordX, coordY);
             listaItems.add(cereza);
+            cereza.tiempoTranscurrido=0;
         }
     }
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class Item{
     public Sprite sprite;
+    public float tiempoTranscurrido;
 
 
     public Item(float x, float y, String camino){
@@ -18,10 +19,12 @@ public abstract class Item{
         sprite = new Sprite(region);
         sprite.setPosition(x,y);
         sprite.setSize(100,60);
+
     }
 
     public void moverY(int dy){
-            sprite.setPosition(sprite.getX(), sprite.getY()+dy);
+
+        sprite.setPosition(sprite.getX(), sprite.getY()+dy);
     }
 
     public void moverX(int dx){
@@ -30,7 +33,6 @@ public abstract class Item{
 
     public void render(SpriteBatch batch){
         //batch.draw(sprite, sprite.getX(), sprite.getY());
-        System.out.println("Sí llegué aquí: " + sprite.getX() + ", " + sprite.getY());
         sprite.draw(batch);
     }
 
