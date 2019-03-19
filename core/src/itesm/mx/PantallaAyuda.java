@@ -1,5 +1,5 @@
 package itesm.mx;
-
+//
 import com.badlogic.gdx.Screen;
 
 public class PantallaAyuda extends Pantalla implements Screen {
