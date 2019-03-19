@@ -12,46 +12,36 @@ import javax.xml.soap.Text;
 
 public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
-    private Animation animC,animQ,animA;
+    public Animation animC,animQ,animA;
     private Sprite sprite;
     private float timerAnimacion;
     private PersonajeEstado estado;
 
-
-    //Test
 
     public void cargarText(String path,int frames){
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
-        System.out.println("Reeee    "+textura.getWidth()+"     "+texturaPersonaje[0].length);
         //Darle la fila de la animación correspondiente
         //crearAnimacion(texturaPersonaje[0],animQ);
-        crearAnimacion(texturaPersonaje[0],animC);
+        animC = new Animation(0.15f,texturaPersonaje[0]);
+        animC.setPlayMode(Animation.PlayMode.LOOP);
+
         //crearAnimacion(texturaPersonaje[0],animA);
         sprite = new Sprite(texturaPersonaje[0][1]);
         sprite.setPosition(0,64);
     }
 
     private void crearAnimacion(TextureRegion[] text,Animation animac){
+
         animac = new Animation(0.15f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public void render(SpriteBatch batch){
         estado=PersonajeEstado.caminando;
-        switch (estado){
-            case quieto:
-                animacion=animQ;
-                break;
-            case caminando:
-                animacion=animC;
-                break;
-            case atacando:
-                animacion=animA;
-                break;
-        }
+        animacion=animC;
 
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
