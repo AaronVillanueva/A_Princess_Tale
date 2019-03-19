@@ -26,18 +26,19 @@ public class Personaje {
         //Darle la fila de la animación correspondiente
         //crearAnimacion(texturaPersonaje[0],animQ);
         System.out.println(textura.getWidth());
-        animC = new Animation(0.15f,texturaPersonaje[0]);
-        animC.setPlayMode(Animation.PlayMode.LOOP);
+        animC=crearAnimacion(texturaPersonaje[0]);
+        //animC = new Animation(0.15f,texturaPersonaje[0]);
+        //animC.setPlayMode(Animation.PlayMode.LOOP);
 
         //crearAnimacion(texturaPersonaje[0],animA);
         sprite = new Sprite(texturaPersonaje[0][1]);
         sprite.setPosition(0,64);
     }
 
-    private void crearAnimacion(TextureRegion[] text,Animation animac){
-
-        animac = new Animation(0.15f,text);
+    private Animation crearAnimacion(TextureRegion[] text){
+        Animation animac = new Animation(0.15f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
+        return animac;
     }
 
     public void render(SpriteBatch batch){
