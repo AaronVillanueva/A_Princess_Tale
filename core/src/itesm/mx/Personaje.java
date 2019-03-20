@@ -36,7 +36,7 @@ public class Personaje {
     }
 
     private Animation crearAnimacion(TextureRegion[] text){
-        Animation animac = new Animation(0.15f,text);
+        Animation animac = new Animation(0.05f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
         return animac;
     }
@@ -48,6 +48,7 @@ public class Personaje {
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         batch.draw(region,sprite.getX(),sprite.getY());
+
     }
 
     public void moverX(float dx){
