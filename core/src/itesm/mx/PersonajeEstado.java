@@ -2,8 +2,9 @@ package itesm.mx;
 
 public enum PersonajeEstado {
     quieto,
-    caminando,
+    caminandoNormal,
     atacando,
     muriendo,
+    caminandoReversa
 
 }

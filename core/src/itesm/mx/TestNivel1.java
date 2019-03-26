@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class TestNivel1 extends Pantalla implements Screen {
@@ -19,17 +20,21 @@ public class TestNivel1 extends Pantalla implements Screen {
     private Elya testE;
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
+    private Queue<Wrumper> enemigos;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
     public void show() {
+
         inicializarShow();
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
+        testE.setPos(40, ALTO/2-210);
         testW=new Wrumper();
+        testW.setPos(ANCHO-50, ALTO/2-210);
         testV=new WrumperVolador();
 
     }
@@ -39,6 +44,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
+        testW.rastrearPrincesa(testE);
 
 
         batch.begin();
@@ -70,7 +76,6 @@ public class TestNivel1 extends Pantalla implements Screen {
             if(currentItem.sprite.getY()>ALTO/2-200){
                 currentItem.moverY(-1);
             }
-
         }
     }
 

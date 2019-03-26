@@ -11,10 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import javax.xml.soap.Text;
 
 public class Personaje {
-    private Animation animacion; //cuanto tiempo pasa entre frames
-    public Animation animC,animQ,animA;
-    private Sprite sprite;
-    private float timerAnimacion;
+    protected Animation animacion; //cuanto tiempo pasa entre frames
+    protected Animation animC,animQ,animA;
+    protected Sprite sprite;
+    protected float timerAnimacion;
     private PersonajeEstado estado;
 
 
@@ -38,7 +38,7 @@ public class Personaje {
     }
 
     public void render(SpriteBatch batch){
-        estado=PersonajeEstado.caminando;
+        estado=PersonajeEstado.caminandoNormal;
         animacion=animC;
 
         timerAnimacion+=Gdx.graphics.getDeltaTime();
