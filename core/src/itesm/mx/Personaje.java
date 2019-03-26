@@ -19,15 +19,26 @@ public class Personaje {
     private PersonajeEstado estado;
 
 
-    public void cargarText(String path,int frames){
+    public void cargarText(String path,int frames,int tipo){
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
         //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
         //Darle la fila de la animación correspondiente
         //crearAnimacion(texturaPersonaje[0],animQ);
-        animC=crearAnimacion(texturaPersonaje[0]);
-        animA=crearAnimacion(texturaPersonaje[0]);
+        switch (tipo){
+            case 1:
+                animC=crearAnimacion(texturaPersonaje[0]);
+                break;
+            case 2:
+                animA=crearAnimacion(texturaPersonaje[0]);
+                break;
+            case 0:
+                animQ=crearAnimacion(texturaPersonaje[0]);
+                break;
+        }
+
+
         sprite = new Sprite(texturaPersonaje[0][1]);
         sprite.setPosition(0,64);
     }
