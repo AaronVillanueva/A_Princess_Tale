@@ -13,7 +13,7 @@ import javax.xml.soap.Text;
 public class Personaje {
     private Animation animacion; //cuanto tiempo pasa entre frames
     public Animation animC,animQ,animA;
-    public Sprite sprite;
+    private Sprite sprite;
     private float timerAnimacion;
     private PersonajeEstado estado;
 
@@ -25,18 +25,14 @@ public class Personaje {
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
         //Darle la fila de la animación correspondiente
         //crearAnimacion(texturaPersonaje[0],animQ);
-        System.out.println(textura.getWidth());
         animC=crearAnimacion(texturaPersonaje[0]);
-        //animC = new Animation(0.15f,texturaPersonaje[0]);
-        //animC.setPlayMode(Animation.PlayMode.LOOP);
-
-        //crearAnimacion(texturaPersonaje[0],animA);
+        animA=crearAnimacion(texturaPersonaje[0]);
         sprite = new Sprite(texturaPersonaje[0][1]);
         sprite.setPosition(0,64);
     }
 
     private Animation crearAnimacion(TextureRegion[] text){
-        Animation animac = new Animation(0.05f,text);
+        Animation animac = new Animation(0.015f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
         return animac;
     }
@@ -48,7 +44,6 @@ public class Personaje {
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         batch.draw(region,sprite.getX(),sprite.getY());
-
     }
 
     public void moverX(float dx){
@@ -76,4 +71,5 @@ public class Personaje {
         sprite.setY(y);
         sprite.setX(x);
     }
+
 }
