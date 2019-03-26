@@ -8,7 +8,7 @@ public class Wrumper extends Personaje {
     int dx = 0;
     private PersonajeEstado estado = PersonajeEstado.caminandoReversa;
     public Wrumper(){
-        cargarText("Personajes/WrumperCorriendo.png",24);
+        cargarText("Personajes/WrumperCorriendo.png",24,1);
         setPos(200,200);
 
     }
