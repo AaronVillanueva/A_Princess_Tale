@@ -20,7 +20,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private Elya testE;
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
-    private Queue<Wrumper> enemigos;
+    private LinkedList<Wrumper> enemigos;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -29,13 +29,14 @@ public class TestNivel1 extends Pantalla implements Screen {
         inicializarShow();
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
-
+        enemigos = new LinkedList<Wrumper>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
         testW=new Wrumper();
         testW.setPos(ANCHO-50, ALTO/2-210);
         testV=new WrumperVolador();
+        enemigos.add(testW);
 
     }
 
@@ -44,7 +45,11 @@ public class TestNivel1 extends Pantalla implements Screen {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
-        testW.rastrearPrincesa(testE);
+        for(Wrumper wrumper: enemigos){
+            wrumper.rastrearPrincesa(testE);
+        }
+
+        verificarColisionEnemigos();
 
 
         batch.begin();
@@ -64,7 +69,9 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
 
         testE.render(batch);
-        testW.render(batch);
+        for(Wrumper wrumper: enemigos){
+            wrumper.render(batch);
+        }
         testV.render(batch);
         batch.end();
     }
@@ -95,6 +102,22 @@ public class TestNivel1 extends Pantalla implements Screen {
             listaItems.add(cereza);
             cereza.tiempoTranscurrido=0;
         }
+    }
+
+    public void verificarColisionEnemigos(){
+        for(Wrumper wrumper: enemigos){
+            if(wrumper.getX()>=testE.getX()-testE.getWidth()/2 && wrumper.getX()<= testE.getX()+ testE.getWidth()/2){
+                wrumper.atacar(testE);
+                System.out.println(testE.getVidas());
+            }
+        }
+    }
+
+    public void checarMuertePrincesa(){
+        if(testE.getVidas()<=0){
+
+        }
+
     }
 
     @Override

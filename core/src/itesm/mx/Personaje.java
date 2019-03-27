@@ -84,4 +84,8 @@ public class Personaje {
         sprite.setX(x);
     }
 
+    public Sprite getSprite(){
+        return sprite;
+    }
+
 }
