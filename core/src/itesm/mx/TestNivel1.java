@@ -113,12 +113,6 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
     }
 
-    public void checarMuertePrincesa(){
-        if(testE.getVidas()<=0){
-
-        }
-
-    }
 
     @Override
     public void resize(int width, int height) {

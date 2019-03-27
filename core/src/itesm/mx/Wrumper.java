@@ -49,7 +49,19 @@ public class Wrumper extends Personaje {
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         if(estado==PersonajeEstado.caminandoReversa ){
-            region.flip(true, false);
+           if(!region.isFlipX()){
+               region.flip(true, false);
+           }
+
+           else{
+
+           }
+        }
+
+        else if(estado ==PersonajeEstado.caminandoNormal){
+            if(region.isFlipX()){
+                region.flip(true, false);
+            }
         }
         batch.draw(region,sprite.getX(),sprite.getY());
     }

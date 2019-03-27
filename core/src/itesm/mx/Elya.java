@@ -16,8 +16,6 @@ public class Elya extends Personaje {
         return vidas;
     }
 
-    public void princesaMurio(){
 
-    }
 
 }
