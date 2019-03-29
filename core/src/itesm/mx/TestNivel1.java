@@ -34,7 +34,6 @@ public class TestNivel1 extends Pantalla implements Screen {
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
         testW=new Wrumper();
-        testW.setPos(ANCHO-50, ALTO/2-210);
         testV=new WrumperVolador();
         enemigos.add(testW);
 

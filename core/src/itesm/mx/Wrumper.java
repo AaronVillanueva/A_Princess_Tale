@@ -11,7 +11,7 @@ public class Wrumper extends Personaje {
     private PersonajeEstado estado = PersonajeEstado.caminandoReversa;
     public Wrumper(){
         cargarText("Personajes/WrumperCorriendo.png",24,1);
-        setPos(200,200);
+        setPos(Pantalla.ANCHO-50, Pantalla.ALTO/2-205);
 
     }
     
