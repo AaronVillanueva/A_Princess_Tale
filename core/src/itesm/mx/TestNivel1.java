@@ -22,30 +22,32 @@ import java.util.Random;
 public class TestNivel1 extends Pantalla implements Screen {
 
 
-    private Wrumper testW;
     private Elya testE;
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
+    private float timerEnemigos;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
     public void show() {
 
         inicializarShow();
+        timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
         enemigos = new LinkedList<Wrumper>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
-        testW=new Wrumper();
+
         testV=new WrumperVolador();
-        enemigos.add(testW);
+
         stage = new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
+        Gdx.input.setInputProcessor(stage);
 
     }
 
@@ -65,7 +67,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                testE.getSprite().setPosition(testE.getX()-100, testE.getY());
+                testE.getSprite().setPosition(testE.getX()-20, testE.getY());
                 System.out.println("Hola!");
             }
         });
@@ -88,7 +90,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                testE.getSprite().setPosition(testE.getX()+100, testE.getY());
+                testE.getSprite().setPosition(testE.getX()+20, testE.getY());
                 System.out.println("Hola!");
             }
         });
@@ -99,6 +101,12 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
+        timerEnemigos+=delta;
+        if(timerEnemigos>=10){
+            generarWrumpers();
+            timerEnemigos = 0;
+        }
+
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
@@ -132,6 +140,10 @@ public class TestNivel1 extends Pantalla implements Screen {
         testV.render(batch);
         batch.end();
         stage.draw();
+    }
+
+    private void generarWrumpers() {
+        enemigos.add(new Wrumper());
     }
 
     private void desplazarItem() {
