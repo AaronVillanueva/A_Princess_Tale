@@ -19,14 +19,14 @@ public class Wrumper extends Personaje {
 
         if(elya.getX()<this.getX()){
 
-            dx = -5;
+            dx = -3;
             estado = PersonajeEstado.caminandoReversa;
 
         }
         
         else if(elya.getX()>this.getX()){
 
-            dx = 5;
+            dx = 3;
             estado = PersonajeEstado.caminandoNormal;
 
         }
@@ -43,8 +43,6 @@ public class Wrumper extends Personaje {
 
     @Override
     public void render(SpriteBatch batch) {
-
-
         animacion=animC;
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);

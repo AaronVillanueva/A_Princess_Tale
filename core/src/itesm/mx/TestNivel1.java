@@ -6,8 +6,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,6 +27,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
+    private Stage stage;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -36,6 +43,31 @@ public class TestNivel1 extends Pantalla implements Screen {
         testW=new Wrumper();
         testV=new WrumperVolador();
         enemigos.add(testW);
+        stage = new Stage(vista);
+        crearBotones();
+
+    }
+
+    private void crearBotones() {
+        // Botón derecha
+        Texture texturaBtnDer = new Texture("Botones/Btn_Nivel1/Btn_Der.png");
+        TextureRegion textureRegionBtnDer = new TextureRegion(texturaBtnDer);
+        TextureRegionDrawable textureRegionDrawableBtnDer = new TextureRegionDrawable(textureRegionBtnDer);
+        ImageButton btnDer = new ImageButton(textureRegionDrawableBtnDer);
+        btnDer.setPosition(ANCHO/2-155, ALTO/2-355);
+
+        stage.addActor(btnDer);
+
+        // Acción botón derecha
+        btnDer.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                testE.getSprite().setPosition(testE.getX()+100, testE.getY());
+                System.out.println("Hola!");
+            }
+        });
 
     }
 
@@ -73,6 +105,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
         testV.render(batch);
         batch.end();
+        stage.draw();
     }
 
     private void desplazarItem() {
