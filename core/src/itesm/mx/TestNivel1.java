@@ -61,14 +61,14 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         stage.addActor(btnIzq);
 
-        // Acción botón derecha
+        // Acción botón Izquierda
         btnIzq.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 testE.getSprite().setPosition(testE.getX()-20, testE.getY());
-                System.out.println("Hola!");
+                testE.setEstado(PersonajeEstado.caminandoReversa);
             }
         });
 
@@ -91,7 +91,7 @@ public class TestNivel1 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 testE.getSprite().setPosition(testE.getX()+20, testE.getY());
-                System.out.println("Hola!");
+                testE.setEstado(PersonajeEstado.caminandoNormal);
             }
         });
 

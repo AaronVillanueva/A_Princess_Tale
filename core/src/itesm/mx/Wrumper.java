@@ -3,6 +3,7 @@ package itesm.mx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Wrumper extends Personaje {
     int dx = 5;
@@ -11,7 +12,7 @@ public class Wrumper extends Personaje {
     private PersonajeEstado estado = PersonajeEstado.caminandoReversa;
     public Wrumper(){
         cargarText("Personajes/WrumperCorriendo.png",24,1);
-        setPos(Pantalla.ANCHO-50, Pantalla.ALTO/2-205);
+        setPos(MathUtils.random(80, (int)Pantalla.ANCHO/2-80), Pantalla.ALTO/2-205);
 
     }
     
@@ -37,7 +38,13 @@ public class Wrumper extends Personaje {
 
     public void atacar(Elya elya){
         elya.actualizarVidas(-1);
-        setPos(sprite.getX()+150, sprite.getY());
+        if(estado == PersonajeEstado.caminandoReversa){
+            setPos(sprite.getX()+150, sprite.getY());
+        }
+
+        else{
+            setPos(sprite.getX()-150, sprite.getY());
+        }
 
     }
 
