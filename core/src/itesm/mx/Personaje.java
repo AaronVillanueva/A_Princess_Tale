@@ -6,40 +6,37 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import javax.xml.soap.Text;
 
 public class Personaje {
     protected Animation animacion; //cuanto tiempo pasa entre frames
-    protected Animation animC,animQ,animA;
+    protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
     protected float timerAnimacion;
-    private PersonajeEstado estado;
+    public PersonajeEstado estado;
 
-
+    //Tipo 0 = quieto, Tipo 1 = Caminando, Tipo 2= Atacando, Tipo 3= Muerte
     public void cargarText(String path,int frames,int tipo){
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
-        //Para cargar cualquier numero de frames
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
-        //Darle la fila de la animación correspondiente
-        //crearAnimacion(texturaPersonaje[0],animQ);
         switch (tipo){
+            case 0:
+                animQ=crearAnimacion(texturaPersonaje[0]);
+                break;
             case 1:
                 animC=crearAnimacion(texturaPersonaje[0]);
                 break;
             case 2:
                 animA=crearAnimacion(texturaPersonaje[0]);
                 break;
-            case 0:
-                animQ=crearAnimacion(texturaPersonaje[0]);
+            case 3:
+                animD=crearAnimacion(texturaPersonaje[0]);
                 break;
         }
+        animacion=animC;
 
-
-        sprite = new Sprite(texturaPersonaje[0][1]);
+        sprite = new Sprite(texturaPersonaje[0][0]);
         sprite.setPosition(0,64);
     }
 
@@ -50,11 +47,32 @@ public class Personaje {
     }
 
     public void render(SpriteBatch batch){
-        estado=PersonajeEstado.caminandoNormal;
-        animacion=animC;
-
+        estado=PersonajeEstado.caminandoReversa;
+        //animacion=animC;
         timerAnimacion+=Gdx.graphics.getDeltaTime();
+
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
+        switch (estado){
+            case caminandoNormal:
+                animacion=animC;
+                break;
+            case caminandoReversa:
+                animacion=animC;
+                if(!region.isFlipX()){
+                    region.flip(true, false);
+                }
+                break;
+            case atacando:
+                animacion=animA;
+                break;
+            case quieto:
+                animacion=animQ;
+                break;
+            case muriendo:
+                animacion=animD;
+                break;
+        }
+
         batch.draw(region,sprite.getX(),sprite.getY());
     }
 
