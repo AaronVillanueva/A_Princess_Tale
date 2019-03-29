@@ -11,5 +11,6 @@ public class Estrella extends Item{
     public void generarEfecto(Elya personaje) {
         // Aquí se modifica el atributo deseado del personaje
         personaje.setPoder(2*personaje.getPoder());
+
     }
 }
