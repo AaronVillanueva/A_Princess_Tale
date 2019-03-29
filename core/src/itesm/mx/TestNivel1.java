@@ -116,6 +116,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(Wrumper wrumper: enemigos){
             if(wrumper.estado==PersonajeEstado.muerto){
                 enemigos.remove(wrumper);
+                System.out.println("ded");
             }
         }
         verificarColisionEnemigos();
