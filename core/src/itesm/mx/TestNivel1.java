@@ -23,7 +23,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private LinkedList<WrumperVolador> wrumperVoladores;
     private Stage stage;
     private float timerEnemigos;
-    private LinkedList<Item> itemsActivos;
+    private float timerPoder = 0;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -32,7 +32,6 @@ public class TestNivel1 extends Pantalla implements Screen {
         inicializarShow();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        itemsActivos = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
         wrumpers = new LinkedList<Wrumper>();
         wrumperVoladores = new LinkedList<WrumperVolador>();
@@ -105,6 +104,16 @@ public class TestNivel1 extends Pantalla implements Screen {
             timerEnemigos = 0;
         }
 
+        if(testE.getPoder()>1){
+            System.out.println("poder: " + testE.getPoder());
+            timerPoder += delta;
+            if(timerPoder>10){
+                testE.setPoder(1);
+                timerPoder = 0;
+
+            }
+        }
+
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
@@ -138,6 +147,9 @@ public class TestNivel1 extends Pantalla implements Screen {
             if(testE.getX()<item.getX()+item.getSprite().getWidth()/2 && testE.getX()>item.getX()-item.getSprite().getWidth()/2 && item.getY()<testE.getY()+testE.getHeight()/2 && item.getY()>testE.getY()-testE.getHeight()/2){
                 listaItems.remove(item);
                 item.generarEfecto(testE);
+                if(item.getClass().equals(Estrella.class)){
+                    timerPoder = 0;
+                }
             }
 
         }
@@ -179,7 +191,6 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(Wrumper wrumper: wrumpers){
             if(wrumper.getX()>=testE.getX()-testE.getWidth()/2 && wrumper.getX()<= testE.getX()+ testE.getWidth()/2){
                 wrumper.atacar(testE);
-                System.out.println(testE.getVidas());
             }
         }
     }
