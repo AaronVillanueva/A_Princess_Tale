@@ -1,5 +1,9 @@
 package itesm.mx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public class WrumperVolador extends Personaje {
     private PersonajeEstado estado = PersonajeEstado.caminandoReversa;
     int dx = 3;
@@ -27,4 +31,29 @@ public class WrumperVolador extends Personaje {
         this.moverX(dx);
 
     }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        animacion=animC;
+        timerAnimacion+=Gdx.graphics.getDeltaTime();
+        TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
+        if(estado==PersonajeEstado.caminandoReversa ){
+            if(!region.isFlipX()){
+                region.flip(true, false);
+            }
+
+            else{
+
+            }
+        }
+
+        else if(estado ==PersonajeEstado.caminandoNormal){
+            if(region.isFlipX()){
+                region.flip(true, false);
+            }
+        }
+        batch.draw(region,sprite.getX(),sprite.getY());
+    }
+
+
 }

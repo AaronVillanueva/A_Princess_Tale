@@ -18,7 +18,6 @@ public class TestNivel1 extends Pantalla implements Screen {
 
 
     private Elya testE;
-    private WrumperVolador testV;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> wrumpers;
     private LinkedList<WrumperVolador> wrumperVoladores;
@@ -41,8 +40,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
 
-        testV=new WrumperVolador();
-        wrumperVoladores.add(testV);
+
 
         stage = new Stage(vista);
         crearBotonDer();
@@ -114,10 +112,8 @@ public class TestNivel1 extends Pantalla implements Screen {
             wrumper.rastrearPrincesa(testE);
         }
 
-        testV.rastrearPrincesa(testE);
-
         verificarColisionEnemigos();
-
+        verificarColisionItems();
 
         batch.begin();
         batch.draw(textFondo, 0, 0);
@@ -133,9 +129,18 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(Wrumper wrumper: wrumpers){
             wrumper.render(batch);
         }
-        testV.render(batch);
         batch.end();
         stage.draw();
+    }
+
+    private void verificarColisionItems() {
+        for(Item item: listaItems){
+            if(testE.getX()<item.getX()+item.getSprite().getWidth()/2 && testE.getX()>item.getX()-item.getSprite().getWidth()/2 && item.getY()<testE.getY()+testE.getHeight()/2 && item.getY()>testE.getY()-testE.getHeight()/2){
+                listaItems.remove(item);
+                item.generarEfecto(testE);
+            }
+
+        }
     }
 
     private void generarWrumpers() {

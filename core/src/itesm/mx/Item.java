@@ -46,4 +46,8 @@ public abstract class Item{
     }
 
     public abstract void generarEfecto(Elya elya);
+
+    public Sprite getSprite() {
+        return sprite;
+    }
 }
