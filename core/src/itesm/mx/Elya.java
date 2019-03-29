@@ -28,6 +28,7 @@ public class Elya extends Personaje {
     @Override
     public void render(SpriteBatch batch) {
         animacion=animC;
+
         timerAnimacion+=Gdx.graphics.getDeltaTime();
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         if(estado==PersonajeEstado.caminandoReversa ){

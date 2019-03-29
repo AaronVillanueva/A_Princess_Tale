@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Wrumper extends Personaje {
-    int dx = 5;
+    int dx = 3;
     boolean hacerFlip = true;
 
     private PersonajeEstado estado = PersonajeEstado.caminandoReversa;

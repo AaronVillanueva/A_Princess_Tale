@@ -44,7 +44,7 @@ public class Personaje {
     }
 
     private Animation crearAnimacion(TextureRegion[] text){
-        Animation animac = new Animation(0.015f,text);
+        Animation animac = new Animation(0.025f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
         return animac;
     }

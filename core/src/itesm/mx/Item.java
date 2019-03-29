@@ -13,6 +13,7 @@ public abstract class Item{
     public float tiempoTranscurrido;
 
 
+
     public Item(float x, float y, String camino){
         Texture textura = new Texture(camino);
         TextureRegion region = new TextureRegion(textura);
@@ -34,6 +35,14 @@ public abstract class Item{
     public void render(SpriteBatch batch){
         //batch.draw(sprite, sprite.getX(), sprite.getY());
         sprite.draw(batch);
+    }
+
+    public float getX(){
+        return sprite.getX();
+    }
+
+    public float getY(){
+        return sprite.getY();
     }
 
     public abstract void generarEfecto(Elya elya);

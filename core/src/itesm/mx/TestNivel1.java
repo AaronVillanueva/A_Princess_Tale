@@ -1,14 +1,11 @@
 package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -16,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
 
 public class TestNivel1 extends Pantalla implements Screen {
 
@@ -25,9 +20,11 @@ public class TestNivel1 extends Pantalla implements Screen {
     private Elya testE;
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
-    private LinkedList<Wrumper> enemigos;
+    private LinkedList<Wrumper> wrumpers;
+    private LinkedList<WrumperVolador> wrumperVoladores;
     private Stage stage;
     private float timerEnemigos;
+    private LinkedList<Item> itemsActivos;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -36,13 +33,16 @@ public class TestNivel1 extends Pantalla implements Screen {
         inicializarShow();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
+        itemsActivos = new LinkedList<Item>();
         crearFondo("Nivel1/Nivel1Base.png");
-        enemigos = new LinkedList<Wrumper>();
+        wrumpers = new LinkedList<Wrumper>();
+        wrumperVoladores = new LinkedList<WrumperVolador>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
 
         testV=new WrumperVolador();
+        wrumperVoladores.add(testV);
 
         stage = new Stage(vista);
         crearBotonDer();
@@ -110,9 +110,11 @@ public class TestNivel1 extends Pantalla implements Screen {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
-        for(Wrumper wrumper: enemigos){
+        for(Wrumper wrumper: wrumpers){
             wrumper.rastrearPrincesa(testE);
         }
+
+        testV.rastrearPrincesa(testE);
 
         verificarColisionEnemigos();
 
@@ -124,17 +126,11 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         for(Item item: listaItems){
             item.render(batch);
-            item.tiempoTranscurrido+=delta;
-            if(item.tiempoTranscurrido>=15){
-                listaItems.remove(item);
-                System.out.println("Elimino aquí");
-                break;
-            }
 
         }
 
         testE.render(batch);
-        for(Wrumper wrumper: enemigos){
+        for(Wrumper wrumper: wrumpers){
             wrumper.render(batch);
         }
         testV.render(batch);
@@ -143,7 +139,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     }
 
     private void generarWrumpers() {
-        enemigos.add(new Wrumper());
+        wrumpers.add(new Wrumper());
     }
 
     private void desplazarItem() {
@@ -175,7 +171,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     }
 
     public void verificarColisionEnemigos(){
-        for(Wrumper wrumper: enemigos){
+        for(Wrumper wrumper: wrumpers){
             if(wrumper.getX()>=testE.getX()-testE.getWidth()/2 && wrumper.getX()<= testE.getX()+ testE.getWidth()/2){
                 wrumper.atacar(testE);
                 System.out.println(testE.getVidas());
