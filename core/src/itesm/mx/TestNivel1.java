@@ -44,11 +44,35 @@ public class TestNivel1 extends Pantalla implements Screen {
         testV=new WrumperVolador();
         enemigos.add(testW);
         stage = new Stage(vista);
-        crearBotones();
+        crearBotonDer();
+        crearBotonIzq();
 
     }
 
-    private void crearBotones() {
+    private void crearBotonIzq() {
+        // Botón derecha
+        Texture texturaBtnIzq = new Texture("Botones/Btn_Nivel1/Btn_Izq.png");
+        TextureRegion textureRegionBtnIzq = new TextureRegion(texturaBtnIzq);
+        TextureRegionDrawable textureRegionDrawableBtnIzq = new TextureRegionDrawable(textureRegionBtnIzq);
+        ImageButton btnIzq = new ImageButton(textureRegionDrawableBtnIzq);
+        btnIzq.setPosition(ANCHO/2-370, ALTO/2-355);
+
+        stage.addActor(btnIzq);
+
+        // Acción botón derecha
+        btnIzq.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                testE.getSprite().setPosition(testE.getX()-100, testE.getY());
+                System.out.println("Hola!");
+            }
+        });
+
+    }
+
+    private void crearBotonDer() {
         // Botón derecha
         Texture texturaBtnDer = new Texture("Botones/Btn_Nivel1/Btn_Der.png");
         TextureRegion textureRegionBtnDer = new TextureRegion(texturaBtnDer);
@@ -70,6 +94,8 @@ public class TestNivel1 extends Pantalla implements Screen {
         });
 
     }
+
+
 
     @Override
     public void render(float delta) {
