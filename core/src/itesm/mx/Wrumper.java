@@ -9,7 +9,6 @@ public class Wrumper extends Personaje {
     int dx = 3;
     boolean hacerFlip = true;
 
-    private PersonajeEstado estado = PersonajeEstado.caminandoReversa;
     public Wrumper(){
         cargarText("Personajes/WrumperCorriendo.png",24,1);
         cargarText("Personajes/WrumperAtack.png",24,2);
@@ -18,59 +17,35 @@ public class Wrumper extends Personaje {
     }
     
     public void rastrearPrincesa(Elya elya){
-
-        if(elya.getX()<this.getX()){
-
-            dx = -3;
-            estado = PersonajeEstado.caminandoReversa;
-
-        }
-        
-        else if(elya.getX()>this.getX()){
-
-            dx = 3;
-            estado = PersonajeEstado.caminandoNormal;
-
-        }
-        
-        this.moverX(dx);
-        
+        if(estado!=PersonajeEstado.muriendo){
+            if(elya.getX()<this.getX()){
+                dx = -3;
+                estado = PersonajeEstado.caminandoReversa;
+            }
+            else if(elya.getX()>this.getX()){
+                dx = 3;
+                estado = PersonajeEstado.caminandoNormal;
+            }
+            this.moverX(dx);}
     }
 
     public void atacar(Elya elya){
+        elya.setEstado(PersonajeEstado.muriendo);
+        estado=PersonajeEstado.muriendo;
         elya.actualizarVidas(-1);
         if(estado == PersonajeEstado.caminandoReversa){
+            estado=PersonajeEstado.muriendo;
             setPos(sprite.getX()+150, sprite.getY());
         }
 
         else{
+            estado=PersonajeEstado.muriendo;
             setPos(sprite.getX()-150, sprite.getY());
         }
 
     }
 
-    @Override
-    public void render(SpriteBatch batch) {
-        animacion=animC;
-        timerAnimacion+=Gdx.graphics.getDeltaTime();
-        TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
-        if(estado==PersonajeEstado.caminandoReversa ){
-           if(!region.isFlipX()){
-               region.flip(true, false);
-           }
 
-           else{
-
-           }
-        }
-
-        else if(estado ==PersonajeEstado.caminandoNormal){
-            if(region.isFlipX()){
-                region.flip(true, false);
-            }
-        }
-        batch.draw(region,sprite.getX(),sprite.getY());
-    }
 
 
 }

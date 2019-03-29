@@ -13,7 +13,8 @@ public class Personaje {
     protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
     protected float timerAnimacion;
-    public PersonajeEstado estado;
+    public float contadorMuerte;
+    public PersonajeEstado estado=PersonajeEstado.caminandoNormal;
 
     //Tipo 0 = quieto, Tipo 1 = Caminando, Tipo 2= Atacando, Tipo 3= Muerte
     public void cargarText(String path,int frames,int tipo){
@@ -47,7 +48,7 @@ public class Personaje {
     }
 
     public void render(SpriteBatch batch){
-        estado=PersonajeEstado.caminandoReversa;
+        //estado=PersonajeEstado.caminandoReversa;
         //animacion=animC;
         timerAnimacion+=Gdx.graphics.getDeltaTime();
 
@@ -69,8 +70,15 @@ public class Personaje {
                 animacion=animQ;
                 break;
             case muriendo:
+                contadorMuerte=0;
                 animacion=animD;
                 break;
+        }
+        if(estado==PersonajeEstado.muriendo){
+            contadorMuerte=timerAnimacion;
+        }
+        if(contadorMuerte>5){
+            estado=PersonajeEstado.muerto;
         }
 
         batch.draw(region,sprite.getX(),sprite.getY());
@@ -100,6 +108,10 @@ public class Personaje {
     public void setPos(float x,float y){
         sprite.setY(y);
         sprite.setX(x);
+    }
+
+    public void setEstado(PersonajeEstado estado) {
+        this.estado = estado;
     }
 
     public Sprite getSprite(){
