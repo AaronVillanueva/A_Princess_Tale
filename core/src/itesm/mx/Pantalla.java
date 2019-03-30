@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public abstract class Pantalla implements Screen {
     public static final int ANCHO = 1280;
     public static final int ALTO = 720;
-    protected OrthographicCamera camara; //cámara
+    public OrthographicCamera camara; //cámara
     protected Viewport vista;
     protected SpriteBatch batch;
     protected Texture textFondo;

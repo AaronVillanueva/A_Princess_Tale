@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,6 +29,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
     private float timerEnemigos;
+    private float  diferenciaX =10f;// Es una constante para probar el scroll
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -48,6 +50,8 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearBotonDer();
         crearBotonIzq();
         Gdx.input.setInputProcessor(stage);
+
+
 
     }
 
@@ -92,6 +96,7 @@ public class TestNivel1 extends Pantalla implements Screen {
                 //Responder al evento del botón
                 testE.getSprite().setPosition(testE.getX()+20, testE.getY());
                 testE.setEstado(PersonajeEstado.caminandoNormal);
+
             }
         });
 
@@ -101,6 +106,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
+        borrarPantalla(0f,0f,0f);
         timerEnemigos+=delta;
         if(timerEnemigos>=10){
             generarWrumpers();
@@ -120,6 +126,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             }
         }
         verificarColisionEnemigos();
+
 
 
         batch.begin();
@@ -145,6 +152,19 @@ public class TestNivel1 extends Pantalla implements Screen {
         testV.render(batch);
         batch.end();
         stage.draw();
+        actualizarPersonaje(diferenciaX);
+
+    }
+
+    private void actualizarPersonaje(float delta) {
+        testE.moverX(delta);
+        actualizarCamara();
+    }
+
+    private void actualizarCamara() {
+        float xCamara= testE.getX();
+        camara.position.x=xCamara;
+        camara.update();
     }
 
     private void generarWrumpers() {
@@ -187,6 +207,12 @@ public class TestNivel1 extends Pantalla implements Screen {
             }
         }
     }
+    // Borra la pantalla con el color RGB (r,g,b)
+    protected void borrarPantalla(float r, float g, float b) {
+        Gdx.gl.glClearColor(r,g,b,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
 
 
     @Override
@@ -209,11 +235,14 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     }
 
-    private class ProcesadorEntradaJuego implements InputProcessor {
+    public class ProcesadorEntradaJuego implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {
 
-            return true;
+                    if (keycode== Input.Keys.RIGHT){
+                        return true;
+                    }
+            return false;
         }
 
         @Override

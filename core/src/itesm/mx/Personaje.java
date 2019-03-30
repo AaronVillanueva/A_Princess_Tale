@@ -85,6 +85,7 @@ public class Personaje {
     }
 
     public void moverX(float dx){
+
         sprite.setPosition(sprite.getX()+dx,sprite.getY());
     }
     public void moverY(float dy){
