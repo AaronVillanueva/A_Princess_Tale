@@ -37,7 +37,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         inicializarShow();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel1/Nivel1Base.png");
+        crearFondo("Nivel1/FondoNivel1.png");
         enemigos = new LinkedList<Wrumper>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
