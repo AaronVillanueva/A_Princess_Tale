@@ -184,6 +184,13 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     private void actualizarCamara() {
         float xCamara= testE.getX();
+        if(testE.getX()<ANCHO/2) {
+
+            xCamara=ANCHO/2;
+        }
+        else if(testE.getX()+diferenciaX>ANCHO){
+            xCamara=ANCHO;
+        }
         camara.position.x=xCamara;
         camara.update();
     }
