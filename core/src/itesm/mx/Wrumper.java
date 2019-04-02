@@ -30,12 +30,14 @@ public class Wrumper extends Personaje {
     }
 
     public void atacar(Elya elya){
-        elya.setEstado(PersonajeEstado.muriendo);
-        estado=PersonajeEstado.muriendo;
-        elya.actualizarVidas(-1);
-        if(estado == PersonajeEstado.caminandoReversa){
-            estado=PersonajeEstado.muriendo;
-            setPos(sprite.getX()+150, sprite.getY());
+        if(estado!=PersonajeEstado.muerto && estado!=PersonajeEstado.muriendo){
+            if (elya.getVidas()==1){
+            elya.setEstado(PersonajeEstado.muriendo);
+            estado=PersonajeEstado.muerto;}
+            elya.actualizarVidas(-1);
+            if(estado== PersonajeEstado.caminandoReversa || estado==PersonajeEstado.caminandoNormal){
+                setPos(sprite.getX()+8000, sprite.getY());
+            }
         }
 
         else{

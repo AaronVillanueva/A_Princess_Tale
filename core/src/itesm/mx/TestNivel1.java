@@ -70,8 +70,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-
-                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
                     testE.getSprite().setPosition(testE.getX()-20, testE.getY());
                     testE.setEstado(PersonajeEstado.caminandoReversa);}
             }
@@ -96,13 +95,10 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
                     testE.setEstado(PersonajeEstado.caminandoNormal);
                     testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
-
                 }
-
-
             }
         });
 
@@ -113,6 +109,10 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+        System.out.println(testE.getVidas());
+        if(testE.getEstado()==PersonajeEstado.muerto){
+            dispose();
+        }
         if(testE.getPoder()>1){
             System.out.println("poder: " + testE.getPoder());
             timerPoder += delta;
@@ -236,9 +236,11 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     public void verificarColisionEnemigos(){
         for(Wrumper wrumper: enemigos){
-            if(wrumper.getX()>=testE.getX()-testE.getWidth()/2 && wrumper.getX()<= testE.getX()+ testE.getWidth()/2){
-                wrumper.atacar(testE);
-                System.out.println(testE.getVidas());
+            if(testE.getEstado()!=PersonajeEstado.muerto && testE.getEstado()!=PersonajeEstado.muriendo){
+                if(wrumper.getX()>=testE.getX()-testE.getWidth()/2 && wrumper.getX()<= testE.getX()+ testE.getWidth()/2){
+                    wrumper.atacar(testE);
+                    //System.out.println(testE.getVidas());
+            }
             }
         }
     }
