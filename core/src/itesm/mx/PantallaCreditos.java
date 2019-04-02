@@ -11,7 +11,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
         inicializarShow();
         crearFondo("Pantallas/Pantalla_CreditosConBtn.png");
     }
-
+//
     @Override
     public void render(float delta) {
         batch.setProjectionMatrix(camara.combined);
