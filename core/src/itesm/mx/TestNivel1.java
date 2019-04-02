@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
 
 public class TestNivel1 extends Pantalla implements Screen {
 
@@ -29,7 +27,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
     private float timerEnemigos;
-    private float  diferenciaX =10f;// Es una constante para probar el scroll
+    private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
 
     public TestNivel1(Principal principal){this.principal=principal;}
