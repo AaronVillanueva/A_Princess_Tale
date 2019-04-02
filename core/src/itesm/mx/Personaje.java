@@ -88,8 +88,10 @@ public class Personaje {
     }
 
     public void moverX(float dx){
+        if (estado!=PersonajeEstado.muriendo || estado!=PersonajeEstado.muerto){
+            sprite.setPosition(sprite.getX()+dx,sprite.getY());
+        }
 
-        sprite.setPosition(sprite.getX()+dx,sprite.getY());
     }
     public void moverY(float dy){
         sprite.setPosition(sprite.getX(),sprite.getY()+dy);
@@ -110,12 +112,17 @@ public class Personaje {
         return sprite.getWidth();
     }
     public void setPos(float x,float y){
-        sprite.setY(y);
-        sprite.setX(x);
+        if(estado!=PersonajeEstado.muriendo || estado!=PersonajeEstado.muerto){
+            sprite.setY(y);
+            sprite.setX(x);}
     }
 
     public void setEstado(PersonajeEstado estado) {
         this.estado = estado;
+    }
+
+    public PersonajeEstado getEstado() {
+        return estado;
     }
 
     public Sprite getSprite(){

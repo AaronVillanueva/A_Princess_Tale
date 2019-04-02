@@ -79,6 +79,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     private void crearBotonDer() {
         // Botón derecha
+
         Texture texturaBtnDer = new Texture("Botones/Btn_Nivel1/Btn_Der.png");
         TextureRegion textureRegionBtnDer = new TextureRegion(texturaBtnDer);
         TextureRegionDrawable textureRegionDrawableBtnDer = new TextureRegionDrawable(textureRegionBtnDer);
@@ -93,8 +94,10 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                testE.getSprite().setPosition(testE.getX()+20, testE.getY());
-                testE.setEstado(PersonajeEstado.caminandoNormal);
+                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                    testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                }
+                //testE.setEstado(PersonajeEstado.caminandoNormal);
 
             }
         });
@@ -120,7 +123,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             generarWrumpers();
             timerEnemigos = 0;
         }
-
+        System.out.println(testE.getEstado());
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
