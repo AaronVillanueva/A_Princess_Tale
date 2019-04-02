@@ -8,7 +8,11 @@ public class Flecha {
     private Texture textFlecha;
     private Sprite sprite;
 
-    public Flecha(float x, float y){
-        textFlecha = new Texture("");
+    public Flecha(float x, float y, Elya elya){
+        textFlecha = new Texture("Arrow.png");
+        sprite = new Sprite(textFlecha);
+        sprite.setPosition(x, y);
+
+
     }
 }

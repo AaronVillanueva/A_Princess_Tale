@@ -9,7 +9,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
     @Override
     public void show() {
         inicializarShow();
-        crearFondo("Pantallas/PantallaCreditos.png");
+        crearFondo("Pantallas/Pantalla_CreditosConBtn.png");
     }
 
     @Override

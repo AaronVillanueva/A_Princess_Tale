@@ -56,6 +56,9 @@ public class Personaje {
         switch (estado){
             case caminandoNormal:
                 animacion=animC;
+                if(region.isFlipX()){
+                    region.flip(true, false);
+                }
                 break;
             case caminandoReversa:
                 animacion=animC;

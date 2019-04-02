@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
 
 public class TestNivel1 extends Pantalla implements Screen {
 
@@ -29,7 +27,8 @@ public class TestNivel1 extends Pantalla implements Screen {
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
     private float timerEnemigos;
-    private float  diferenciaX =10f;// Es una constante para probar el scroll
+    private float  diferenciaX = 0f;// Es una constante para probar el scroll
+    private float timerPoder = 0;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -107,6 +106,15 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+        if(testE.getPoder()>1){
+            System.out.println("poder: " + testE.getPoder());
+            timerPoder += delta;
+            if(timerPoder>10){
+                testE.setPoder(1);
+                timerPoder = 0;
+
+            }
+        }
         timerEnemigos+=delta;
         if(timerEnemigos>=10){
             generarWrumpers();
@@ -126,6 +134,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             }
         }
         verificarColisionEnemigos();
+        verificarColisionItems();
 
 
 
@@ -154,6 +163,18 @@ public class TestNivel1 extends Pantalla implements Screen {
         stage.draw();
         actualizarPersonaje(diferenciaX);
 
+    }
+
+    private void verificarColisionItems() {
+        for(Item item: listaItems){
+            if(testE.getX()<item.getX()+item.getSprite().getWidth()/2 && testE.getX()>item.getX()-item.getSprite().getWidth()/2 && item.getY()<testE.getY()+testE.getHeight()/2 && item.getY()>testE.getY()-testE.getHeight()/2){
+                listaItems.remove(item);
+                item.generarEfecto(testE);
+                if(item.getClass().equals(Estrella.class)){
+                    timerPoder = 0;
+                }
+            }
+        }
     }
 
     private void actualizarPersonaje(float delta) {
@@ -188,14 +209,13 @@ public class TestNivel1 extends Pantalla implements Screen {
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Estrella estrellita = new Estrella(coordX, coordY);
             listaItems.add(estrellita);
-            estrellita.tiempoTranscurrido = 0;
         }
         else if(randomNum ==300){
             int coordX = MathUtils.random(80, (int)ANCHO/2-80);
             int coordY = MathUtils.random(ALTO/2, ALTO);
             Cereza cereza = new Cereza(coordX, coordY);
             listaItems.add(cereza);
-            cereza.tiempoTranscurrido=0;
+
         }
     }
 
