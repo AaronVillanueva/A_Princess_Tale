@@ -70,8 +70,9 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+
                 if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                    testE.getSprite().setPosition(testE.getX()-20, testE.getY());
                     testE.setEstado(PersonajeEstado.caminandoReversa);}
             }
         });
@@ -96,9 +97,11 @@ public class TestNivel1 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                    testE.setEstado(PersonajeEstado.caminandoNormal);
                     testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+
                 }
-                //testE.setEstado(PersonajeEstado.caminandoNormal);
+
 
             }
         });
@@ -165,7 +168,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         testV.render(batch);
         batch.end();
         stage.draw();
-        actualizarPersonaje(diferenciaX);
+        //actualizarPersonaje(diferenciaX);
 
     }
 
