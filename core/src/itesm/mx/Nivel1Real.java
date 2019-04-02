@@ -165,7 +165,7 @@ public class Nivel1Real extends Pantalla{
     }
 
     private void actualizarPersonaje(float delta) {
-        if(testE.getX()+delta<=ANCHO){
+        if(testE.getX()+delta<ANCHO){
             testE.moverX(delta);
         }
 
@@ -174,10 +174,16 @@ public class Nivel1Real extends Pantalla{
 
     private void actualizarCamara() {
         float xCamara= testE.getX();
-        if(testE.getX()<ANCHO/2||testE.getX()>ANCHO) {
+        if(testE.getX()<ANCHO/2) {
 
             xCamara=ANCHO/2;
         }
+        else if(testE.getX()+diferenciaX>ANCHO){
+            xCamara=ANCHO;
+        }
+
+
+
         camara.position.x=xCamara;
         camara.update();
     }
