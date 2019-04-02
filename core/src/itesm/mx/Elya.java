@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Elya extends Personaje {
     private int vidas = 3;
-    private PersonajeEstado estado = PersonajeEstado.caminandoNormal;
+    private PersonajeEstado estado;
     private int poder=1;
 
     public Elya() {
+        estado=PersonajeEstado.caminandoNormal;
         cargarText("Personajes/ElyaRunning1.png", 22, 1);
         cargarText("Personajes/ElyaAtack.png", 22, 2);
         cargarText("Personajes/ElyaDead.png", 1, 3);

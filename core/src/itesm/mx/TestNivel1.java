@@ -71,7 +71,8 @@ public class TestNivel1 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 testE.getSprite().setPosition(testE.getX()-20, testE.getY());
-                testE.setEstado(PersonajeEstado.caminandoReversa);
+                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                    testE.setEstado(PersonajeEstado.caminandoReversa);}
             }
         });
 
@@ -123,7 +124,7 @@ public class TestNivel1 extends Pantalla implements Screen {
             generarWrumpers();
             timerEnemigos = 0;
         }
-        System.out.println(testE.getEstado());
+
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
