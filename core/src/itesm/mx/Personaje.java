@@ -13,7 +13,7 @@ public class Personaje {
     protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
     protected float timerAnimacion;
-    public float contadorMuerte;
+    public float contadorMuerte,contadorMuerteOG;
     public PersonajeEstado estado=PersonajeEstado.caminandoNormal;
 
     //Tipo 0 = quieto, Tipo 1 = Caminando, Tipo 2= Atacando, Tipo 3= Muerte
@@ -51,7 +51,7 @@ public class Personaje {
         //estado=PersonajeEstado.caminandoReversa;
         //animacion=animC;
         timerAnimacion+=Gdx.graphics.getDeltaTime();
-
+        //System.out.println(timerAnimacion);
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
         switch (estado){
             case caminandoNormal:
@@ -78,18 +78,26 @@ public class Personaje {
                 break;
         }
         if(estado==PersonajeEstado.muriendo){
-            contadorMuerte=timerAnimacion;
+            contadorMuerte+=timerAnimacion;
+            if(contadorMuerteOG==0){
+                contadorMuerteOG=contadorMuerte;}
+            //System.out.println("");
+            //System.out.println(contadorMuerte);
+            if((contadorMuerte-contadorMuerteOG)>5){
+                estado=PersonajeEstado.muerto;
+                System.out.println("NUKED");
+            }
         }
-        if(contadorMuerte>5){
-            estado=PersonajeEstado.muerto;
-        }
+
 
         batch.draw(region,sprite.getX(),sprite.getY());
     }
 
     public void moverX(float dx){
+        if (estado!=PersonajeEstado.muriendo || estado!=PersonajeEstado.muerto){
+            sprite.setPosition(sprite.getX()+dx,sprite.getY());
+        }
 
-        sprite.setPosition(sprite.getX()+dx,sprite.getY());
     }
     public void moverY(float dy){
         sprite.setPosition(sprite.getX(),sprite.getY()+dy);
@@ -110,12 +118,21 @@ public class Personaje {
         return sprite.getWidth();
     }
     public void setPos(float x,float y){
-        sprite.setY(y);
-        sprite.setX(x);
+        System.out.println("REEEEEEEEEEEEEEE        "+estado);
+        if(estado!=PersonajeEstado.muriendo){
+            if(estado!=PersonajeEstado.muerto){
+                sprite.setY(y);
+                sprite.setX(x);
+            }
+        }
     }
 
     public void setEstado(PersonajeEstado estado) {
         this.estado = estado;
+    }
+
+    public PersonajeEstado getEstado() {
+        return estado;
     }
 
     public Sprite getSprite(){
