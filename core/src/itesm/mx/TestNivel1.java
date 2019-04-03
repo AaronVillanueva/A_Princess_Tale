@@ -29,6 +29,8 @@ public class TestNivel1 extends Pantalla implements Screen {
     private float timerEnemigos;
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
+    private LinkedList<Flecha> flechas;
+    int flechasActivas = 0;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -39,15 +41,15 @@ public class TestNivel1 extends Pantalla implements Screen {
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/FondoNivel1.png");
         enemigos = new LinkedList<Wrumper>();
+        flechas = new LinkedList<Flecha>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
-
         testV=new WrumperVolador();
-
         stage = new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
+        crearBotonAtacar();
         Gdx.input.setInputProcessor(stage);
 
 
@@ -70,9 +72,41 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                testE.getSprite().setPosition(testE.getX()-20, testE.getY());
-                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    testE.getSprite().setPosition(testE.getX()-20, testE.getY());
                     testE.setEstado(PersonajeEstado.caminandoReversa);}
+            }
+        });
+
+    }
+
+    private void crearBotonAtacar(){
+        // Botón derecha
+        Texture texturaBtnAtac = new Texture("Botones/Btn_Nivel1/Btn_Ataque.png");
+        TextureRegion textureRegionBtnAtac = new TextureRegion(texturaBtnAtac);
+        TextureRegionDrawable textureRegionDrawableBtnAtac = new TextureRegionDrawable(textureRegionBtnAtac);
+        ImageButton btnAtac = new ImageButton(textureRegionDrawableBtnAtac);
+        btnAtac.setPosition(ANCHO/2-370, ALTO/2-355);
+
+        stage.addActor(btnAtac);
+
+        // Acción botón Atacar
+        btnAtac.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                int direc = 1;
+                if(testE.getEstado()==PersonajeEstado.caminandoReversa){
+                    direc = -1;
+                }
+                if(flechasActivas<=4){
+                    flechas.add(new Flecha(testE.getX()+17.5f, testE.getY()+50, testE, direc));
+                    flechasActivas++;
+                }
+
+
             }
         });
 
@@ -95,10 +129,10 @@ public class TestNivel1 extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                if(testE.getEstado()!=PersonajeEstado.muriendo || testE.getEstado()!=PersonajeEstado.muerto) {
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
                     testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                    testE.setEstado(PersonajeEstado.caminandoNormal);
                 }
-                //testE.setEstado(PersonajeEstado.caminandoNormal);
 
             }
         });
@@ -110,6 +144,9 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+        actualizarFlechas(delta);
+        verificarVidasEnemigos();
+        borrarFlechas();
         if(testE.getPoder()>1){
             System.out.println("poder: " + testE.getPoder());
             timerPoder += delta;
@@ -128,17 +165,20 @@ public class TestNivel1 extends Pantalla implements Screen {
         generarItems();
         batch.setProjectionMatrix(camara.combined);
         desplazarItem();
+
         for(Wrumper wrumper: enemigos){
             wrumper.rastrearPrincesa(testE);
         }
-        for(Wrumper wrumper: enemigos){
+        for(int i = enemigos.size()-1; i>=0; i--){
+            Wrumper wrumper = enemigos.get(i);
             if(wrumper.estado==PersonajeEstado.muerto){
-                enemigos.remove(wrumper);
+                enemigos.remove(i);
                 System.out.println("ded");
             }
         }
         verificarColisionEnemigos();
         verificarColisionItems();
+        verificarColisionFlechas();
 
 
 
@@ -163,10 +203,57 @@ public class TestNivel1 extends Pantalla implements Screen {
             wrumper.render(batch);
         }
         testV.render(batch);
+        for(int i = flechas.size()-1;i>=0;i--){
+            flechas.get(i).render(batch);
+        }
         batch.end();
         stage.draw();
         actualizarPersonaje(diferenciaX);
 
+    }
+
+    private void borrarFlechas() {
+        for(int i = flechas.size()-1;i>=0;i--){
+            Flecha flecha = flechas.get(i);
+            if(flecha.getSprite().getX()>Pantalla.ANCHO||flecha.getSprite().getX()<0){
+                flechasActivas--;
+                flechas.remove(i);
+                break;
+            }
+        }
+    }
+
+    private void verificarVidasEnemigos(){
+        for(int i = enemigos.size()-1;i>=0;i--){
+            Wrumper wrumper = enemigos.get(i);
+            if(wrumper.getVidas()<=0){
+                wrumper.setEstado(PersonajeEstado.muriendo);
+                break;
+            }
+        }
+    }
+
+    private void actualizarFlechas(float delta) {
+
+        for(int i = flechas.size()-1;i>=0;i--){
+
+            flechas.get(i).moverX(delta);
+        }
+    }
+
+    private void verificarColisionFlechas() {
+        for(int i = flechas.size()-1; i>=0; i--){
+            Flecha flecha = flechas.get(i);
+            for(int j = enemigos.size()-1; j>=0; j--){
+                Wrumper wrumper = enemigos.get(j);
+                if(flecha.getSprite().getX()>=wrumper.getX()-wrumper.getWidth()/2&&flecha.getSprite().getX()<=wrumper.getX()+wrumper.getWidth()/2){
+                    wrumper.actualizarVidas(testE.getPoder()*-1);
+                    flechas.remove(i);
+                    flechasActivas--;
+                    break;
+                }
+            }
+        }
     }
 
     private void verificarColisionItems() {

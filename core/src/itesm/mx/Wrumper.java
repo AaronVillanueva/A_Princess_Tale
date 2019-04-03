@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Wrumper extends Personaje {
     int dx = 3;
-    boolean hacerFlip = true;
+    int vidas = 2;
 
     public Wrumper(){
         cargarText("Personajes/WrumperCorriendo.png",24,1);
@@ -43,6 +43,14 @@ public class Wrumper extends Personaje {
             setPos(sprite.getX()-150, sprite.getY());
         }
 
+    }
+
+    public int getVidas(){
+        return vidas;
+    }
+
+    public void actualizarVidas(int dVidas){
+        vidas += dVidas;
     }
 
 
