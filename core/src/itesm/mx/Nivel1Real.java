@@ -50,7 +50,7 @@ public class Nivel1Real extends Pantalla{
         inicializarShow();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        //crearFondo("Nivel1/FondoNivel1.png");
+        crearFondo("Nivel1/FondoNivel1.png");
         cargarMapa();
 
         enemigos = new LinkedList<Wrumper>();
@@ -130,6 +130,7 @@ public class Nivel1Real extends Pantalla{
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+
         timerEnemigos+=delta;
         if(timerEnemigos>=10){
             generarWrumpers();
@@ -152,14 +153,17 @@ public class Nivel1Real extends Pantalla{
 
 
         batch.setProjectionMatrix(camara.combined);
+
+        batch.begin();
+        batch.draw(textFondo, camara.position.x-ANCHO/2, 0);
+
+        batch.end();
+
         rendererMapa.setView(camara);
         rendererMapa.render();
 
-        batch.begin();
-        //batch.draw(textFondo, 0, 0);
-
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
-
+        batch.begin();
         for(Item item: listaItems){
             item.render(batch);
             item.tiempoTranscurrido+=delta;
@@ -178,15 +182,20 @@ public class Nivel1Real extends Pantalla{
         testV.render(batch);
         batch.end();
         stage.draw();
+
+
         actualizarPersonaje(diferenciaX);
 
     }
 
     private void actualizarPersonaje(float delta) {
-        //if(testE.getX()+delta<textFondo.getWidth()-delta-testE.getWidth()){
-          //  testE.moverX(delta);
-        //}
-        testE.moverX(delta);
+        int mapaWidth = mapa.getProperties().get("width", Integer.class) * mapa.getProperties().get("tilewidth",Integer.class);
+        if(testE.getX()+delta<mapaWidth-delta-testE.getWidth()){
+            testE.moverX(delta);
+        }
+        System.out.println("limite"+mapaWidth);
+        System.out.println("x"+testE.getX());
+
 
 
         actualizarCamara();
