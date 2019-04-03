@@ -31,7 +31,7 @@ public class PantallaMenu extends Pantalla {
         inicializarShow();
         stage = new Stage(vista);
         crearBotones();
-        crearFondo("Pantallas/Pantalla_Menu.png");
+        crearFondo("Pantallas/Pantalla_MenuSinNubes.png");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setInputProcessor(stage);
     }
@@ -43,14 +43,14 @@ public class PantallaMenu extends Pantalla {
         TextureRegion textureRegionBtnJugar = new TextureRegion(texturaBtnJugar);
         TextureRegionDrawable textureRegionDrawableBtnJugar = new TextureRegionDrawable(textureRegionBtnJugar);
         ImageButton btnJugar = new ImageButton(textureRegionDrawableBtnJugar);
-        btnJugar.setPosition(ANCHO/2-300, ALTO/2-30);
+        btnJugar.setPosition(ANCHO/2-250, ALTO/2-50);
 
         // Botón controles
         Texture texturaBtnControles = new Texture("Botones/Btn_Menu/Btn_Controles.png");
         TextureRegion textureRegionBtnControles = new TextureRegion(texturaBtnControles);
         TextureRegionDrawable textureRegionDrawableBtnControles = new TextureRegionDrawable(textureRegionBtnControles);
         ImageButton btnControles = new ImageButton(textureRegionDrawableBtnControles);
-        btnControles.setPosition(ANCHO/2-300, ALTO/2-150);
+        btnControles.setPosition(ANCHO/2+170, ALTO/2-170);
 
 
         // Botón Configuración
@@ -58,14 +58,15 @@ public class PantallaMenu extends Pantalla {
         TextureRegion textureRegionBtnConf = new TextureRegion(texturaBtnConf);
         TextureRegionDrawable textureRegionDrawableBtnConf = new TextureRegionDrawable(textureRegionBtnConf);
         ImageButton btnConf = new ImageButton(textureRegionDrawableBtnConf);
-        btnConf.setPosition(ANCHO/2-300+btnConf.getWidth()+20, ALTO/2-150);
+        btnConf.setPosition(ANCHO/2-280, ALTO/2-170);
 
         // Botón Créditos
         Texture texturaBtnCred = new Texture("Botones/Btn_Menu/Btn_Creditos.png");
         TextureRegion textureRegionBtnCred = new TextureRegion(texturaBtnCred);
         TextureRegionDrawable textureRegionDrawableBtnCred = new TextureRegionDrawable(textureRegionBtnCred);
         ImageButton btnCred = new ImageButton(textureRegionDrawableBtnCred);
-        btnCred.setPosition(ANCHO/2-300+btnConf.getWidth()+140, ALTO/2-135);
+        btnCred.setPosition(ANCHO/2-300+btnConf.getWidth()+33, ALTO/2-170);
+
 
 
         stage.addActor(btnJugar);
