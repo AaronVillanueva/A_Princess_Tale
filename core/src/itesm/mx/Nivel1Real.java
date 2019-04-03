@@ -27,6 +27,10 @@ import java.util.LinkedList;
 
 public class Nivel1Real extends Pantalla{
 
+    //Mapa
+    private TiledMap mapa;
+    private OrthogonalTiledMapRenderer rendererMapa;
+
     private Elya testE;
     private WrumperVolador testV;
     private LinkedList<Item> listaItems;
@@ -46,7 +50,9 @@ public class Nivel1Real extends Pantalla{
         inicializarShow();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel1/Nivel1Base.png");
+        //crearFondo("Nivel1/FondoNivel1.png");
+        cargarMapa();
+
         enemigos = new LinkedList<Wrumper>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
@@ -61,6 +67,15 @@ public class Nivel1Real extends Pantalla{
 
 
 
+    }
+
+    private void cargarMapa() {
+        AssetManager manager = new AssetManager();
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        manager.load("Nivel1/Nivel1A.tmx",TiledMap.class);
+        manager.finishLoading(); //Bloquea la app
+        mapa = manager.get("Nivel1/Nivel1A.tmx");
+        rendererMapa = new OrthogonalTiledMapRenderer(mapa);
     }
 
     private void crearBotonIzq() {
@@ -136,9 +151,12 @@ public class Nivel1Real extends Pantalla{
         verificarColisionEnemigos();
 
 
+        batch.setProjectionMatrix(camara.combined);
+        rendererMapa.setView(camara);
+        rendererMapa.render();
 
         batch.begin();
-        batch.draw(textFondo, 0, 0);
+        //batch.draw(textFondo, 0, 0);
 
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
@@ -165,25 +183,24 @@ public class Nivel1Real extends Pantalla{
     }
 
     private void actualizarPersonaje(float delta) {
-        if(testE.getX()+delta<ANCHO){
-            testE.moverX(delta);
-        }
+        //if(testE.getX()+delta<textFondo.getWidth()-delta-testE.getWidth()){
+          //  testE.moverX(delta);
+        //}
+        testE.moverX(delta);
+
 
         actualizarCamara();
     }
 
     private void actualizarCamara() {
         float xCamara= testE.getX();
-        if(testE.getX()<ANCHO/2) {
-
-            xCamara=ANCHO/2;
+        int mapaWidth = mapa.getProperties().get("width", Integer.class) * mapa.getProperties().get("tilewidth",Integer.class);
+        if(testE.getX()<ANCHO/2 ){
+            xCamara = ANCHO/2;
         }
-        else if(testE.getX()+diferenciaX>ANCHO){
-            xCamara=ANCHO;
+        else if(testE.getX() > mapaWidth - ANCHO/2){
+            xCamara = mapaWidth - ANCHO/2;
         }
-
-
-
         camara.position.x=xCamara;
         camara.update();
     }

@@ -31,6 +31,7 @@ public abstract class Pantalla implements Screen {
     //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
     //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
     public void crearFondo(String fondo){
+
         textFondo = new Texture(fondo);
     }
 
