@@ -31,6 +31,9 @@ public class TestNivel1 extends Pantalla implements Screen {
     private float timerPoder = 0;
     private LinkedList<Flecha> flechas;
     int flechasActivas = 0;
+    float timerGanar = 0;
+    boolean gano = false;
+    private Sprite spriteGanaste;
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
@@ -50,10 +53,17 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
+        crearGanaste();
         Gdx.input.setInputProcessor(stage);
 
 
 
+    }
+
+    private void crearGanaste() {
+        Texture texturaGanaste = new Texture("GanoPerdio/Gano_CONBOTONES.png");
+        spriteGanaste = new Sprite(texturaGanaste);
+        spriteGanaste.setPosition(0, 0);
     }
 
     private void crearBotonIzq() {
@@ -81,13 +91,14 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     }
 
+
     private void crearBotonAtacar(){
         // Botón derecha
         Texture texturaBtnAtac = new Texture("Botones/Btn_Nivel1/Btn_Ataque.png");
         TextureRegion textureRegionBtnAtac = new TextureRegion(texturaBtnAtac);
         TextureRegionDrawable textureRegionDrawableBtnAtac = new TextureRegionDrawable(textureRegionBtnAtac);
         ImageButton btnAtac = new ImageButton(textureRegionDrawableBtnAtac);
-        btnAtac.setPosition(ANCHO/2-370, ALTO/2-355);
+        btnAtac.setPosition(ANCHO/2-600, ALTO/2-345);
 
         stage.addActor(btnAtac);
 
@@ -101,7 +112,7 @@ public class TestNivel1 extends Pantalla implements Screen {
                 if(testE.getEstado()==PersonajeEstado.caminandoReversa){
                     direc = -1;
                 }
-                if(flechasActivas<=4){
+                if(flechasActivas<=4 && testE.getEstado()!=PersonajeEstado.muerto && testE.getEstado()!=PersonajeEstado.muriendo){
                     flechas.add(new Flecha(testE.getX()+17.5f, testE.getY()+50, testE, direc));
                     flechasActivas++;
                 }
@@ -119,7 +130,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         TextureRegion textureRegionBtnDer = new TextureRegion(texturaBtnDer);
         TextureRegionDrawable textureRegionDrawableBtnDer = new TextureRegionDrawable(textureRegionBtnDer);
         ImageButton btnDer = new ImageButton(textureRegionDrawableBtnDer);
-        btnDer.setPosition(ANCHO/2-155, ALTO/2-355);
+        btnDer.setPosition(ANCHO/2-260, ALTO/2-355);
 
         stage.addActor(btnDer);
 
@@ -144,6 +155,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+        timerGanar+=delta;
         actualizarFlechas(delta);
         verificarVidasEnemigos();
         borrarFlechas();
@@ -184,7 +196,9 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         batch.begin();
         batch.draw(textFondo, 0, 0);
-
+        if(timerGanar>20){
+            spriteGanaste.draw(batch);
+        }
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
         for(Item item: listaItems){
@@ -212,6 +226,8 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     }
 
+
+
     private void borrarFlechas() {
         for(int i = flechas.size()-1;i>=0;i--){
             Flecha flecha = flechas.get(i);
@@ -227,7 +243,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(int i = enemigos.size()-1;i>=0;i--){
             Wrumper wrumper = enemigos.get(i);
             if(wrumper.getVidas()<=0){
-                wrumper.setEstado(PersonajeEstado.muriendo);
+                enemigos.remove(i);
                 break;
             }
         }

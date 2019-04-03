@@ -30,7 +30,22 @@ public class Wrumper extends Personaje {
     }
 
     public void atacar(Elya elya){
-        if(estado!=PersonajeEstado.muerto && estado!=PersonajeEstado.muriendo){
+        if (elya.getVidas()==1){
+            elya.setEstado(PersonajeEstado.muriendo);}
+
+        elya.actualizarVidas(-1);
+        int direc = 1;
+        if(estado==PersonajeEstado.caminandoNormal){
+            direc = direc *-1;
+        }
+
+
+        setPos(getX()+ 300*direc, getY());
+
+
+
+
+       /* if(estado!=PersonajeEstado.muerto && estado!=PersonajeEstado.muriendo){
             if (elya.getVidas()==1){
             elya.setEstado(PersonajeEstado.muriendo);
             estado=PersonajeEstado.muerto;}
@@ -43,7 +58,7 @@ public class Wrumper extends Personaje {
         else{
             estado=PersonajeEstado.muriendo;
             setPos(sprite.getX()-150, sprite.getY());
-        }
+        }*/
 
     }
 
