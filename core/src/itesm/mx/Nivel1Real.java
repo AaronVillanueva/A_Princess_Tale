@@ -193,8 +193,6 @@ public class Nivel1Real extends Pantalla{
         if(testE.getX()+delta<mapaWidth-delta-testE.getWidth()){
             testE.moverX(delta);
         }
-        System.out.println("limite"+mapaWidth);
-        System.out.println("x"+testE.getX());
 
 
 
