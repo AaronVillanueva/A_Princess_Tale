@@ -64,6 +64,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         Texture texturaGanaste = new Texture("GanoPerdio/Gano_CONBOTONES.png");
         spriteGanaste = new Sprite(texturaGanaste);
         spriteGanaste.setPosition(0, 0);
+
     }
 
     private void crearBotonIzq() {
@@ -196,9 +197,6 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         batch.begin();
         batch.draw(textFondo, 0, 0);
-        if(timerGanar>20){
-            spriteGanaste.draw(batch);
-        }
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
         for(Item item: listaItems){
@@ -223,6 +221,11 @@ public class TestNivel1 extends Pantalla implements Screen {
         batch.end();
         stage.draw();
         actualizarPersonaje(diferenciaX);
+        batch.begin();
+        if(timerGanar>20){
+            spriteGanaste.draw(batch);
+        }
+        batch.end();
 
     }
 
