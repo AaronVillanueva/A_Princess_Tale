@@ -164,6 +164,8 @@ public class Nivel1Real extends Pantalla{
 
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
         batch.begin();
+
+
         for(Item item: listaItems){
             item.render(batch);
             item.tiempoTranscurrido+=delta;
@@ -180,8 +182,8 @@ public class Nivel1Real extends Pantalla{
             wrumper.render(batch);
         }
         testV.render(batch);
+
         batch.end();
-        stage.draw();
 
 
         actualizarPersonaje(diferenciaX);

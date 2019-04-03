@@ -290,7 +290,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     private void actualizarPersonaje(float delta) {
         testE.moverX(delta);
-        actualizarCamara();
+        //actualizarCamara();
     }
 
     private void actualizarCamara() {
