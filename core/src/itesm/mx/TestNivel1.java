@@ -22,7 +22,6 @@ public class TestNivel1 extends Pantalla implements Screen {
 
 
     private Elya testE;
-    private WrumperVolador testV;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
@@ -34,12 +33,22 @@ public class TestNivel1 extends Pantalla implements Screen {
     float timerGanar = 0;
     boolean gano = false;
     private Sprite spriteGanaste;
+    private Sprite spritePerdiste;
+    private boolean perdio = false;
+    private LinkedList<Sprite> vidas;
+    int tiempoTranscurridoSeg = 0;
+    float auxiliarTiempo = 0;
+    private Texto texto;
+
+
+
 
     public TestNivel1(Principal principal){this.principal=principal;}
     @Override
     public void show() {
 
         inicializarShow();
+        vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
         crearFondo("Nivel1/FondoNivel1.png");
@@ -48,22 +57,47 @@ public class TestNivel1 extends Pantalla implements Screen {
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
-        testV=new WrumperVolador();
         stage = new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
         crearGanaste();
+        crearPerdiste();
+        inicializarVidas();
+        texto = new Texto();
         Gdx.input.setInputProcessor(stage);
 
+    }
 
+    private void inicializarVidas() {
+        for(int i = 0; i<3;i++){
+            Texture texturaVida = new Texture("Botones/Btn_Nivel1/Vida.png");
+            Sprite sprite = new Sprite(texturaVida);
+            if(i==0){
+                sprite.setPosition(100, ALTO-150);
+            }
+            else if(i==1){
+                sprite.setPosition(200, ALTO-150);
+            }
+            else{
+                sprite.setPosition(300, ALTO-150);
+            }
 
+            vidas.add(sprite);
+        }
     }
 
     private void crearGanaste() {
         Texture texturaGanaste = new Texture("GanoPerdio/Gano_CONBOTONES.png");
         spriteGanaste = new Sprite(texturaGanaste);
         spriteGanaste.setPosition(0, 0);
+
+    }
+
+    private void crearPerdiste(){
+        Texture texturaPerdiste = new Texture("GanoPerdio/Perdio_CONBOTONES.png");
+        spritePerdiste = new Sprite(texturaPerdiste);
+        spritePerdiste.setPosition(0, 0);
 
     }
 
@@ -85,7 +119,10 @@ public class TestNivel1 extends Pantalla implements Screen {
                 //Responder al evento del botón
 
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+                    if(testE.getX()>0){
+                        testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+                    }
+
                     testE.setEstado(PersonajeEstado.caminandoReversa);}
             }
         });
@@ -142,7 +179,9 @@ public class TestNivel1 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                    if(testE.getX()<ANCHO-70){
+                        testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                    }
                     testE.setEstado(PersonajeEstado.caminandoNormal);
                 }
 
@@ -156,6 +195,12 @@ public class TestNivel1 extends Pantalla implements Screen {
     @Override
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
+        checarPerdio();
+        auxiliarTiempo += delta;
+        if(auxiliarTiempo>=1 && gano!= true && perdio != true){
+            tiempoTranscurridoSeg+=1;
+            auxiliarTiempo = 0;
+        }
         timerGanar+=delta;
         actualizarFlechas(delta);
         verificarVidasEnemigos();
@@ -210,25 +255,46 @@ public class TestNivel1 extends Pantalla implements Screen {
 
         }
 
+        dibujarVidas();
+
         testE.render(batch);
         for(Wrumper wrumper: enemigos){
             wrumper.render(batch);
         }
-        testV.render(batch);
         for(int i = flechas.size()-1;i>=0;i--){
             flechas.get(i).render(batch);
         }
+
+        // Dibuja el tiempo
+        texto.mostrarTexto(batch, "Tiempo: " + tiempoTranscurridoSeg, ANCHO-200, ALTO-35);
+
         batch.end();
         stage.draw();
         actualizarPersonaje(diferenciaX);
         batch.begin();
-        if(timerGanar>20){
+        if(timerGanar>180 && perdio == false){
+            gano = true;
             spriteGanaste.draw(batch);
+        }
+
+        else if(perdio == true){
+            spritePerdiste.draw(batch);
         }
         batch.end();
 
     }
 
+    private void dibujarVidas() {
+        for(int i=0; i<testE.getVidas();i++){
+            vidas.get(i).draw(batch);
+        }
+    }
+
+    private void checarPerdio() {
+        if(testE.getVidas()==0 && gano== false){
+            perdio = true;
+        }
+    }
 
 
     private void borrarFlechas() {
@@ -299,10 +365,10 @@ public class TestNivel1 extends Pantalla implements Screen {
 
             xCamara=ANCHO/2;
         }
-        else if(testE.getX()+diferenciaX>ANCHO){
+      /*  else if(testE.getX()+diferenciaX>ANCHO){
             xCamara=ANCHO;
         }
-        camara.position.x=xCamara;
+        camara.position.x=xCamara;*/
         camara.update();
     }
 
