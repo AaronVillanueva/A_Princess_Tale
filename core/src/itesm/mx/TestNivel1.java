@@ -22,7 +22,6 @@ public class TestNivel1 extends Pantalla implements Screen {
 
 
     private Elya testE;
-    private WrumperVolador testV;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
@@ -37,6 +36,11 @@ public class TestNivel1 extends Pantalla implements Screen {
     private Sprite spritePerdiste;
     private boolean perdio = false;
     private LinkedList<Sprite> vidas;
+    int tiempoTranscurridoSeg = 0;
+    float auxiliarTiempo = 0;
+    private Texto texto;
+
+
 
 
     public TestNivel1(Principal principal){this.principal=principal;}
@@ -53,7 +57,6 @@ public class TestNivel1 extends Pantalla implements Screen {
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-210);
-        testV=new WrumperVolador();
         stage = new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
@@ -61,9 +64,8 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearGanaste();
         crearPerdiste();
         inicializarVidas();
+        texto = new Texto();
         Gdx.input.setInputProcessor(stage);
-
-
 
     }
 
@@ -194,6 +196,11 @@ public class TestNivel1 extends Pantalla implements Screen {
     public void render(float delta) {
         borrarPantalla(0f,0f,0f);
         checarPerdio();
+        auxiliarTiempo += delta;
+        if(auxiliarTiempo>=1 && gano!= true && perdio != true){
+            tiempoTranscurridoSeg+=1;
+            auxiliarTiempo = 0;
+        }
         timerGanar+=delta;
         actualizarFlechas(delta);
         verificarVidasEnemigos();
@@ -254,10 +261,13 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(Wrumper wrumper: enemigos){
             wrumper.render(batch);
         }
-        testV.render(batch);
         for(int i = flechas.size()-1;i>=0;i--){
             flechas.get(i).render(batch);
         }
+
+        // Dibuja el tiempo
+        texto.mostrarTexto(batch, "Tiempo: " + tiempoTranscurridoSeg, ANCHO-200, ALTO-35);
+
         batch.end();
         stage.draw();
         actualizarPersonaje(diferenciaX);
