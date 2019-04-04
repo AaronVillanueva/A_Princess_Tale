@@ -272,7 +272,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         stage.draw();
         actualizarPersonaje(diferenciaX);
         batch.begin();
-        if(timerGanar>180 && perdio == false){
+        if(timerGanar>120 && perdio == false){
             gano = true;
             spriteGanaste.draw(batch);
         }
