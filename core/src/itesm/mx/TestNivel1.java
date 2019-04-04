@@ -72,13 +72,13 @@ public class TestNivel1 extends Pantalla implements Screen {
             Texture texturaVida = new Texture("Botones/Btn_Nivel1/Vida.png");
             Sprite sprite = new Sprite(texturaVida);
             if(i==0){
-                sprite.setPosition(200, ALTO-400);
+                sprite.setPosition(100, ALTO-150);
             }
             else if(i==1){
-                sprite.setPosition(400, ALTO-400);
+                sprite.setPosition(200, ALTO-150);
             }
             else{
-                sprite.setPosition(600, ALTO-400);
+                sprite.setPosition(300, ALTO-150);
             }
 
             vidas.add(sprite);
@@ -117,7 +117,10 @@ public class TestNivel1 extends Pantalla implements Screen {
                 //Responder al evento del botón
 
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+                    if(testE.getX()>0){
+                        testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+                    }
+
                     testE.setEstado(PersonajeEstado.caminandoReversa);}
             }
         });
@@ -174,7 +177,9 @@ public class TestNivel1 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                    if(testE.getX()<ANCHO-70){
+                        testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
+                    }
                     testE.setEstado(PersonajeEstado.caminandoNormal);
                 }
 
@@ -257,7 +262,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         stage.draw();
         actualizarPersonaje(diferenciaX);
         batch.begin();
-        if(timerGanar>30 && perdio == false){
+        if(timerGanar>180 && perdio == false){
             gano = true;
             spriteGanaste.draw(batch);
         }
