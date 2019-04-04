@@ -11,7 +11,7 @@ public class Texto
     GlyphLayout glyph = new GlyphLayout();
 
     public Texto() {
-        font = new BitmapFont(Gdx.files.internal("miTipoLetra.fnt"));
+        font = new BitmapFont(Gdx.files.internal("uk.fnt"));
     }
 
     public void mostrarTexto(SpriteBatch batch, String mensaje, float x, float y) {
