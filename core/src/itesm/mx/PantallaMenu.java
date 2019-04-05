@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,14 +20,14 @@ public class PantallaMenu extends Pantalla {
 
     private Stage stage;
 
+
     public PantallaMenu(Principal principal){
         this.principal=principal;
     }
 
     @Override
     public void show() {
-
-
+        inicializarNube1(1400,600,.6f);
         //inicializa camara,camara update,batch y vista
         inicializarShow();
         stage = new Stage(vista);
@@ -118,10 +119,12 @@ public class PantallaMenu extends Pantalla {
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
+
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
+        movernube(batch,5,1600);
         stage.act(Gdx.graphics.getDeltaTime());
         batch.end();
         stage.draw();

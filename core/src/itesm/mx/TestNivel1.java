@@ -39,6 +39,8 @@ public class TestNivel1 extends Pantalla implements Screen {
     int tiempoTranscurridoSeg = 0;
     float auxiliarTiempo = 0;
     private Texto texto;
+    private Keeper1 bossNivel;
+    float timerBoss = 0;
 
 
 
@@ -65,6 +67,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearPerdiste();
         inicializarVidas();
         texto = new Texto();
+        bossNivel = new Keeper1();
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -227,6 +230,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         for(Wrumper wrumper: enemigos){
             wrumper.rastrearPrincesa(testE);
         }
+        procesoBoss();
         for(int i = enemigos.size()-1; i>=0; i--){
             Wrumper wrumper = enemigos.get(i);
             if(wrumper.estado==PersonajeEstado.muerto){
@@ -258,6 +262,8 @@ public class TestNivel1 extends Pantalla implements Screen {
         dibujarVidas();
 
         testE.render(batch);
+        dibujarBoss();
+
         for(Wrumper wrumper: enemigos){
             wrumper.render(batch);
         }
@@ -282,6 +288,18 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
         batch.end();
 
+    }
+
+    private void procesoBoss() {
+        if(tiempoTranscurridoSeg>=90 && bossNivel != null){
+            bossNivel.rastrearPrincesa(testE);
+        }
+    }
+
+    private void dibujarBoss() {
+        if(tiempoTranscurridoSeg>=90&&bossNivel !=null){
+            bossNivel.render(batch);
+        }
     }
 
     private void dibujarVidas() {
@@ -316,6 +334,15 @@ public class TestNivel1 extends Pantalla implements Screen {
                 break;
             }
         }
+        if(bossNivel!=null){
+            if(bossNivel.getVidas()<=0){
+                bossNivel= null;
+                System.out.println("me hice null");
+            }
+        }
+
+
+
     }
 
     private void actualizarFlechas(float delta) {
@@ -333,6 +360,14 @@ public class TestNivel1 extends Pantalla implements Screen {
                 Wrumper wrumper = enemigos.get(j);
                 if(flecha.getSprite().getX()>=wrumper.getX()-wrumper.getWidth()/2&&flecha.getSprite().getX()<=wrumper.getX()+wrumper.getWidth()/2){
                     wrumper.actualizarVidas(testE.getPoder()*-1);
+                    flechas.remove(i);
+                    flechasActivas--;
+                    break;
+                }
+            }
+            if(bossNivel!=null){
+                if(flecha.getSprite().getX()>=bossNivel.getX()-bossNivel.getWidth()/2&&flecha.getSprite().getX()<=bossNivel.getX()+bossNivel.getWidth()/2){
+                    bossNivel.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
                     break;
@@ -410,6 +445,12 @@ public class TestNivel1 extends Pantalla implements Screen {
                 System.out.println(testE.getVidas());
             }
         }
+        if(bossNivel!=null){
+        if(bossNivel.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel.getX()<= testE.getX()+ testE.getWidth()/2&&bossNivel!=null){
+            bossNivel.atacar(testE);
+            System.out.println(testE.getVidas());
+        }}
+
     }
     // Borra la pantalla con el color RGB (r,g,b)
     protected void borrarPantalla(float r, float g, float b) {
