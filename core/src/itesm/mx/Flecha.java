@@ -23,7 +23,6 @@ public class Flecha {
 
     public void render(SpriteBatch batch){
         sprite.draw(batch);
-        System.out.println("Supuestamente dibujo aquí");
 
     }
 

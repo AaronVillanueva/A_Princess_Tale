@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Wrumper extends Personaje {
     int dx = 3;
-    int vidas = 2;
+    protected int vidas = 2;
 
     public Wrumper(){
         cargarText("Personajes/WrumperCorriendo.png",24,1);
