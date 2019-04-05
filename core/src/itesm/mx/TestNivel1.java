@@ -61,8 +61,8 @@ public class TestNivel1 extends Pantalla implements Screen {
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
-        crearGanaste();
-        crearPerdiste();
+        //crearGanaste();
+        //crearPerdiste();
         inicializarVidas();
         texto = new Texto();
         Gdx.input.setInputProcessor(stage);
@@ -89,15 +89,60 @@ public class TestNivel1 extends Pantalla implements Screen {
 
     private void crearGanaste() {
         Texture texturaGanaste = new Texture("GanoPerdio/Gano_CONBOTONES.png");
-        spriteGanaste = new Sprite(texturaGanaste);
-        spriteGanaste.setPosition(0, 0);
+        TextureRegion textureRegionGanaste= new TextureRegion(texturaGanaste);
+        TextureRegionDrawable textureRegionDrawableGanaste = new TextureRegionDrawable(textureRegionGanaste);
+        ImageButton btnGanaste = new ImageButton(textureRegionDrawableGanaste);
+        btnGanaste.setPosition(0, 0);
+
+        stage.addActor(btnGanaste);
+
+        // Acción botón Ganar
+        btnGanaste.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                if(super.getTouchDownX()>460&&super.getTouchDownX()<810 &&super.getTouchDownY()>200&&super.getTouchDownY()<290) {
+                    principal.setScreen(new PantallaMenu(principal));
+                }
+                else if(super.getTouchDownX()>460&&super.getTouchDownX()<810 &&super.getTouchDownY()>305&&super.getTouchDownY()<400) {
+                    principal.setScreen(new TestNivel1(principal));
+                }
+                else if(super.getTouchDownX()>460&&super.getTouchDownX()<810 &&super.getTouchDownY()>415&&super.getTouchDownY()<505) {
+                    principal.setScreen(new TestNivel1(principal));
+                }
+
+            }
+        });
 
     }
 
     private void crearPerdiste(){
         Texture texturaPerdiste = new Texture("GanoPerdio/Perdio_CONBOTONES.png");
-        spritePerdiste = new Sprite(texturaPerdiste);
-        spritePerdiste.setPosition(0, 0);
+        TextureRegion textureRegionPerdiste = new TextureRegion(texturaPerdiste);
+        TextureRegionDrawable textureRegionDrawablePerdiste = new TextureRegionDrawable(textureRegionPerdiste);
+        ImageButton btnPerdiste = new ImageButton(textureRegionDrawablePerdiste);
+        btnPerdiste.setPosition(0, 0);
+
+        stage.addActor(btnPerdiste);
+
+        // Acción botón Perder
+        btnPerdiste.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                if(super.getTouchDownX()>460&&super.getTouchDownX()<810 &&super.getTouchDownY()>200&&super.getTouchDownY()<290) {
+                    principal.setScreen(new PantallaMenu(principal));
+                }
+                else if(super.getTouchDownX()>460&&super.getTouchDownX()<810 &&super.getTouchDownY()>320&&super.getTouchDownY()<410) {
+                    principal.setScreen(new TestNivel1(principal));
+                }
+
+            }
+        });
 
     }
 
@@ -274,11 +319,16 @@ public class TestNivel1 extends Pantalla implements Screen {
         batch.begin();
         if(timerGanar>120 && perdio == false){
             gano = true;
-            spriteGanaste.draw(batch);
+            //spriteGanaste.draw(batch);
+            crearGanaste();
+            stage.draw();
         }
 
         else if(perdio == true){
-            spritePerdiste.draw(batch);
+            //spritePerdiste.draw(batch);
+            crearPerdiste();
+            stage.draw();
+
         }
         batch.end();
 
