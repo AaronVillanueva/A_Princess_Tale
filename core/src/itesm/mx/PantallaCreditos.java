@@ -9,6 +9,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
     @Override
     public void show() {
         inicializarShow();
+        inicializarNube1(1600,600,.8f);
         crearFondo("Pantallas/Pantalla_CreditosSinNubes.png");
     }
 //
@@ -17,6 +18,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
+        movernube(batch,5,1600);
         batch.end();
     }
 
