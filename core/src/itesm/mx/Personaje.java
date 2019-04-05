@@ -118,8 +118,7 @@ public class Personaje {
         return sprite.getWidth();
     }
     public void setPos(float x,float y){
-        System.out.println("REEEEEEEEEEEEEEE        "+estado);
-        if(estado!=PersonajeEstado.muriendo){
+        if(estado!=PersonajeEstado.muriendo && estado!=PersonajeEstado.muerto){
             if(estado!=PersonajeEstado.muerto){
                 sprite.setY(y);
                 sprite.setX(x);
