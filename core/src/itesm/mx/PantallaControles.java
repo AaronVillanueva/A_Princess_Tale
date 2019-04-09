@@ -8,7 +8,7 @@ public class PantallaControles extends Pantalla implements Screen {
     @Override
     public void show() {
         inicializarShow();
-        crearFondo("Pantallas/PantallaControles.png");
+        crearFondo("Pantallas/Pantalla_Controles.png");
     }
 
     @Override

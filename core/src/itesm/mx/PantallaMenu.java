@@ -32,7 +32,7 @@ public class PantallaMenu extends Pantalla {
         inicializarShow();
         stage = new Stage(vista);
         crearBotones();
-        crearFondo("Pantallas/Pantalla_MenuSinNubes.png");
+        crearFondo("Pantallas/Pantalla_Menu.png");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setInputProcessor(stage);
     }

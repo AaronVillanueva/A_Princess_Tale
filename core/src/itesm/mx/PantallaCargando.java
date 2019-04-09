@@ -29,7 +29,7 @@ public class PantallaCargando extends Pantalla implements Screen{
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        textFondo = new Texture("Pantallas/PantallaCargando.PNG");
+        textFondo = new Texture("Pantallas/Pantalla_Cargando.PNG");
 //
     }
 

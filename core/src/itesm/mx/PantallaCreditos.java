@@ -10,7 +10,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
     public void show() {
         inicializarShow();
         inicializarNube1(1600,600,.8f);
-        crearFondo("Pantallas/Pantalla_CreditosSinNubes.png");
+        crearFondo("Pantallas/Pantalla_Creditos.png");
     }
 //
     @Override
