@@ -27,7 +27,6 @@ public class PantallaMenu extends Pantalla {
 
     @Override
     public void show() {
-        inicializarNube1(1400,500,.6f);
         nube1=new Nube(1);
         nube2=new Nube(2,1400,500,.6f);
         //inicializa camara,camara update,batch y vista
@@ -127,7 +126,6 @@ public class PantallaMenu extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
-        //movernube(batch,5,1600);
         nube1.draw(batch,5);
         nube2.draw(batch,10);
         stage.act(Gdx.graphics.getDeltaTime());

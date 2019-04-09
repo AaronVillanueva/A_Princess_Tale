@@ -29,29 +29,10 @@ public abstract class Pantalla implements Screen {
         batch.dispose();
         textFondo.dispose();
     }
-    //Debe ser colocado en show
-    public void inicializarNube1(float x,float y, float t){
-        Texture textNube=new Texture("Pantallas/Nube1.png");
-        TextureRegion regionNube=new TextureRegion(textNube);
-        nube=new Sprite(regionNube);
-        nube.setPosition(x,y);
-        nube.setAlpha(t);
-    }
-
-
-    //Debe ser colocado despues de batch.begin() y siempre y cuando inicializar nube exista
-    public void movernube(SpriteBatch batch,float vel,float x){
-        nube.setX(nube.getX()-vel);
-        if(nube.getX()+nube.getWidth()<0){
-            nube.setX(x);
-        }
-        nube.draw(batch);
-    }
 
     //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
     //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
     public void crearFondo(String fondo){
-
         textFondo = new Texture(fondo);
     }
 
