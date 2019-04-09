@@ -29,15 +29,15 @@ public class TestNivel1 extends Pantalla implements Screen {
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
     private LinkedList<Flecha> flechas;
-    int flechasActivas = 0;
-    float timerGanar = 0;
+    private int flechasActivas = 0;
+    private float timerGanar = 0;
     boolean gano = false;
     private Sprite spriteGanaste;
     private Sprite spritePerdiste;
     private boolean perdio = false;
     private LinkedList<Sprite> vidas;
-    int tiempoTranscurridoSeg = 0;
-    float auxiliarTiempo = 0;
+    private int tiempoTranscurridoSeg = 0;
+    private float auxiliarTiempo = 0;
     private Texto texto;
     private Keeper1 bossNivel;
     float timerBoss = 0;
