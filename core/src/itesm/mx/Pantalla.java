@@ -37,6 +37,8 @@ public abstract class Pantalla implements Screen {
         nube.setPosition(x,y);
         nube.setAlpha(t);
     }
+
+
     //Debe ser colocado despues de batch.begin() y siempre y cuando inicializar nube exista
     public void movernube(SpriteBatch batch,float vel,float x){
         nube.setX(nube.getX()-vel);
