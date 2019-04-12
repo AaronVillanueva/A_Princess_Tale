@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
 
-public class TestNivel1 extends Pantalla implements Screen {
+public class TestNivel2 extends Pantalla implements Screen {
 
 
     private Elya testE;
@@ -45,7 +45,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
 
 
-    public TestNivel1(Principal principal){this.principal=principal;}
+    public TestNivel2(Principal principal){this.principal=principal;}
     @Override
     public void show() {
 
@@ -53,7 +53,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel1/FondoNivel1.png");
+        crearFondo("Nivel2/FondoNivel2.png");
         enemigos = new LinkedList<Wrumper>();
         flechas = new LinkedList<Flecha>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
@@ -523,5 +523,3 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
     }
 }
-
-
