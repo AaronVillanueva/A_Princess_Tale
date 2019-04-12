@@ -40,7 +40,6 @@ public class TestNivel1 extends Pantalla implements Screen {
     float auxiliarTiempo = 0;
     private Texto texto;
     private Keeper1 bossNivel;
-    float timerBoss = 0;
 
 
 

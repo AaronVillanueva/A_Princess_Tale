@@ -48,6 +48,10 @@ public class TestNivel2 extends Pantalla implements Screen {
     public TestNivel2(Principal principal){this.principal=principal;}
     @Override
     public void show() {
+        nube1=new Nube(2,250,40,.8f);
+        nube2=new Nube(2,700,600,.8f);
+        nube1.activarRandom(false);
+        nube2.activarRandom(false);
 
         inicializarShow();
         vidas = new LinkedList<Sprite>();
@@ -69,7 +73,6 @@ public class TestNivel2 extends Pantalla implements Screen {
         texto = new Texto();
         bossNivel = new Keeper1();
         Gdx.input.setInputProcessor(stage);
-
     }
 
     private void inicializarVidas() {
@@ -131,7 +134,6 @@ public class TestNivel2 extends Pantalla implements Screen {
         });
 
     }
-
 
     private void crearBotonAtacar(){
         // Botón derecha
@@ -246,7 +248,10 @@ public class TestNivel2 extends Pantalla implements Screen {
 
         batch.begin();
         batch.draw(cielo,0,0);
+        nube1.draw(batch,5);
+
         batch.draw(textFondo, 0, 0);
+        nube2.draw(batch,2);
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
         for(Item item: listaItems){

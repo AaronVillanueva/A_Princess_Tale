@@ -9,24 +9,27 @@ import java.util.Random;
 
 public class Nube {
     Sprite sprite;
-    boolean rnd=true;
+    boolean rnd;
     public Nube(){
         asignarTipo(1);
         setPosition(Pantalla.ANCHO,Pantalla.ALTO/2.0f);
+        rnd=true;
     }
     public Nube(int tipo){
         asignarTipo(tipo);
         setPosition(Pantalla.ANCHO+10,(Pantalla.ALTO)/2);
-
+        rnd=true;
     }
 
     public Nube(int tipo,float x,float y){
         asignarTipo(tipo);
         setPosition(x,y);
+        rnd=true;
     }
     public Nube(int tipo,float x,float y,float transparencia) {
         asignarTipo(tipo);
         setPosition(x,y);
+        rnd=true;
         setAlpha(transparencia);
     }
 
@@ -51,7 +54,7 @@ public class Nube {
         sprite.setX(sprite.getX()-velocidad);
         if(sprite.getX()+sprite.getWidth()<0){
             sprite.setX(Pantalla.ANCHO+10);
-            if(rnd=true){
+            if(rnd==true){
                 Random random=new Random();
                 sprite.setY(sprite.getY()+(random.nextInt(20)-10));
                 if(sprite.getY()<Pantalla.ALTO/2){

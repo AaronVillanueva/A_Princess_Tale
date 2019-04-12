@@ -12,7 +12,7 @@ public class Flecha {
 
 
     public Flecha(float x, float y, Elya elya, int direccion){
-        textFlecha = new Texture("Arrow.png");
+        textFlecha = new Texture("Arrow2.png");
         sprite = new Sprite(textFlecha);
         sprite.setPosition(x, y);
         sprite.setColor(1,1,1,1);
