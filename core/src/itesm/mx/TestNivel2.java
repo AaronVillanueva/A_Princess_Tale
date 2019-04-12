@@ -41,7 +41,7 @@ public class TestNivel2 extends Pantalla implements Screen {
     private Texto texto;
     private Keeper1 bossNivel;
     float timerBoss = 0;
-
+    public Nube nube1,nube2;
 
 
 
@@ -245,6 +245,7 @@ public class TestNivel2 extends Pantalla implements Screen {
 
 
         batch.begin();
+        batch.draw(cielo,0,0);
         batch.draw(textFondo, 0, 0);
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 

@@ -21,6 +21,7 @@ public class Personaje {
         Texture textura=new Texture(path);
         TextureRegion region=new TextureRegion(textura);
         TextureRegion[][] texturaPersonaje = region.split(textura.getWidth()/frames,textura.getHeight());
+
         switch (tipo){
             case 0:
                 animQ=crearAnimacion(texturaPersonaje[0]);
