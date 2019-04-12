@@ -23,13 +23,13 @@ public abstract class Pantalla implements Screen {
     protected SpriteBatch batch;
     protected Texture textFondo;
     protected Principal principal;
-    public Sprite nube;
     public Texture cielo;
 
 
     public void dispose(){
         batch.dispose();
         textFondo.dispose();
+        cielo.dispose();
     }
 
     //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
@@ -49,14 +49,6 @@ public abstract class Pantalla implements Screen {
         vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(new Pantalla.ProcesadorEntrada());
-    }
-
-
-    public ImageButton crearImgBtn(String path){
-        Texture textBtn=new Texture(path);
-        TextureRegionDrawable trdBtn=new TextureRegionDrawable(new TextureRegion(textBtn));
-        ImageButton btn=new ImageButton(trdBtn);
-        return btn;
     }
 
     //metodo super raro de prueba ree

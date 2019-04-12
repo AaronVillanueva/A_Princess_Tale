@@ -28,7 +28,7 @@ public class PantallaMenu extends Pantalla {
     @Override
     public void show() {
         nube1=new Nube(1);
-        nube2=new Nube(2,1400,500,.6f);
+        nube2=new Nube(2,500,500,.6f);
         //inicializa camara,camara update,batch y vista
         inicializarShow();
 

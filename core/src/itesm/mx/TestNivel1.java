@@ -290,6 +290,7 @@ public class TestNivel1 extends Pantalla implements Screen {
 
 
         batch.begin();
+        batch.draw(cielo,0,0);
         batch.draw(textFondo, 0, 0);
         // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 

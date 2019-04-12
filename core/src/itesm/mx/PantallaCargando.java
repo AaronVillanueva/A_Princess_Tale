@@ -23,9 +23,9 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     @Override
     public void show() {
-        nube1=new Nube(2,1400,500,.75f);
-        nube2=new Nube(1,1400,600,.7f);
-        nube3=new Nube(2,1400,400,.8f);
+        nube1=new Nube(2,1300,500,.75f);
+        nube2=new Nube(1,700,600,.7f);
+        nube3=new Nube(2,300,400,.8f);
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
