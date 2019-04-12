@@ -15,7 +15,7 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     //Tiempo
     private float contadorTiempo =0;
-
+    private Nube nube1,nube2,nube3;
 
     public PantallaCargando(Principal principal) {
         this.principal=principal;
@@ -23,13 +23,16 @@ public class PantallaCargando extends Pantalla implements Screen{
 
     @Override
     public void show() {
+        nube1=new Nube(2,1400,500,.75f);
+        nube2=new Nube(1,1400,600,.7f);
+        nube3=new Nube(2,1400,400,.8f);
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        textFondo = new Texture("Pantallas/Pantalla_Cargando.PNG");
+        crearFondo("Pantallas/Pantalla_Cargando.PNG");
 //
     }
 
@@ -41,6 +44,10 @@ public class PantallaCargando extends Pantalla implements Screen{
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
+        batch.draw(cielo,0,0);
+        nube1.draw(batch,4);
+        nube2.draw(batch,3);
+        nube3.draw(batch,5);
         batch.draw(textFondo, 0, 0);
         batch.end();
 

@@ -24,6 +24,8 @@ public abstract class Pantalla implements Screen {
     protected Texture textFondo;
     protected Principal principal;
     public Sprite nube;
+    public Texture cielo;
+
 
     public void dispose(){
         batch.dispose();
@@ -34,6 +36,7 @@ public abstract class Pantalla implements Screen {
     //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
     public void crearFondo(String fondo){
         textFondo = new Texture(fondo);
+        cielo=new Texture("Cielo.png");
     }
 
     //Este metodo inicializa la camara, batch y la vista
@@ -42,6 +45,7 @@ public abstract class Pantalla implements Screen {
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
         //Vista
+
         vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(new Pantalla.ProcesadorEntrada());
