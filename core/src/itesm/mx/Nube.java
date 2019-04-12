@@ -9,10 +9,18 @@ import java.util.Random;
 
 public class Nube {
     Sprite sprite;
+    public Nube(){
+        asignarTipo(1);
+        setPosition(Pantalla.ANCHO,Pantalla.ALTO/2.0f);
+    }
     public Nube(int tipo){
         asignarTipo(tipo);
         setPosition(Pantalla.ANCHO+10,(Pantalla.ALTO)/2);
 
+    }
+    public Nube(int tipo,float x,float y){
+        asignarTipo(tipo);
+        setPosition(x,y);
     }
     public Nube(int tipo,float x,float y,float transparencia) {
         asignarTipo(tipo);
