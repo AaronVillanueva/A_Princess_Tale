@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class PantallaMenu extends Pantalla {
 
     private Stage stage;
-
+    Nube nube1,nube2;
 
     public PantallaMenu(Principal principal){
         this.principal=principal;
@@ -27,9 +27,11 @@ public class PantallaMenu extends Pantalla {
 
     @Override
     public void show() {
-        inicializarNube1(1400,500,.6f);
+        nube1=new Nube(1);
+        nube2=new Nube(2,1400,500,.6f);
         //inicializa camara,camara update,batch y vista
         inicializarShow();
+
         stage = new Stage(vista);
         crearBotones();
         crearFondo("Pantallas/Pantalla_Menu.png");
@@ -124,7 +126,8 @@ public class PantallaMenu extends Pantalla {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
-        movernube(batch,5,1600);
+        nube1.draw(batch,5);
+        nube2.draw(batch,10);
         stage.act(Gdx.graphics.getDeltaTime());
         batch.end();
         stage.draw();
