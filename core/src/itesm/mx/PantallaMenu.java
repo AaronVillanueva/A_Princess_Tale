@@ -28,7 +28,7 @@ public class PantallaMenu extends Pantalla {
     @Override
     public void show() {
         nube1=new Nube(1);
-        nube2=new Nube(2,1400,500,.6f);
+        nube2=new Nube(2,500,500,.6f);
         //inicializa camara,camara update,batch y vista
         inicializarShow();
 
@@ -84,7 +84,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new TestNivel1(principal));
+                principal.setScreen(new TestNivel2(principal));
             }
         });
 
@@ -125,9 +125,14 @@ public class PantallaMenu extends Pantalla {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-        batch.draw(textFondo, 0, 0);
+        batch.draw(cielo,0,0);
+
         nube1.draw(batch,5);
         nube2.draw(batch,10);
+
+        batch.draw(textFondo, 0, 0);
+
+
         stage.act(Gdx.graphics.getDeltaTime());
         batch.end();
         stage.draw();

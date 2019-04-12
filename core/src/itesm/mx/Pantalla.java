@@ -23,17 +23,20 @@ public abstract class Pantalla implements Screen {
     protected SpriteBatch batch;
     protected Texture textFondo;
     protected Principal principal;
-    public Sprite nube;
+    public Texture cielo;
+
 
     public void dispose(){
         batch.dispose();
         textFondo.dispose();
+        cielo.dispose();
     }
 
     //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
     //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
     public void crearFondo(String fondo){
         textFondo = new Texture(fondo);
+        cielo=new Texture("Cielo.png");
     }
 
     //Este metodo inicializa la camara, batch y la vista
@@ -42,17 +45,10 @@ public abstract class Pantalla implements Screen {
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
         //Vista
+
         vista = new StretchViewport(ANCHO, ALTO,camara);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(new Pantalla.ProcesadorEntrada());
-    }
-
-
-    public ImageButton crearImgBtn(String path){
-        Texture textBtn=new Texture(path);
-        TextureRegionDrawable trdBtn=new TextureRegionDrawable(new TextureRegion(textBtn));
-        ImageButton btn=new ImageButton(trdBtn);
-        return btn;
     }
 
     //metodo super raro de prueba ree
