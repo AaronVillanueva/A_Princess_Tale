@@ -73,7 +73,6 @@ public class TestNivel2 extends Pantalla implements Screen {
         texto = new Texto();
         bossNivel = new Keeper1();
         Gdx.input.setInputProcessor(stage);
-
     }
 
     private void inicializarVidas() {
