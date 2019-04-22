@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Personaje {
     protected Animation animacion; //cuanto tiempo pasa entre frames
-    protected Animation animC,animQ,animA,animD;
+    protected Animation animC,animQ,animA,animD, animE;
     protected Sprite sprite;
     protected float timerAnimacion;
     public float contadorMuerte,contadorMuerteOG;
@@ -35,6 +35,8 @@ public class Personaje {
             case 3:
                 animD=crearAnimacion(texturaPersonaje[0]);
                 break;
+            case 4:
+                animE= crearAnimacion(texturaPersonaje[0]);
         }
         animacion=animC;
 
@@ -77,6 +79,10 @@ public class Personaje {
                 contadorMuerte=0;
                 animacion=animD;
                 break;
+            case cargando:
+                animacion=animE;
+                break;
+
         }
         if(estado==PersonajeEstado.muriendo){
             contadorMuerte+=timerAnimacion;

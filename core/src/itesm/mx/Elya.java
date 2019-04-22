@@ -9,6 +9,7 @@ public class Elya extends Personaje {
     private PersonajeEstado estado;
     private int poder=1;
 
+
     public Elya() {
 
         estado=PersonajeEstado.caminandoNormal;
