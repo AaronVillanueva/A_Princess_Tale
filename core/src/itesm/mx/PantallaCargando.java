@@ -32,7 +32,7 @@ public class PantallaCargando extends Pantalla implements Screen{
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        crearFondo("Pantallas/Pantalla_Cargando.PNG");
+        crearFondo("Pantallas/Pantalla_CargandoSinElya.PNG");
 //
     }
 

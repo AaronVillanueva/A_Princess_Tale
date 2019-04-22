@@ -57,12 +57,12 @@ public class TestNivel2 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel2/FondoNivel2.png");
+        crearFondo("Nivel2/Nivel2.png");
         enemigos = new LinkedList<Wrumper>();
         flechas = new LinkedList<Flecha>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
-        testE.setPos(40, ALTO/2-210);
+        testE.setPos(40, ALTO/2-220);
         stage = new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
