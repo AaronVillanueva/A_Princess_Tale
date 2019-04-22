@@ -12,6 +12,6 @@ public class Cereza extends Item {
         if(elya.getVidas()<3 && elya.getVidas()>0){
             elya.actualizarVidas(1);
         }
-
+//
     }
 }
