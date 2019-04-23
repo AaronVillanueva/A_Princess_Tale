@@ -5,7 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -17,6 +19,8 @@ public class PantallaCargando extends Pantalla implements Screen{
     //Tiempo
     private float contadorTiempo =0;
     private Nube nube1,nube2,nube3;
+    private Personaje elya;
+    private Sprite sprite;
 
     public PantallaCargando(Principal principal) {
         this.principal=principal;
@@ -27,6 +31,12 @@ public class PantallaCargando extends Pantalla implements Screen{
         nube1=new Nube(2,1300,500,.75f);
         nube2=new Nube(1,700,600,.7f);
         nube3=new Nube(2,300,400,.8f);
+
+        elya=new Personaje();
+        elya.setEstado(PersonajeEstado.caminandoNormal);
+        elya.cargarText("Personajes/ElyaCargando.png",24,1);
+        elya.setPos(ANCHO/2-110,55);
+
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO/2, ALTO/2, 0);
         camara.update();
@@ -50,7 +60,9 @@ public class PantallaCargando extends Pantalla implements Screen{
         nube1.draw(batch,4);
         nube2.draw(batch,3);
         nube3.draw(batch,5);
+        elya.render(batch);
         batch.draw(textFondo, 0, 0);
+
         batch.end();
 
         //prueba tiempo

@@ -89,7 +89,6 @@ public class Personaje {
             //System.out.println(contadorMuerte);
             if((contadorMuerte-contadorMuerteOG)>5){
                 estado=PersonajeEstado.muerto;
-                System.out.println("NUKED");
             }
         }
 
