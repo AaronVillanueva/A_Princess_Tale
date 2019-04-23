@@ -45,7 +45,6 @@ public class PantallaCargando extends Pantalla implements Screen{
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-
         batch.draw(cielo,0,0);
         nube1.draw(batch,4);
         nube2.draw(batch,3);

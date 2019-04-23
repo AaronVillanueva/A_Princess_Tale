@@ -7,6 +7,6 @@ public enum PersonajeEstado {
     muriendo,
     muerto,
     caminandoReversa,
-    cargando,
+
 
 }
