@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Personaje {
     protected Animation animacion; //cuanto tiempo pasa entre frames
-    protected Animation animC,animQ,animA,animD, animE;
+    protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
     protected float timerAnimacion;
     public float contadorMuerte,contadorMuerteOG;
