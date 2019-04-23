@@ -22,13 +22,20 @@ public class Flecha {
     }
 
     public void render(SpriteBatch batch){
+        if(direccion<0){
+            if(!sprite.isFlipX()){
+                sprite.flip(true, false);
+            }
+        }
         sprite.draw(batch);
+
 
     }
 
     public void moverX(float dt){
         float dx = direccion*3;
         sprite.setX(sprite.getX()+dx);
+
 
     }
 

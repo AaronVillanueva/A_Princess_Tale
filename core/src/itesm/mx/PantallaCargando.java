@@ -29,6 +29,7 @@ public class PantallaCargando extends Pantalla implements Screen{
         nube3=new Nube(2,300,400,.8f);
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO/2, ALTO/2, 0);
+        camara.update();
 
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
