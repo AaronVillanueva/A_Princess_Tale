@@ -34,7 +34,8 @@ public class PantallaCargando extends Pantalla implements Screen{
 
         elya=new Personaje();
         elya.setEstado(PersonajeEstado.caminandoNormal);
-        elya.cargarText("Personajes/ElyaCargando.png",24,1);
+        elya.cargarText("Personajes/ElyaCargando.png",12,1);
+        elya.animC.setFrameDuration(.07f);
         elya.setPos(ANCHO/2-110,55);
 
         camara = new OrthographicCamera(ANCHO, ALTO);
@@ -44,7 +45,7 @@ public class PantallaCargando extends Pantalla implements Screen{
         //Vista
         vista = new StretchViewport(ANCHO, ALTO);
         batch = new SpriteBatch();
-        crearFondo("Pantallas/Pantalla_CargandoSinElya.PNG");
+        crearFondo("Pantallas/Pantalla_CargandoSinElya.png");
 //
     }
 
