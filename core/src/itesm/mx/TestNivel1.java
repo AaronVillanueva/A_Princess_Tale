@@ -97,7 +97,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     }
 
     private void crearPerdiste(){
-        Texture texturaPerdiste = new Texture("GanoPerdio/Perdio_CONBOTONES.png");
+        Texture texturaPerdiste = new Texture("GanoPerdio/Perdio_CONBOTONES.png");//Chacando
         spritePerdiste = new Sprite(texturaPerdiste);
         spritePerdiste.setPosition(0, 0);
 
@@ -284,7 +284,9 @@ public class TestNivel1 extends Pantalla implements Screen {
         }
 
         else if(perdio == true){
+
             spritePerdiste.draw(batch);
+
         }
         batch.end();
 

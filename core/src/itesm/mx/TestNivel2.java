@@ -25,6 +25,7 @@ public class TestNivel2 extends Pantalla implements Screen {
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
+    public Stage escenaPerdio;
     private float timerEnemigos;
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
@@ -64,16 +65,73 @@ public class TestNivel2 extends Pantalla implements Screen {
         testE=new Elya();
         testE.setPos(40, ALTO/2-220);
         stage = new Stage(vista);
+        escenaPerdio=new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
         crearGanaste();
         crearPerdiste();
+        configurarEscenaPerdio();
+        //crearBotonVolverAJugar();
         inicializarVidas();
         texto = new Texto();
         bossNivel = new Keeper1();
         Gdx.input.setInputProcessor(stage);
     }
+
+    private void configurarEscenaPerdio() {
+        //spritePerdiste.draw(batch);
+        crearBotonVolverAJugarPerdio();
+        crearBtnMenuPerdio();
+
+    }
+
+    private void crearBtnMenuPerdio() {
+        //BotónVolverMenu
+        Texture texturaBtnVolverMenu = new Texture("Botones/Btn_GanoPerdio/Btn_MenuP.png");
+        TextureRegion textureRegionBtnVolverMenu = new TextureRegion(texturaBtnVolverMenu);
+        TextureRegionDrawable textureRegionDrawableBtnVolverMenu = new TextureRegionDrawable(textureRegionBtnVolverMenu);
+        ImageButton btnVolverMenu = new ImageButton(textureRegionDrawableBtnVolverMenu);
+        btnVolverMenu.setPosition(460, 200);
+
+        escenaPerdio.addActor(btnVolverMenu);
+
+        // Acción botón Perder
+        btnVolverMenu.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new PantallaMenu(principal));
+
+            }
+        });
+    }
+
+    private void crearBotonVolverAJugarPerdio() {
+        //BotónVolverAJUgar
+        Texture texturaBtnVolverJugar = new Texture("Botones/Btn_GanoPerdio/Btn_VolverAJugar.png");
+        TextureRegion textureRegionBtnVolverAJugar = new TextureRegion(texturaBtnVolverJugar);
+        TextureRegionDrawable textureRegionDrawableBtnVolverJugar = new TextureRegionDrawable(textureRegionBtnVolverAJugar);
+        ImageButton btnVolverJugar = new ImageButton(textureRegionDrawableBtnVolverJugar);
+        btnVolverJugar.setPosition(460, 320);
+
+        escenaPerdio.addActor(btnVolverJugar);
+
+        // Acción botón Perder
+        btnVolverJugar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new TestNivel2(principal));
+
+            }
+        });
+    }
+
 
     private void inicializarVidas() {
         for(int i = 0; i<3;i++){
@@ -101,9 +159,12 @@ public class TestNivel2 extends Pantalla implements Screen {
     }
 
     private void crearPerdiste(){
-        Texture texturaPerdiste = new Texture("GanoPerdio/Perdio_CONBOTONES.png");
+        Texture texturaPerdiste = new Texture("GanoPerdio/Perdio.png");
         spritePerdiste = new Sprite(texturaPerdiste);
         spritePerdiste.setPosition(0, 0);
+
+
+
 
     }
 
@@ -291,10 +352,20 @@ public class TestNivel2 extends Pantalla implements Screen {
 
         else if(perdio == true){
             spritePerdiste.draw(batch);
+
+            //escenaPerdio.draw();
         }
         batch.end();
+        if(perdio == true){
+            //spritePerdiste.draw(batch);
+
+            escenaPerdio.draw();
+            Gdx.input.setInputProcessor(escenaPerdio);
+        }
 
     }
+
+
 
     private void procesoBoss() {
         if(tiempoTranscurridoSeg>=90 && bossNivel != null){
