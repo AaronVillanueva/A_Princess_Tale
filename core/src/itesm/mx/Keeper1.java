@@ -10,4 +10,4 @@ public class Keeper1 extends Wrumper {
         setPos(Pantalla.ANCHO+300, Pantalla.ALTO/2-205);
 
     }
-}
+}//
