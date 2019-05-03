@@ -20,12 +20,13 @@ import java.util.LinkedList;
 
 public class TestNivel2 extends Pantalla implements Screen {
 
-
+    private boolean pausa=false;
     private Elya testE;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private Stage stage;
     public Stage escenaPerdio;
+    public Stage escenaPausa;
     private float timerEnemigos;
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
@@ -66,12 +67,16 @@ public class TestNivel2 extends Pantalla implements Screen {
         testE.setPos(40, ALTO/2-220);
         stage = new Stage(vista);
         escenaPerdio=new Stage(vista);
+        escenaPausa=new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
         crearGanaste();
         crearPerdiste();
+        crearBotonPausa();
+
         configurarEscenaPerdio();
+        configurarEscenaPausa();
         //crearBotonVolverAJugar();
         inicializarVidas();
         texto = new Texto();
@@ -79,10 +84,108 @@ public class TestNivel2 extends Pantalla implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    private void configurarEscenaPausa() {
+        crearBtnMenuPausa();
+        crearBtnReiniciarPausa();
+        crearBtnContinuarPausa();
+    }
+
+    private void crearBtnContinuarPausa() {
+        //BotónContinuar
+        Texture texturaBtnContinuar = new Texture("Botones/Btn_GanoPerdio/Btn_Continuar.png");
+        TextureRegion textureRegionBtnContinuar = new TextureRegion(texturaBtnContinuar);
+        TextureRegionDrawable textureRegionDrawableBtnContinuar = new TextureRegionDrawable(textureRegionBtnContinuar);
+        ImageButton btnContinuar = new ImageButton(textureRegionDrawableBtnContinuar);
+        btnContinuar.setPosition(460, 440);
+
+        escenaPausa.addActor(btnContinuar);
+
+        // Acción botón Perder
+        btnContinuar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                pausa=false;
+
+            }
+        });
+    }
+
+    private void crearBtnReiniciarPausa() {
+        //BotónVolverMenu
+        Texture texturaBtnReiniciar = new Texture("Botones/Btn_GanoPerdio/Btn_Reiniciar.png");
+        TextureRegion textureRegionBtnReiniciar = new TextureRegion(texturaBtnReiniciar);
+        TextureRegionDrawable textureRegionDrawableBtnReiniciar = new TextureRegionDrawable(textureRegionBtnReiniciar);
+        ImageButton btnReiniciar = new ImageButton(textureRegionDrawableBtnReiniciar);
+        btnReiniciar.setPosition(460, 200);
+
+        escenaPausa.addActor(btnReiniciar);
+
+        // Acción botón Perder
+        btnReiniciar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new TestNivel2(principal));
+
+            }
+        });
+    }
+
+    private void crearBtnMenuPausa() {
+        Texture texturaBtnMenu = new Texture("Botones/Btn_GanoPerdio/Btn_MenuP.png");
+        TextureRegion textureRegionBtnMenu = new TextureRegion(texturaBtnMenu);
+        TextureRegionDrawable textureRegionDrawableBtnMenu = new TextureRegionDrawable(textureRegionBtnMenu);
+        ImageButton btnMenu = new ImageButton(textureRegionDrawableBtnMenu);
+        btnMenu.setPosition(460, 320);
+
+        escenaPausa.addActor(btnMenu);
+
+        // Acción botón Perder
+        btnMenu.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new PantallaMenu(principal));
+
+            }
+        });
+    }
+
+    private void crearBotonPausa() {
+        //BotónPausa
+        Texture texturaBtnPausa= new Texture("Botones/Btn_Nivel1/Btn_Pausa.png");
+        TextureRegion textureRegionBtnPausa = new TextureRegion(texturaBtnPausa);
+        TextureRegionDrawable textureRegionDrawableBtnPausa = new TextureRegionDrawable(textureRegionBtnPausa);
+        ImageButton btnVolverMenu = new ImageButton(textureRegionDrawableBtnPausa);
+        btnVolverMenu.setPosition(1150, 550);
+
+        stage.addActor(btnVolverMenu);
+
+        // Acción botón Perder
+        btnVolverMenu.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                pausa=true;
+
+            }
+        });
+    }
+
     private void configurarEscenaPerdio() {
         //spritePerdiste.draw(batch);
         crearBotonVolverAJugarPerdio();
         crearBtnMenuPerdio();
+
 
     }
 
@@ -260,111 +363,126 @@ public class TestNivel2 extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0f,0f,0f);
-        checarPerdio();
-        auxiliarTiempo += delta;
-        if(auxiliarTiempo>=1 && gano!= true && perdio != true){
-            tiempoTranscurridoSeg+=1;
-            auxiliarTiempo = 0;
-        }
-        timerGanar+=delta;
-        actualizarFlechas(delta);
-        verificarVidasEnemigos();
-        borrarFlechas();
-        if(testE.getPoder()>1){
-            System.out.println("poder: " + testE.getPoder());
-            timerPoder += delta;
-            if(timerPoder>10){
-                testE.setPoder(1);
-                timerPoder = 0;
-
+        if(!pausa) {
+            Gdx.input.setInputProcessor(stage);
+            borrarPantalla(0f, 0f, 0f);
+            checarPerdio();
+            auxiliarTiempo += delta;
+            if (auxiliarTiempo >= 1 && gano != true && perdio != true) {
+                tiempoTranscurridoSeg += 1;
+                auxiliarTiempo = 0;
             }
-        }
-        timerEnemigos+=delta;
-        if(timerEnemigos>=10){
-            generarWrumpers();
-            timerEnemigos = 0;
-        }
+            timerGanar += delta;
+            actualizarFlechas(delta);
+            verificarVidasEnemigos();
+            borrarFlechas();
+            if (testE.getPoder() > 1) {
+                System.out.println("poder: " + testE.getPoder());
+                timerPoder += delta;
+                if (timerPoder > 10) {
+                    testE.setPoder(1);
+                    timerPoder = 0;
 
-        generarItems();
-        batch.setProjectionMatrix(camara.combined);
-        desplazarItem();
-
-        for(Wrumper wrumper: enemigos){
-            wrumper.rastrearPrincesa(testE);
-        }
-        procesoBoss();
-        for(int i = enemigos.size()-1; i>=0; i--){
-            Wrumper wrumper = enemigos.get(i);
-            if(wrumper.estado==PersonajeEstado.muerto){
-                enemigos.remove(i);
-                System.out.println("ded");
+                }
             }
-        }
-        verificarColisionEnemigos();
-        verificarColisionItems();
-        verificarColisionFlechas();
-
-
-
-        batch.begin();
-        batch.draw(cielo,0,0);
-        nube1.draw(batch,5);
-
-        batch.draw(textFondo, 0, 0);
-        nube2.draw(batch,2);
-        // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
-
-        for(Item item: listaItems){
-            item.render(batch);
-            item.tiempoTranscurrido+=delta;
-            if(item.tiempoTranscurrido>=15){
-                listaItems.remove(item);
-                System.out.println("Elimino aquí");
-                break;
+            timerEnemigos += delta;
+            if (timerEnemigos >= 10) {
+                generarWrumpers();
+                timerEnemigos = 0;
             }
 
+            generarItems();
+            batch.setProjectionMatrix(camara.combined);
+            desplazarItem();
+
+            for (Wrumper wrumper : enemigos) {
+                wrumper.rastrearPrincesa(testE);
+            }
+            procesoBoss();
+            for (int i = enemigos.size() - 1; i >= 0; i--) {
+                Wrumper wrumper = enemigos.get(i);
+                if (wrumper.estado == PersonajeEstado.muerto) {
+                    enemigos.remove(i);
+                    System.out.println("ded");
+                }
+            }
+            verificarColisionEnemigos();
+            verificarColisionItems();
+            verificarColisionFlechas();
+
+
+            batch.begin();
+            batch.draw(cielo, 0, 0);
+            nube1.draw(batch, 5);
+
+            batch.draw(textFondo, 0, 0);
+            nube2.draw(batch, 2);
+            // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
+
+            for (Item item : listaItems) {
+                item.render(batch);
+                item.tiempoTranscurrido += delta;
+                if (item.tiempoTranscurrido >= 15) {
+                    listaItems.remove(item);
+                    System.out.println("Elimino aquí");
+                    break;
+                }
+
+            }
+
+            dibujarVidas();
+
+            testE.render(batch);
+            dibujarBoss();
+
+            for (Wrumper wrumper : enemigos) {
+                wrumper.render(batch);
+            }
+            for (int i = flechas.size() - 1; i >= 0; i--) {
+                flechas.get(i).render(batch);
+            }
+
+            // Dibuja el tiempo
+            texto.mostrarTexto(batch, "Tiempo: " + tiempoTranscurridoSeg, ANCHO - 200, ALTO - 35);
+
+            batch.end();
+            stage.draw();
+            actualizarPersonaje(diferenciaX);
+            batch.begin();
+            if (timerGanar > 120 && perdio == false) {
+                gano = true;
+                spriteGanaste.draw(batch);
+            } else if (perdio == true) {
+                spritePerdiste.draw(batch);
+
+                //escenaPerdio.draw();
+            }
+            batch.end();
+            if (perdio == true) {
+                //spritePerdiste.draw(batch);
+
+                escenaPerdio.draw();
+                Gdx.input.setInputProcessor(escenaPerdio);
+            }
         }
-
-        dibujarVidas();
-
-        testE.render(batch);
-        dibujarBoss();
-
-        for(Wrumper wrumper: enemigos){
-            wrumper.render(batch);
-        }
-        for(int i = flechas.size()-1;i>=0;i--){
-            flechas.get(i).render(batch);
-        }
-
-        // Dibuja el tiempo
-        texto.mostrarTexto(batch, "Tiempo: " + tiempoTranscurridoSeg, ANCHO-200, ALTO-35);
-
-        batch.end();
-        stage.draw();
-        actualizarPersonaje(diferenciaX);
-        batch.begin();
-        if(timerGanar>120 && perdio == false){
-            gano = true;
-            spriteGanaste.draw(batch);
-        }
-
-        else if(perdio == true){
+        else{
+            batch.begin();
             spritePerdiste.draw(batch);
+            batch.end();
+            crearPausa();
+            Gdx.input.setInputProcessor(escenaPausa);
+            escenaPausa.draw();
 
-            //escenaPerdio.draw();
-        }
-        batch.end();
-        if(perdio == true){
-            //spritePerdiste.draw(batch);
 
-            escenaPerdio.draw();
-            Gdx.input.setInputProcessor(escenaPerdio);
         }
 
     }
 
+    private void crearPausa() {
+        Texture texturaPerdiste = new Texture("Pantallas/Pantalla_Pausa.png");
+        spritePerdiste = new Sprite(texturaPerdiste);
+        spritePerdiste.setPosition(0, 0);
+    }
 
 
     private void procesoBoss() {
