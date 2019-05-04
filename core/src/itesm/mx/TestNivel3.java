@@ -18,16 +18,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
 
-public class TestNivel2 extends Pantalla implements Screen {
+public class TestNivel3 extends Pantalla implements Screen {
 
     private boolean pausa=false;
     private Elya testE;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
+    private LinkedList<Volador> voladores;
     private Stage stage;
     public Stage escenaPerdio;
     public Stage escenaPausa;
     private float timerEnemigos;
+    private float timerVoladores;
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
     private float timerPoder = 0;
     private LinkedList<Flecha> flechas;
@@ -43,12 +45,11 @@ public class TestNivel2 extends Pantalla implements Screen {
     float auxiliarTiempo = 0;
     private Texto texto;
     private Keeper2 bossNivel;
-    float timerBoss = 0;
     public Nube nube1,nube2;
 
 
 
-    public TestNivel2(Principal principal){this.principal=principal;}
+    public TestNivel3(Principal principal){this.principal=principal;}
     @Override
     public void show() {
         nube1=new Nube(2,250,40,.8f);
@@ -60,8 +61,9 @@ public class TestNivel2 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel2/Nivel2.png");
+        crearFondo("Nivel3/Nivel3.png");
         enemigos = new LinkedList<Wrumper>();
+        voladores = new LinkedList<Volador>();
         flechas = new LinkedList<Flecha>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
@@ -388,9 +390,14 @@ public class TestNivel2 extends Pantalla implements Screen {
                 }
             }
             timerEnemigos += delta;
-            if (timerEnemigos >= 5) {
+            timerVoladores += delta;
+            if (timerEnemigos >= 7) {
                 generarWrumpers();
                 timerEnemigos = 0;
+            }
+            if(timerVoladores>=12){
+                generarVoladores();
+                timerVoladores=0;
             }
 
             generarItems();
@@ -400,11 +407,22 @@ public class TestNivel2 extends Pantalla implements Screen {
             for (Wrumper wrumper : enemigos) {
                 wrumper.rastrearPrincesa(testE);
             }
+            for(Volador volador: voladores){
+                volador.rastrearPrincesa(testE);
+            }
             procesoBoss();
             for (int i = enemigos.size() - 1; i >= 0; i--) {
                 Wrumper wrumper = enemigos.get(i);
                 if (wrumper.estado == PersonajeEstado.muerto) {
                     enemigos.remove(i);
+                    System.out.println("ded");
+                }
+            }
+
+            for (int i = voladores.size() - 1; i >= 0; i--) {
+                Volador volador = voladores.get(i);
+                if (volador.estado == PersonajeEstado.muerto) {
+                    voladores.remove(i);
                     System.out.println("ded");
                 }
             }
@@ -439,6 +457,10 @@ public class TestNivel2 extends Pantalla implements Screen {
 
             for (Wrumper wrumper : enemigos) {
                 wrumper.render(batch);
+            }
+
+            for(Volador volador: voladores){
+                volador.render(batch);
             }
             for (int i = flechas.size() - 1; i >= 0; i--) {
                 flechas.get(i).render(batch);
@@ -477,6 +499,13 @@ public class TestNivel2 extends Pantalla implements Screen {
 
 
         }
+
+    }
+
+    private void generarVoladores() {
+        Volador volador = new Volador();
+        volador.setPos(volador.getX(), volador.getY()-17);
+        enemigos.add(volador);
 
     }
 
@@ -531,6 +560,15 @@ public class TestNivel2 extends Pantalla implements Screen {
                 break;
             }
         }
+
+        for(int i = voladores.size()-1;i>=0;i--){
+            Volador volador = voladores.get(i);
+            if(volador.getVidas()<=0){
+                voladores.remove(i);
+                break;
+            }
+        }
+
         if(bossNivel!=null){
             if(bossNivel.getVidas()<=0){
                 bossNivel= null;
@@ -562,6 +600,17 @@ public class TestNivel2 extends Pantalla implements Screen {
                     break;
                 }
             }
+
+            for(int j = voladores.size()-1; j>=0; j--){
+                Volador volador = voladores.get(j);
+                if(flecha.getSprite().getX()>=volador.getX()-volador.getWidth()/2&&flecha.getSprite().getX()<=volador.getX()+volador.getWidth()/2){
+                    volador.actualizarVidas(testE.getPoder()*-1);
+                    flechas.remove(i);
+                    flechasActivas--;
+                    break;
+                }
+            }
+
             if(bossNivel!=null){
                 if(flecha.getSprite().getX()>=bossNivel.getX()-bossNivel.getWidth()/2&&flecha.getSprite().getX()<=bossNivel.getX()+bossNivel.getWidth()/2){
                     bossNivel.actualizarVidas(testE.getPoder()*-1);
@@ -601,7 +650,9 @@ public class TestNivel2 extends Pantalla implements Screen {
     }
 
     private void generarWrumpers() {
-        enemigos.add(new Wrumper());
+        Wrumper w = new Wrumper();
+        w.setPos(w.getX(), w.getY()-17);
+        enemigos.add(w);
     }
 
     private void desplazarItem() {
