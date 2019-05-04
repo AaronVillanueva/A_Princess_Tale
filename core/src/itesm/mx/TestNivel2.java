@@ -574,7 +574,7 @@ public class TestNivel2 extends Pantalla implements Screen {
     private void verificarColisionItems() {
         for(int i = listaItems.size()-1; i>= 0; i--){
             Item item = listaItems.get(i);
-            if(testE.getX()<item.getX()+item.getSprite().getWidth()/2 && testE.getX()>item.getX()-item.getSprite().getWidth()/2 && item.getY()<testE.getY()+testE.getHeight()/2 && item.getY()>testE.getY()-testE.getHeight()/2){
+            if(testE.getX()<item.getX()+item.getSprite().getWidth()/2 && testE.getX()>item.getX()-item.getSprite().getWidth()/2 && item.getY()<testE.getY()+testE.getHeight() && item.getY()>testE.getY()-testE.getHeight()){
                 listaItems.remove(i);
                 item.generarEfecto(testE);
                 if(item.getClass().equals(Estrella.class)){
