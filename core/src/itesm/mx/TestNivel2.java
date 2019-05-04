@@ -36,6 +36,7 @@ public class TestNivel2 extends Pantalla implements Screen {
     boolean gano = false;
     private Sprite spriteGanaste;
     private Sprite spritePerdiste;
+    private Sprite spritePausa;
     private boolean perdio = false;
     private LinkedList<Sprite> vidas;
     int tiempoTranscurridoSeg = 0;
@@ -73,6 +74,7 @@ public class TestNivel2 extends Pantalla implements Screen {
         crearBotonAtacar();
         crearGanaste();
         crearPerdiste();
+        crearPausa();
         crearBotonPausa();
 
         configurarEscenaPerdio();
@@ -467,7 +469,7 @@ public class TestNivel2 extends Pantalla implements Screen {
         }
         else{
             batch.begin();
-            spritePerdiste.draw(batch);
+            spritePausa.draw(batch);
             batch.end();
             crearPausa();
             Gdx.input.setInputProcessor(escenaPausa);
@@ -479,9 +481,9 @@ public class TestNivel2 extends Pantalla implements Screen {
     }
 
     private void crearPausa() {
-        Texture texturaPerdiste = new Texture("Pantallas/Pantalla_Pausa.png");
-        spritePerdiste = new Sprite(texturaPerdiste);
-        spritePerdiste.setPosition(0, 0);
+        Texture texturaPausa = new Texture("Pantallas/Pantalla_Pausa.png");
+        spritePausa = new Sprite(texturaPausa);
+        spritePausa.setPosition(0, 0);
     }
 
 
