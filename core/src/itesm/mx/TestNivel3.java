@@ -44,7 +44,7 @@ public class TestNivel3 extends Pantalla implements Screen {
     int tiempoTranscurridoSeg = 0;
     float auxiliarTiempo = 0;
     private Texto texto;
-    private Keeper2 bossNivel;
+    private Keeper3 bossNivel;
     public Nube nube1,nube2;
 
 
@@ -84,7 +84,7 @@ public class TestNivel3 extends Pantalla implements Screen {
         //crearBotonVolverAJugar();
         inicializarVidas();
         texto = new Texto();
-        bossNivel = new Keeper2();
+        bossNivel = new Keeper3();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -616,6 +616,7 @@ public class TestNivel3 extends Pantalla implements Screen {
                     bossNivel.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
+                    bossNivel.teletransporte();
                     break;
                 }
             }
