@@ -551,6 +551,7 @@ public class TestNivel2 extends Pantalla implements Screen {
     }
 
     private void verificarColisionFlechas() {
+        boolean yaDesaparecio = false;
         for(int i = flechas.size()-1; i>=0; i--){
             Flecha flecha = flechas.get(i);
             for(int j = enemigos.size()-1; j>=0; j--){
@@ -559,16 +560,25 @@ public class TestNivel2 extends Pantalla implements Screen {
                     wrumper.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
+                    yaDesaparecio=true;
                     break;
                 }
             }
+            if(yaDesaparecio){
+                break;
+            }
+
             if(bossNivel!=null){
                 if(flecha.getSprite().getX()>=bossNivel.getX()-bossNivel.getWidth()/2&&flecha.getSprite().getX()<=bossNivel.getX()+bossNivel.getWidth()/2){
                     bossNivel.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
+                    yaDesaparecio = true;
                     break;
                 }
+            }
+            if(yaDesaparecio){
+                break;
             }
         }
     }

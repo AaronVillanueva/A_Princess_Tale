@@ -52,7 +52,7 @@ public class TestNivel1 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel1/FondoNivel1.png");
+        crearFondo("Nivel1/Nivel1.png");
         enemigos = new LinkedList<Wrumper>();
         flechas = new LinkedList<Flecha>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
@@ -356,6 +356,7 @@ public class TestNivel1 extends Pantalla implements Screen {
     }
 
     private void verificarColisionFlechas() {
+        boolean yaDesaparecio = false;
         for(int i = flechas.size()-1; i>=0; i--){
             Flecha flecha = flechas.get(i);
             for(int j = enemigos.size()-1; j>=0; j--){
@@ -364,16 +365,26 @@ public class TestNivel1 extends Pantalla implements Screen {
                     wrumper.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
+                    yaDesaparecio=true;
                     break;
                 }
             }
+            if(yaDesaparecio){
+                break;
+            }
+
+
             if(bossNivel!=null){
                 if(flecha.getSprite().getX()>=bossNivel.getX()-bossNivel.getWidth()/2&&flecha.getSprite().getX()<=bossNivel.getX()+bossNivel.getWidth()/2){
                     bossNivel.actualizarVidas(testE.getPoder()*-1);
                     flechas.remove(i);
                     flechasActivas--;
+                    yaDesaparecio = true;
                     break;
                 }
+            }
+            if(yaDesaparecio){
+                break;
             }
         }
     }

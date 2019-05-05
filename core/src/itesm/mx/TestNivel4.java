@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -18,13 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
 
-public class TestNivel3 extends Pantalla implements Screen {
+public class TestNivel4 extends Pantalla implements Screen {
 
     private boolean pausa=false;
     private Elya testE;
     private LinkedList<Item> listaItems;
     private LinkedList<Wrumper> enemigos;
     private LinkedList<Volador> voladores;
+    public LinkedList<BolaRaven> bolasRaven;
     private Stage stage;
     public Stage escenaPerdio;
     public Stage escenaPausa;
@@ -43,13 +43,14 @@ public class TestNivel3 extends Pantalla implements Screen {
     private LinkedList<Sprite> vidas;
     int tiempoTranscurridoSeg = 0;
     float auxiliarTiempo = 0;
+    float timerAtaqueRaven = 0;
     private Texto texto;
-    private Keeper3 bossNivel;
+    private Raven bossNivel;
     public Nube nube1,nube2;
 
 
 
-    public TestNivel3(Principal principal){this.principal=principal;}
+    public TestNivel4(Principal principal){this.principal=principal;}
     @Override
     public void show() {
         nube1=new Nube(2,250,40,.8f);
@@ -61,10 +62,11 @@ public class TestNivel3 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel3/Nivel3.png");
+        crearFondo("Nivel4/Nivel4.png");
         enemigos = new LinkedList<Wrumper>();
         voladores = new LinkedList<Volador>();
         flechas = new LinkedList<Flecha>();
+        bolasRaven = new LinkedList<BolaRaven>();
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-220);
@@ -84,7 +86,7 @@ public class TestNivel3 extends Pantalla implements Screen {
         //crearBotonVolverAJugar();
         inicializarVidas();
         texto = new Texto();
-        bossNivel = new Keeper3();
+        bossNivel = new Raven();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -377,6 +379,11 @@ public class TestNivel3 extends Pantalla implements Screen {
                 auxiliarTiempo = 0;
             }
             timerGanar += delta;
+            if(bossNivel!=null && tiempoTranscurridoSeg>=90){
+                timerAtaqueRaven +=delta;
+            }
+            verificarColisionBolasRaven();
+            actualizarBolasRaven();
             actualizarFlechas(delta);
             verificarVidasEnemigos();
             borrarFlechas();
@@ -391,14 +398,16 @@ public class TestNivel3 extends Pantalla implements Screen {
             }
             timerEnemigos += delta;
             timerVoladores += delta;
-            if (timerEnemigos >= 7) {
+            if (timerEnemigos >= 5) {
                 generarWrumpers();
                 timerEnemigos = 0;
             }
-            if(timerVoladores>=12){
+            if(timerVoladores>=10){
                 generarVoladores();
                 timerVoladores=0;
             }
+
+            procesoAtaqueRaven();
 
             generarItems();
             batch.setProjectionMatrix(camara.combined);
@@ -433,10 +442,10 @@ public class TestNivel3 extends Pantalla implements Screen {
 
             batch.begin();
             batch.draw(cielo, 0, 0);
-            nube1.draw(batch, 5);
+            //nube1.draw(batch, 5);
 
             batch.draw(textFondo, 0, 0);
-            nube2.draw(batch, 2);
+            //nube2.draw(batch, 2);
             // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
             for (Item item : listaItems) {
@@ -449,7 +458,7 @@ public class TestNivel3 extends Pantalla implements Screen {
                 }
 
             }
-
+            dibujarBolasRaven();
             dibujarVidas();
 
             testE.render(batch);
@@ -462,6 +471,7 @@ public class TestNivel3 extends Pantalla implements Screen {
             for(Volador volador: voladores){
                 volador.render(batch);
             }
+
             for (int i = flechas.size() - 1; i >= 0; i--) {
                 flechas.get(i).render(batch);
             }
@@ -502,6 +512,36 @@ public class TestNivel3 extends Pantalla implements Screen {
 
     }
 
+    private void procesoAtaqueRaven() {
+        if(timerAtaqueRaven>=6.5){
+            bolasRaven.add(new BolaRaven(bossNivel));
+            timerAtaqueRaven = 0;
+        }
+    }
+
+    private void dibujarBolasRaven() {
+        for(BolaRaven bola: bolasRaven){
+            bola.render(batch);
+        }
+    }
+
+    private void actualizarBolasRaven() {
+        for(BolaRaven bola: bolasRaven){
+            bola.rastrearPrincesa(bossNivel, testE);
+        }
+    }
+
+    private void verificarColisionBolasRaven() {
+        for(int i = bolasRaven.size()-1;i>=0;i--){
+            BolaRaven bola = bolasRaven.get(i);
+            if(bola.getX()>=testE.getX()-testE.getWidth()/2 && bola.getX()<= testE.getX()+ testE.getWidth()/2){
+                testE.actualizarVidas(-1);
+                bolasRaven.remove(i);
+                break;
+            }
+        }
+    }
+
     private void generarVoladores() {
         Volador volador = new Volador();
         volador.setPos(volador.getX(), volador.getY()-17);
@@ -518,7 +558,7 @@ public class TestNivel3 extends Pantalla implements Screen {
 
     private void procesoBoss() {
         if(tiempoTranscurridoSeg>=90 && bossNivel != null){
-            bossNivel.rastrearPrincesa(testE);
+            bossNivel.encontrarPosicion(testE);
         }
     }
 
@@ -572,6 +612,7 @@ public class TestNivel3 extends Pantalla implements Screen {
         if(bossNivel!=null){
             if(bossNivel.getVidas()<=0){
                 bossNivel= null;
+                bolasRaven = new LinkedList<BolaRaven>();
                 System.out.println("me hice null");
             }
         }
