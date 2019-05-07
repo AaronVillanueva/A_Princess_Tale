@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -56,6 +57,7 @@ public class NivelGenerico extends Pantalla implements Screen {
     public String rutaFondo;
     float timerAnimAtaque = 0;
     public int nivel = 0;
+    private Music music;
 
     public NivelGenerico(Principal principal) {
         this.principal = principal;
@@ -126,12 +128,34 @@ public class NivelGenerico extends Pantalla implements Screen {
         configurarEscenaPerdio();
         configurarEscenaPausa();
         inicializarVidas();
+        inicializarMusica();
         texto = new Texto();
         bossNivel4 = new Raven();
         bossNivel1 = new Keeper1();
         bossNivel2 = new Keeper2();
         bossNivel3 = new Keeper3();
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void inicializarMusica() {
+        switch(nivel){
+            case 1:
+                music = Gdx.audio.newMusic(Gdx.files.internal("Musica/PrisonMusic.mp3"));
+                break;
+            case 2:
+                music = Gdx.audio.newMusic(Gdx.files.internal("Musica/The Forbidden Forest.wav"));
+                break;
+            case 3:
+                music = Gdx.audio.newMusic(Gdx.files.internal("Musica/TownMusic.mp3"));
+                break;
+            case 4:
+                music = Gdx.audio.newMusic(Gdx.files.internal("Musica/CastleMusic.mp3"));
+                break;
+        }
+
+        music.setLooping(true);
+        music.setVolume(0.1f);
+        music.play();
     }
 
     private void configurarEscenaGano() {
@@ -1050,7 +1074,11 @@ public class NivelGenerico extends Pantalla implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-
+    @Override
+    public void dispose(){
+        super.dispose();
+        music.dispose();
+    }
 
     @Override
     public void resize(int width, int height) {
