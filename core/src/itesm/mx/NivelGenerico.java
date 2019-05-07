@@ -601,10 +601,10 @@ public class NivelGenerico extends Pantalla implements Screen {
 
             batch.begin();
             batch.draw(cielo, 0, 0);
-            //nube1.draw(batch, 5);
+            nube1.draw(batch, 5);
 
             batch.draw(textFondo, 0, 0);
-            //nube2.draw(batch, 2);
+            nube2.draw(batch, 2);
             // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
             for (Item item : listaItems) {
