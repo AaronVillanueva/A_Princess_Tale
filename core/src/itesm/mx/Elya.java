@@ -8,6 +8,7 @@ public class Elya extends Personaje {
     private int vidas = 3;
     private PersonajeEstado estado;
     private int poder=1;
+    public float velocidad=5;
     private boolean saltando = false;
     public static final float VELOCIDAD_Y = -4f;   // Velocidad de caída
     public static final float VELOCIDAD_X = 2;     // Velocidad horizontal
@@ -22,7 +23,8 @@ public class Elya extends Personaje {
 
     public Elya() {
 
-        estado=PersonajeEstado.caminandoNormal;
+        estado=PersonajeEstado.quieto;
+        cargarText("Personajes/ElyaQuieta.png",1,0);
         cargarText("Personajes/ElyaRunning2.png", 24, 1);
         cargarText("Personajes/ElyaAtack.png", 22, 2);
         cargarText("Personajes/ElyaDead.png", 1, 3);

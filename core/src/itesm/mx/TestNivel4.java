@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -352,16 +353,38 @@ public class TestNivel4 extends Pantalla implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+
                 //Responder al evento del botón
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
                     if(testE.getX()<ANCHO-70){
                         testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
                     }
+
                     testE.setEstado(PersonajeEstado.caminandoNormal);
                 }
-
             }
-        });
+            public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
+                super.touchDown(event,x,y,pointer,button);
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.caminandoNormal);
+                    }
+                }
+
+                return true;
+            }
+            public void touchUp(InputEvent event,float x,float y,int pointer,int button){
+                //super.touchUp(event,x,y,pointer,button);
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.quieto);
+                    }
+                }
+            }
+
+        }
+        );
+        //btnDer.addListener()
 
     }
 
@@ -369,10 +392,19 @@ public class TestNivel4 extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
+        System.out.println(testE.getEstado());
         if(!pausa) {
+            //testE.setEstado(PersonajeEstado.quieto);
+
             Gdx.input.setInputProcessor(stage);
             borrarPantalla(0f, 0f, 0f);
             checarPerdio();
+            if(testE.getEstado()==PersonajeEstado.caminandoNormal){
+                testE.moverX(testE.velocidad);
+            }
+            if(testE.getEstado()==PersonajeEstado.caminandoReversa){
+                testE.moverX(-testE.velocidad);
+            }
             auxiliarTiempo += delta;
             if (auxiliarTiempo >= 1 && gano != true && perdio != true) {
                 tiempoTranscurridoSeg += 1;
@@ -396,6 +428,8 @@ public class TestNivel4 extends Pantalla implements Screen {
 
                 }
             }
+
+
             timerEnemigos += delta;
             timerVoladores += delta;
             if (timerEnemigos >= 5) {
@@ -509,6 +543,7 @@ public class TestNivel4 extends Pantalla implements Screen {
 
 
         }
+
 
     }
 

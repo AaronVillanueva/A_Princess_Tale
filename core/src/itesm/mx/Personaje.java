@@ -14,7 +14,7 @@ public class Personaje {
     protected Sprite sprite;
     protected float timerAnimacion;
     public float contadorMuerte,contadorMuerteOG;
-    public PersonajeEstado estado=PersonajeEstado.caminandoNormal;
+    public PersonajeEstado estado=PersonajeEstado.quieto;
 
     //Tipo 0 = quieto, Tipo 1 = Caminando, Tipo 2= Atacando, Tipo 3= Muerte
     public void cargarText(String path,int frames,int tipo){
