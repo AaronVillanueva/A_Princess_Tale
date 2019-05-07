@@ -30,6 +30,7 @@ public class NivelGenerico extends Pantalla implements Screen {
     private Stage stage;
     public Stage escenaPerdio;
     public Stage escenaPausa;
+    public Stage escenaGano;
     private float timerEnemigos;
     private float timerVoladores;
     private float  diferenciaX = 0f;// Es una constante para probar el scroll
@@ -110,6 +111,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         stage = new Stage(vista);
         escenaPerdio=new Stage(vista);
         escenaPausa=new Stage(vista);
+        escenaGano=new Stage(vista);
         crearBotonDer();
         crearBotonIzq();
         crearBotonAtacar();
@@ -117,7 +119,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         crearPerdiste();
         crearPausa();
         crearBotonPausa();
-
+        configurarEscenaGano();
         configurarEscenaPerdio();
         configurarEscenaPausa();
         inicializarVidas();
@@ -127,6 +129,81 @@ public class NivelGenerico extends Pantalla implements Screen {
         bossNivel2 = new Keeper2();
         bossNivel3 = new Keeper3();
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void configurarEscenaGano() {
+        crearBtnSiguienteNivelGanar();
+        crearBtnVolverAJugarGanar();
+        crearBtnMenuPGanar();
+    }
+
+    private void crearBtnMenuPGanar() {
+        //BotónMenu
+        Texture texturaBtnMenuP = new Texture("Botones/Btn_GanoPerdio/Btn_MenuP.png");
+        TextureRegion textureRegionBtnMenuP = new TextureRegion(texturaBtnMenuP);
+        TextureRegionDrawable textureRegionDrawableBtnMenuP = new TextureRegionDrawable(textureRegionBtnMenuP);
+        ImageButton btnMenuP = new ImageButton(textureRegionDrawableBtnMenuP);
+        btnMenuP.setPosition(460, 180);
+
+        escenaGano.addActor(btnMenuP);
+
+        // Acción botón Perder
+        btnMenuP.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new PantallaMenu(principal));
+
+            }
+        });
+    }
+
+    private void crearBtnVolverAJugarGanar() {
+        //BotónVolverJugar
+        Texture texturaBtnVolverJugar = new Texture("Botones/Btn_GanoPerdio/Btn_VolverAJugar.png");
+        TextureRegion textureRegionBtnVolverJugar = new TextureRegion(texturaBtnVolverJugar);
+        TextureRegionDrawable textureRegionDrawableBtnVolverJugar = new TextureRegionDrawable(textureRegionBtnVolverJugar);
+        ImageButton btnVolver = new ImageButton(textureRegionDrawableBtnVolverJugar);
+        btnVolver.setPosition(460, 300);
+
+        escenaGano.addActor(btnVolver);
+
+        // Acción botón Perder
+        btnVolver.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+
+                principal.setScreen(new NivelGenerico(principal,nivel));
+
+            }
+        });
+    }
+
+    private void crearBtnSiguienteNivelGanar() {
+        //BotónSiguienteNivel
+        Texture texturaBtnSiguienteNivel = new Texture("Botones/Btn_GanoPerdio/Btn_SigNivel.png");
+        TextureRegion textureRegionBtnSiguienteNivel = new TextureRegion(texturaBtnSiguienteNivel);
+        TextureRegionDrawable textureRegionDrawableBtnSiguienteNivel = new TextureRegionDrawable(textureRegionBtnSiguienteNivel);
+        ImageButton btnSiguienteNivel = new ImageButton(textureRegionDrawableBtnSiguienteNivel);
+        btnSiguienteNivel.setPosition(460, 420);
+
+        escenaGano.addActor(btnSiguienteNivel);
+
+        // Acción botón Perder
+        btnSiguienteNivel.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new NivelGenerico(principal,nivel+1));
+
+
+            }
+        });
     }
 
     private void configurarEscenaPausa() {
@@ -175,7 +252,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new TestNivel2(principal));
+                principal.setScreen(new NivelGenerico(principal,nivel));
 
             }
         });
@@ -300,7 +377,7 @@ public class NivelGenerico extends Pantalla implements Screen {
     }
 
     private void crearGanaste() {
-        Texture texturaGanaste = new Texture("GanoPerdio/Gano_CONBOTONES.png");
+        Texture texturaGanaste = new Texture("GanoPerdio/Gano.png");
         spriteGanaste = new Sprite(texturaGanaste);
         spriteGanaste.setPosition(0, 0);
 
@@ -579,6 +656,11 @@ public class NivelGenerico extends Pantalla implements Screen {
 
                 escenaPerdio.draw();
                 Gdx.input.setInputProcessor(escenaPerdio);
+            }
+            if(timerGanar > 120 && perdio == false){
+                Gdx.input.setInputProcessor(escenaGano);
+              escenaGano.draw();
+
             }
         }
         else{
