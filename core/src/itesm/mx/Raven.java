@@ -22,7 +22,7 @@ public class Raven extends Wrumper {
             }
         }
 
-        public void atacar(TestNivel4 nivel){
+        public void atacar(NivelGenerico nivel){
             nivel.bolasRaven.add(new BolaRaven(this));
 
         }

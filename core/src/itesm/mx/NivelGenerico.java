@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.LinkedList;
 
-public class TestNivel4 extends Pantalla implements Screen {
+public class NivelGenerico extends Pantalla implements Screen {
 
     private boolean pausa=false;
     private Elya testE;
@@ -50,12 +50,12 @@ public class TestNivel4 extends Pantalla implements Screen {
     public Nube nube1,nube2;
     public String rutaFondo;
 
-    public TestNivel4(Principal principal) {
+    public NivelGenerico(Principal principal) {
         this.principal = principal;
         rutaFondo="Nivel4/Nivel4.png";
     }
 
-    public TestNivel4(Principal principal,int nivel) {
+    public NivelGenerico(Principal principal, int nivel) {
         this.principal = principal;
         switch (nivel) {
             case 1:
