@@ -322,7 +322,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         TextureRegion textureRegionBtnIzq = new TextureRegion(texturaBtnIzq);
         TextureRegionDrawable textureRegionDrawableBtnIzq = new TextureRegionDrawable(textureRegionBtnIzq);
         ImageButton btnIzq = new ImageButton(textureRegionDrawableBtnIzq);
-        btnIzq.setPosition(ANCHO/2-370, ALTO/2-355);
+        btnIzq.setPosition(ANCHO/2-600, ALTO/2-355);
 
         stage.addActor(btnIzq);
 
@@ -355,7 +355,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         TextureRegion textureRegionBtnAtac = new TextureRegion(texturaBtnAtac);
         TextureRegionDrawable textureRegionDrawableBtnAtac = new TextureRegionDrawable(textureRegionBtnAtac);
         ImageButton btnAtac = new ImageButton(textureRegionDrawableBtnAtac);
-        btnAtac.setPosition(ANCHO/2-600, ALTO/2-345);
+        btnAtac.setPosition(ANCHO/2+400, ALTO/2-345);
 
         stage.addActor(btnAtac);
 
@@ -395,7 +395,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         TextureRegion textureRegionBtnDer = new TextureRegion(texturaBtnDer);
         TextureRegionDrawable textureRegionDrawableBtnDer = new TextureRegionDrawable(textureRegionBtnDer);
         ImageButton btnDer = new ImageButton(textureRegionDrawableBtnDer);
-        btnDer.setPosition(ANCHO/2-260, ALTO/2-355);
+        btnDer.setPosition(ANCHO/2-450, ALTO/2-355);
 
         stage.addActor(btnDer);
 
