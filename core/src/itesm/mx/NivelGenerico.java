@@ -156,7 +156,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         }
 
         music.setLooping(true);
-        music.setVolume(0.1f);
+        music.setVolume(1f);
         music.play();
     }
 
@@ -228,6 +228,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                music.stop();
                 principal.setScreen(new NivelGenerico(principal,nivel+1));
 
 
@@ -356,8 +357,9 @@ public class NivelGenerico extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-
+                music.stop();
                 principal.setScreen(new PantallaMenu(principal));
+
 
             }
         });
@@ -379,7 +381,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-
+                music.stop();
                 principal.setScreen(new NivelGenerico(principal, nivel));
 
             }
@@ -1078,11 +1080,30 @@ public class NivelGenerico extends Pantalla implements Screen {
                 System.out.println(testE.getVidas());
             }
         }
+        if(bossNivel2 !=null){
+            if(bossNivel2.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel2.getX()<= testE.getX()+ testE.getWidth()/2&& bossNivel2 !=null){
+                bossNivel2.atacar(testE);
+                System.out.println(testE.getVidas());
+            }}
+
+        if(bossNivel1 !=null){
+            if(bossNivel1.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel1.getX()<= testE.getX()+ testE.getWidth()/2&& bossNivel1 !=null){
+                bossNivel1.atacar(testE);
+                System.out.println(testE.getVidas());
+            }}
+
+        if(bossNivel3 !=null){
+            if(bossNivel3.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel3.getX()<= testE.getX()+ testE.getWidth()/2&& bossNivel3 !=null){
+                bossNivel3.atacar(testE);
+                System.out.println(testE.getVidas());
+            }}
+
         if(bossNivel4 !=null){
             if(bossNivel4.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel4.getX()<= testE.getX()+ testE.getWidth()/2&& bossNivel4 !=null){
                 bossNivel4.atacar(testE);
                 System.out.println(testE.getVidas());
-            }}
+            }
+        }
 
     }
     // Borra la pantalla con el color RGB (r,g,b)
