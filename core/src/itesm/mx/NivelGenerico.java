@@ -182,7 +182,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-
+                music.stop();
                 principal.setScreen(new PantallaMenu(principal));
 
             }
@@ -302,7 +302,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-
+                music.stop();
                 principal.setScreen(new PantallaMenu(principal));
 
             }
@@ -640,7 +640,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             batch.draw(textFondo, 0, 0);
 
             // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
-
+//
             for (Item item : listaItems) {
                 item.render(batch);
                 item.tiempoTranscurrido += delta;
