@@ -134,7 +134,9 @@ public class NivelGenerico extends Pantalla implements Screen {
         bossNivel1 = new Keeper1();
         bossNivel2 = new Keeper2();
         bossNivel3 = new Keeper3();
+
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void inicializarMusica() {
@@ -694,6 +696,7 @@ public class NivelGenerico extends Pantalla implements Screen {
               escenaGano.draw();
 
             }
+            checarTeclaRegreso();
         }
         else{
             batch.begin();
@@ -707,6 +710,13 @@ public class NivelGenerico extends Pantalla implements Screen {
         }
 
 
+    }
+
+    private void checarTeclaRegreso() {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            principal.setScreen(new PantallaMenu(principal));
+
+        }
     }
 
     private void actualizarTimerAtaqueRaven(float delta) {
@@ -1106,7 +1116,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
             if (keycode== Input.Keys.BACK){
                 principal.setScreen(new PantallaMenu(principal));
-
+                return true;
             }
             return false;
         }
@@ -1123,7 +1133,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+            System.out.println("SIRVE");
             return true;
         }
 
