@@ -12,7 +12,7 @@ public class Personaje {
     protected Animation animacion; //cuanto tiempo pasa entre frames
     protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
-    public boolean derecha;
+    public boolean derecha=true;
     protected float timerAnimacion;
     public float contadorMuerte,contadorMuerteOG;
     public PersonajeEstado estado=PersonajeEstado.quieto;

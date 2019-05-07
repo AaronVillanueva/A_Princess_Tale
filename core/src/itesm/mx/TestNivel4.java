@@ -48,22 +48,39 @@ public class TestNivel4 extends Pantalla implements Screen {
     private Texto texto;
     private Raven bossNivel;
     public Nube nube1,nube2;
+    public String rutaFondo;
 
+    public TestNivel4(Principal principal) {
+        this.principal = principal;
+        rutaFondo="Nivel4/Nivel4.png";
+    }
 
-
-    public TestNivel4(Principal principal){this.principal=principal;}
+    public TestNivel4(Principal principal,int nivel) {
+        this.principal = principal;
+        switch (nivel) {
+            case 1:
+                rutaFondo = "Nivel1/Nivel1.png";
+            case 2:
+                rutaFondo = "Nivel2/Nivel2.png";
+            case 3:
+                rutaFondo = "Nivel3/Nivel3.png";
+            case 4:
+                rutaFondo = "Nivel4/Nivel4.png";
+        }
+    }
     @Override
     public void show() {
+
         nube1=new Nube(2,250,40,.8f);
         nube2=new Nube(2,700,600,.8f);
         nube1.activarRandom(false);
         nube2.activarRandom(false);
-
         inicializarShow();
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        crearFondo("Nivel4/Nivel4.png");
+        System.out.println(rutaFondo);
+        crearFondo(rutaFondo);
         enemigos = new LinkedList<Wrumper>();
         voladores = new LinkedList<Volador>();
         flechas = new LinkedList<Flecha>();
@@ -385,7 +402,6 @@ public class TestNivel4 extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(testE.getEstado());
         if(!pausa) {
             //testE.setEstado(PersonajeEstado.quieto);
 
