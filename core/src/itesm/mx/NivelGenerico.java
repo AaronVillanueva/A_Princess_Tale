@@ -697,6 +697,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
             }
             checarTeclaRegreso();
+
         }
         else{
             batch.begin();
@@ -705,7 +706,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             crearPausa();
             Gdx.input.setInputProcessor(escenaPausa);
             escenaPausa.draw();
-
+            checarTeclaRegreso();
 
         }
 
@@ -713,10 +714,16 @@ public class NivelGenerico extends Pantalla implements Screen {
     }
 
     private void checarTeclaRegreso() {
-        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&(pausa!=false)){
             principal.setScreen(new PantallaMenu(principal));
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&pausa==false){
+            pausa=true;
 
         }
+
     }
 
     private void actualizarTimerAtaqueRaven(float delta) {
