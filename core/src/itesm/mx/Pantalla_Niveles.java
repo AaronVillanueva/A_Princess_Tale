@@ -1,6 +1,7 @@
 package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
@@ -128,6 +129,13 @@ public class Pantalla_Niveles extends Pantalla {
         stage.act(Gdx.graphics.getDeltaTime());
         batch.end();
         stage.draw();
+        checarRegreso();
+    }
+
+    private void checarRegreso() {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            principal.setScreen(new PantallaMenu(principal));
+        }
     }
 
     @Override

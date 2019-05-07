@@ -1,6 +1,7 @@
 package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -176,13 +177,18 @@ public class PantallaAjustes extends Pantalla implements Screen {
         batch.end();
         //configuracion.act();
         configuracion.draw();
-
+        checarRegreso();
 
 
 
 
     }
 
+    private void checarRegreso() {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            principal.setScreen(new PantallaMenu(principal));
+        }
+    }
 
 
     @Override

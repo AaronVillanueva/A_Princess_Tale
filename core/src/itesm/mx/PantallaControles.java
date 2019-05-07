@@ -1,5 +1,7 @@
 package itesm.mx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 
 public class PantallaControles extends Pantalla implements Screen {
@@ -28,6 +30,13 @@ public class PantallaControles extends Pantalla implements Screen {
         batch.draw(textFondo, 0, 0);
         spriteRegresar.draw(batch);
         batch.end();
+        cehcarRegreso();
+    }
+
+    private void cehcarRegreso() {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            principal.setScreen(new PantallaMenu(principal));
+        }
     }
 
     @Override
