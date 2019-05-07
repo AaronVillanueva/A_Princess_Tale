@@ -60,17 +60,22 @@ public class TestNivel4 extends Pantalla implements Screen {
         switch (nivel) {
             case 1:
                 rutaFondo = "Nivel1/Nivel1.png";
+                break;
             case 2:
                 rutaFondo = "Nivel2/Nivel2.png";
+                break;
             case 3:
                 rutaFondo = "Nivel3/Nivel3.png";
+                break;
             case 4:
                 rutaFondo = "Nivel4/Nivel4.png";
+                break;
         }
+        System.out.println("ini"+rutaFondo);
     }
     @Override
     public void show() {
-
+        System.out.println(rutaFondo);
         nube1=new Nube(2,250,40,.8f);
         nube2=new Nube(2,700,600,.8f);
         nube1.activarRandom(false);
@@ -79,7 +84,6 @@ public class TestNivel4 extends Pantalla implements Screen {
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
         listaItems = new LinkedList<Item>();
-        System.out.println(rutaFondo);
         crearFondo(rutaFondo);
         enemigos = new LinkedList<Wrumper>();
         voladores = new LinkedList<Volador>();
