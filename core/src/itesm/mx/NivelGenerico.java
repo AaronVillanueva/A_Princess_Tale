@@ -274,7 +274,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new TestNivel2(principal));
+                principal.setScreen(new NivelGenerico(principal, nivel));
 
             }
         });
@@ -604,7 +604,7 @@ public class NivelGenerico extends Pantalla implements Screen {
     }
 
     private void procesoAtaqueRaven() {
-        if(timerAtaqueRaven>=6.5){
+        if(timerAtaqueRaven>=5){
             bolasRaven.add(new BolaRaven(bossNivel4));
             timerAtaqueRaven = 0;
         }
