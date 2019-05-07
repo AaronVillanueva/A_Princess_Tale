@@ -50,10 +50,12 @@ public class NivelGenerico extends Pantalla implements Screen {
     public Nube nube1,nube2;
     private float timerAnimAtaque=0;
     public String rutaFondo;
+    public int nivel;
 
     public NivelGenerico(Principal principal){this.principal=principal;}
     public NivelGenerico(Principal principal, int nivel) {
         this.principal = principal;
+        this.nivel=nivel;
         switch (nivel) {
             case 1:
                 rutaFondo = "Nivel1/Nivel1.png";
