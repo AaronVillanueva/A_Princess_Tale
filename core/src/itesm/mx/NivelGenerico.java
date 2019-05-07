@@ -23,8 +23,8 @@ public class NivelGenerico extends Pantalla implements Screen {
     private boolean pausa=false;
     private Elya testE;
     private LinkedList<Item> listaItems;
-    private float tiempoParaVoladores;
-    private float tiempoParaWrumpers;
+    private float tiempoParaVoladores=1000;
+    private float tiempoParaWrumpers=5;
     private LinkedList<Wrumper> enemigos;
     private LinkedList<Volador> voladores;
     public LinkedList<BolaRaven> bolasRaven;
@@ -63,15 +63,23 @@ public class NivelGenerico extends Pantalla implements Screen {
         switch (nivel) {
             case 1:
                 rutaFondo = "Nivel1/Nivel1.png";
+                tiempoParaWrumpers = 10;
+                tiempoParaVoladores = 1000;
                 break;
             case 2:
                 rutaFondo = "Nivel2/Nivel2.png";
+                tiempoParaWrumpers = 7;
+                tiempoParaVoladores = 1000;
                 break;
             case 3:
                 rutaFondo = "Nivel3/Nivel3.png";
+                tiempoParaWrumpers = 7;
+                tiempoParaVoladores = 12;
                 break;
             case 4:
                 rutaFondo = "Nivel4/Nivel4.png";
+                tiempoParaWrumpers=5;
+                tiempoParaVoladores = 10;
                 break;
         }
         System.out.println("ini"+rutaFondo);
@@ -468,11 +476,11 @@ public class NivelGenerico extends Pantalla implements Screen {
 
             timerEnemigos += delta;
             timerVoladores += delta;
-            if (timerEnemigos >= 5) {
+            if (timerEnemigos >= tiempoParaWrumpers) {
                 generarWrumpers();
                 timerEnemigos = 0;
             }
-            if(timerVoladores>=10){
+            if(timerVoladores>=tiempoParaVoladores){
                 generarVoladores();
                 timerVoladores=0;
             }
