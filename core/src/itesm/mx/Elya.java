@@ -26,7 +26,7 @@ public class Elya extends Personaje {
         estado=PersonajeEstado.quieto;
         cargarText("Personajes/ElyaQuieta.png",1,0);
         cargarText("Personajes/ElyaRunning2.png", 24, 1);
-        cargarText("Personajes/ElyaAtack.png", 22, 2);
+        cargarText("Personajes/ElyaAtack2.png", 24, 2);
         cargarText("Personajes/ElyaDead.png", 1, 3);
 
     }
