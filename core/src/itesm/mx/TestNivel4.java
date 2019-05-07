@@ -392,12 +392,16 @@ public class TestNivel4 extends Pantalla implements Screen {
             Gdx.input.setInputProcessor(stage);
             borrarPantalla(0f, 0f, 0f);
             checarPerdio();
+
+            //mover a la princesa cuando se encuentra en un estado caminando
             if(testE.getEstado()==PersonajeEstado.caminandoNormal){
                 testE.moverX(testE.velocidad);
             }
             if(testE.getEstado()==PersonajeEstado.caminandoReversa){
                 testE.moverX(-testE.velocidad);
             }
+
+
             auxiliarTiempo += delta;
             if (auxiliarTiempo >= 1 && gano != true && perdio != true) {
                 tiempoTranscurridoSeg += 1;

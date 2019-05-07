@@ -53,6 +53,7 @@ public class Elya extends Personaje {
     public int getPoder(){
         return poder;
     }
+    public void setVelocidad(int velocidad){this.velocidad=velocidad;}
 
     public void update(float delta){
             if(saltando){
