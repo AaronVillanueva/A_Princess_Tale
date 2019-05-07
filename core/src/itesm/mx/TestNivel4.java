@@ -290,19 +290,24 @@ public class TestNivel4 extends Pantalla implements Screen {
 
         // Acción botón Izquierda
         btnIzq.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                //Responder al evento del botón
-
+            public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
+                super.touchDown(event,x,y,pointer,button);
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    if(testE.getX()>0){
-                        testE.getSprite().setPosition(testE.getX()-20, testE.getY());
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.caminandoReversa);
                     }
+                }
 
-                    testE.setEstado(PersonajeEstado.caminandoReversa);}
+                return true;}
+                public void touchUp(InputEvent event,float x,float y,int pointer,int button){
+                //super.touchUp(event,x,y,pointer,button);
+                    if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                        if(testE.getX()<ANCHO-70){
+                            testE.setEstado(PersonajeEstado.quieto); }
+                    }
             }
-        });
+            }
+        );
 
     }
 
@@ -348,21 +353,9 @@ public class TestNivel4 extends Pantalla implements Screen {
 
         stage.addActor(btnDer);
 
-        // Acción botón derecha
+        // Acción botón derecha para movimiento
         btnDer.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
 
-                //Responder al evento del botón
-                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                    if(testE.getX()<ANCHO-70){
-                        testE.getSprite().setPosition(testE.getX() + 20, testE.getY());
-                    }
-
-                    testE.setEstado(PersonajeEstado.caminandoNormal);
-                }
-            }
             public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
                 super.touchDown(event,x,y,pointer,button);
                 if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
