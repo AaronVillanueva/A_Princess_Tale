@@ -328,7 +328,7 @@ public class TestNivel4 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 int direc = 1;
-                if(testE.getEstado()==PersonajeEstado.caminandoReversa){
+                if(testE.getEstado()==PersonajeEstado.caminandoReversa || testE.derecha==false){
                     direc = -1;
                 }
                 if(flechasActivas<=4 && testE.getEstado()!=PersonajeEstado.muerto && testE.getEstado()!=PersonajeEstado.muriendo){

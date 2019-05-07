@@ -12,6 +12,7 @@ public class Personaje {
     protected Animation animacion; //cuanto tiempo pasa entre frames
     protected Animation animC,animQ,animA,animD;
     protected Sprite sprite;
+    public boolean derecha;
     protected float timerAnimacion;
     public float contadorMuerte,contadorMuerteOG;
     public PersonajeEstado estado=PersonajeEstado.quieto;
@@ -60,12 +61,14 @@ public class Personaje {
         switch (estado){
             case caminandoNormal:
                 animacion=animC;
+                derecha=true;
                 if(region.isFlipX()){
                     region.flip(true, false);
                 }
                 break;
             case caminandoReversa:
                 animacion=animC;
+                derecha=false;
                 if(!region.isFlipX()){
                     region.flip(true, false);
                 }
