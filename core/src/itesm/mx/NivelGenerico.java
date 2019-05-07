@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -48,10 +47,14 @@ public class NivelGenerico extends Pantalla implements Screen {
     float auxiliarTiempo = 0;
     float timerAtaqueRaven = 0;
     private Texto texto;
-    private Raven bossNivel;
+    private Raven bossNivel4;
+    private Keeper1 bossNivel1;
+    private Keeper2 bossNivel2;
+    private Keeper3 bossNivel3;
     public Nube nube1,nube2;
     public String rutaFondo;
     float timerAnimAtaque = 0;
+    public int nivel = 0;
 
     public NivelGenerico(Principal principal) {
         this.principal = principal;
@@ -83,6 +86,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 break;
         }
         System.out.println("ini"+rutaFondo);
+        this.nivel = nivel;
     }
     @Override
     public void show() {
@@ -116,10 +120,12 @@ public class NivelGenerico extends Pantalla implements Screen {
 
         configurarEscenaPerdio();
         configurarEscenaPausa();
-        //crearBotonVolverAJugar();
         inicializarVidas();
         texto = new Texto();
-        bossNivel = new Raven();
+        bossNivel4 = new Raven();
+        bossNivel1 = new Keeper1();
+        bossNivel2 = new Keeper2();
+        bossNivel3 = new Keeper3();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -455,9 +461,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 auxiliarTiempo = 0;
             }
             timerGanar += delta;
-            if(bossNivel!=null && tiempoTranscurridoSeg>=90){
-                timerAtaqueRaven +=delta;
-            }
+            actualizarTimerAtaqueRaven(delta);
             verificarColisionBolasRaven();
             actualizarBolasRaven();
             actualizarFlechas(delta);
@@ -591,9 +595,17 @@ public class NivelGenerico extends Pantalla implements Screen {
 
     }
 
+    private void actualizarTimerAtaqueRaven(float delta) {
+        if(nivel ==4){
+            if(bossNivel4 !=null && tiempoTranscurridoSeg>=90){
+                timerAtaqueRaven +=delta;
+            }
+        }
+    }
+
     private void procesoAtaqueRaven() {
         if(timerAtaqueRaven>=6.5){
-            bolasRaven.add(new BolaRaven(bossNivel));
+            bolasRaven.add(new BolaRaven(bossNivel4));
             timerAtaqueRaven = 0;
         }
     }
@@ -606,7 +618,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
     private void actualizarBolasRaven() {
         for(BolaRaven bola: bolasRaven){
-            bola.rastrearPrincesa(bossNivel, testE);
+            bola.rastrearPrincesa(bossNivel4, testE);
         }
     }
 
@@ -636,15 +648,56 @@ public class NivelGenerico extends Pantalla implements Screen {
 
 
     private void procesoBoss() {
-        if(tiempoTranscurridoSeg>=90 && bossNivel != null){
-            bossNivel.encontrarPosicion(testE);
+        switch(nivel){
+            case 1:
+                if(tiempoTranscurridoSeg>=90 && bossNivel1 != null){
+                    bossNivel1.rastrearPrincesa(testE);
+                }
+                break;
+            case 2:
+                if(tiempoTranscurridoSeg>=90 && bossNivel2 != null){
+                    bossNivel2.rastrearPrincesa(testE);
+                }
+                break;
+            case 3:
+                if(tiempoTranscurridoSeg>=90 && bossNivel3 != null){
+                    bossNivel3.rastrearPrincesa(testE);
+                }
+                break;
+            case 4:
+                if(tiempoTranscurridoSeg>=90 && bossNivel4 != null){
+                    bossNivel4.encontrarPosicion(testE);
+                }
+                break;
+
         }
+
     }
 
     private void dibujarBoss() {
-        if(tiempoTranscurridoSeg>=90&&bossNivel !=null){
-            bossNivel.render(batch);
+        switch(nivel){
+            case 1:
+                if(tiempoTranscurridoSeg>=90&&bossNivel1 !=null){
+                    bossNivel1.render(batch);
+                }
+                break;
+            case 2:
+                if(tiempoTranscurridoSeg>=90&&bossNivel2 !=null){
+                    bossNivel2.render(batch);
+                }
+                break;
+            case 3:
+                if(tiempoTranscurridoSeg>=90&&bossNivel3 !=null){
+                    bossNivel3.render(batch);
+                }
+                break;
+            case 4:
+                if(tiempoTranscurridoSeg>=90&& bossNivel4 !=null){
+                    bossNivel4.render(batch);
+                }
+                break;
         }
+
     }
 
     private void dibujarVidas() {
@@ -688,13 +741,43 @@ public class NivelGenerico extends Pantalla implements Screen {
             }
         }
 
-        if(bossNivel!=null){
-            if(bossNivel.getVidas()<=0){
-                bossNivel= null;
-                bolasRaven = new LinkedList<BolaRaven>();
-                System.out.println("me hice null");
-            }
+        switch(nivel){
+            case 1:
+                if(bossNivel1!=null){
+                    if(bossNivel1.getVidas()<=0){
+                        bossNivel1= null;
+                        System.out.println("me hice null");
+                    }
+                }
+                break;
+            case 2:
+                if(bossNivel2!=null){
+                    if(bossNivel2.getVidas()<=0){
+                        bossNivel2= null;
+                        System.out.println("me hice null");
+                    }
+                }
+                break;
+            case 3:
+                if(bossNivel3!=null){
+                    if(bossNivel3.getVidas()<=0){
+                        bossNivel3= null;
+                        System.out.println("me hice null");
+                    }
+                }
+
+                break;
+            case 4:
+                if(bossNivel4 !=null){
+                    if(bossNivel4.getVidas()<=0){
+                        bossNivel4 = null;
+                        bolasRaven = new LinkedList<BolaRaven>();
+                        System.out.println("me hice null");
+                    }
+                }
+                break;
         }
+
 
 
 
@@ -740,15 +823,54 @@ public class NivelGenerico extends Pantalla implements Screen {
                 break;
             }
 
-            if(bossNivel!=null){
-                if(flecha.getSprite().getX()>=bossNivel.getX()-bossNivel.getWidth()/2&&flecha.getSprite().getX()<=bossNivel.getX()+bossNivel.getWidth()/2){
-                    bossNivel.actualizarVidas(testE.getPoder()*-1);
-                    flechas.remove(i);
-                    flechasActivas--;
-                    yaDesaparecio = true;
+            switch(nivel){
+                case 1:
+                    if(bossNivel1 !=null){
+                        if(flecha.getSprite().getX()>= bossNivel1.getX()- bossNivel1.getWidth()/2&&flecha.getSprite().getX()<= bossNivel1.getX()+ bossNivel1.getWidth()/2){
+                            bossNivel1.actualizarVidas(testE.getPoder()*-1);
+                            flechas.remove(i);
+                            flechasActivas--;
+                            yaDesaparecio = true;
+                            break;
+                        }
+                    }
                     break;
-                }
+                case 2:
+                    if(bossNivel2 !=null){
+                        if(flecha.getSprite().getX()>= bossNivel2.getX()- bossNivel4.getWidth()/2&&flecha.getSprite().getX()<= bossNivel2.getX()+ bossNivel2.getWidth()/2){
+                            bossNivel2.actualizarVidas(testE.getPoder()*-1);
+                            flechas.remove(i);
+                            flechasActivas--;
+                            yaDesaparecio = true;
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    if(bossNivel3 !=null){
+                        if(flecha.getSprite().getX()>= bossNivel3.getX()- bossNivel3.getWidth()/2&&flecha.getSprite().getX()<= bossNivel3.getX()+ bossNivel3.getWidth()/2){
+                            bossNivel3.actualizarVidas(testE.getPoder()*-1);
+                            flechas.remove(i);
+                            flechasActivas--;
+                            yaDesaparecio = true;
+                            break;
+                        }
+                    }
+                    break;
+                case 4:
+                    if(bossNivel4 !=null){
+                        if(flecha.getSprite().getX()>= bossNivel4.getX()- bossNivel4.getWidth()/2&&flecha.getSprite().getX()<= bossNivel4.getX()+ bossNivel4.getWidth()/2){
+                            bossNivel4.actualizarVidas(testE.getPoder()*-1);
+                            flechas.remove(i);
+                            flechasActivas--;
+                            yaDesaparecio = true;
+                            break;
+                        }
+                    }
+                    break;
+
             }
+
             if(yaDesaparecio){
                 break;
             }
@@ -822,9 +944,9 @@ public class NivelGenerico extends Pantalla implements Screen {
                 System.out.println(testE.getVidas());
             }
         }
-        if(bossNivel!=null){
-            if(bossNivel.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel.getX()<= testE.getX()+ testE.getWidth()/2&&bossNivel!=null){
-                bossNivel.atacar(testE);
+        if(bossNivel4 !=null){
+            if(bossNivel4.getX()>=testE.getX()-testE.getWidth()/2 && bossNivel4.getX()<= testE.getX()+ testE.getWidth()/2&& bossNivel4 !=null){
+                bossNivel4.atacar(testE);
                 System.out.println(testE.getVidas());
             }}
 
