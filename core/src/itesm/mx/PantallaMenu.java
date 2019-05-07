@@ -79,7 +79,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new NivelGenerico(principal,1));
+                principal.setScreen(new NivelGenerico(principal));
             }
         });
 
