@@ -48,6 +48,7 @@ public class TestNivel4 extends Pantalla implements Screen {
     private Texto texto;
     private Raven bossNivel;
     public Nube nube1,nube2;
+    private float timerAnimAtaque=0;
 
 
 
@@ -313,6 +314,7 @@ public class TestNivel4 extends Pantalla implements Screen {
 
     private void crearBotonAtacar(){
         // Botón derecha
+
         Texture texturaBtnAtac = new Texture("Botones/Btn_Nivel1/Btn_Ataque.png");
         TextureRegion textureRegionBtnAtac = new TextureRegion(texturaBtnAtac);
         TextureRegionDrawable textureRegionDrawableBtnAtac = new TextureRegionDrawable(textureRegionBtnAtac);
@@ -326,6 +328,14 @@ public class TestNivel4 extends Pantalla implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                if(testE.derecha==true){
+                    testE.setEstado(PersonajeEstado.atacando);
+                }
+
+                else{
+                    testE.setEstado(PersonajeEstado.atacandoReversa);
+                }
+                timerAnimAtaque = 0;
                 //Responder al evento del botón
                 int direc = 1;
                 if(testE.getEstado()==PersonajeEstado.caminandoReversa || testE.derecha==false){
@@ -387,7 +397,14 @@ public class TestNivel4 extends Pantalla implements Screen {
     public void render(float delta) {
         System.out.println(testE.getEstado());
         if(!pausa) {
-            //testE.setEstado(PersonajeEstado.quieto);
+            if(testE.getEstado()==PersonajeEstado.atacando){
+                timerAnimAtaque += delta;
+            }
+
+            if(timerAnimAtaque>=0.5){
+                testE.setEstado(PersonajeEstado.quieto);
+                timerAnimAtaque = 0;
+            }
 
             Gdx.input.setInputProcessor(stage);
             borrarPantalla(0f, 0f, 0f);
