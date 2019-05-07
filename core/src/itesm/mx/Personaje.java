@@ -16,6 +16,7 @@ public class Personaje {
     public float contadorMuerte,contadorMuerteOG;
     public PersonajeEstado estado=PersonajeEstado.quieto;
 
+    //Generar una animacion en base a un path de imagen dado. Requiere el numero de frames y el tipo de animacion.
     //Tipo 0 = quieto, Tipo 1 = Caminando, Tipo 2= Atacando, Tipo 3= Muerte
     public void cargarText(String path,int frames,int tipo){
         Texture textura=new Texture(path);
@@ -43,6 +44,7 @@ public class Personaje {
         sprite.setPosition(0,64);
     }
 
+    //Crea una animacion a partir de una textura dividida
     private Animation crearAnimacion(TextureRegion[] text){
         Animation animac = new Animation(0.025f,text);
         animac.setPlayMode(Animation.PlayMode.LOOP);
@@ -50,11 +52,11 @@ public class Personaje {
     }
 
     public void render(SpriteBatch batch){
-        //estado=PersonajeEstado.caminandoReversa;
-        //animacion=animC;
         timerAnimacion+=Gdx.graphics.getDeltaTime();
-        //System.out.println(timerAnimacion);
+        //Recarga la animacion
         TextureRegion region=(TextureRegion) animacion.getKeyFrame(timerAnimacion);
+
+        //Cambia animaciones segun estado
         switch (estado){
             case caminandoNormal:
                 animacion=animC;
@@ -79,8 +81,8 @@ public class Personaje {
                 animacion=animD;
                 break;
 
-
         }
+        //timer para animacion de muerte
         if(estado==PersonajeEstado.muriendo){
             contadorMuerte+=timerAnimacion;
             if(contadorMuerteOG==0){
