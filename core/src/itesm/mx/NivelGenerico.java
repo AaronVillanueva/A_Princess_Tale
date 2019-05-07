@@ -108,6 +108,9 @@ public class NivelGenerico extends Pantalla implements Screen {
         Gdx.input.setInputProcessor(new ProcesadorEntradaJuego());
         testE=new Elya();
         testE.setPos(40, ALTO/2-220);
+        if(nivel==1){
+            testE.setPos(40, ALTO/2-205);
+        }
         stage = new Stage(vista);
         escenaPerdio=new Stage(vista);
         escenaPausa=new Stage(vista);
@@ -601,10 +604,18 @@ public class NivelGenerico extends Pantalla implements Screen {
 
             batch.begin();
             batch.draw(cielo, 0, 0);
-            //nube1.draw(batch, 5);
 
+            if(nivel==2){
+                nube1.draw(batch, 5);
+                nube2.draw(batch, 2);
+            }
+
+            else if(nivel ==3){
+                nube1.draw(batch, 5);
+            }
             batch.draw(textFondo, 0, 0);
-            //nube2.draw(batch, 2);
+
+
             // dibujamos items (si existen) y eliminamos los que ya hayan cumplido su ciclo
 
             for (Item item : listaItems) {
@@ -989,6 +1000,9 @@ public class NivelGenerico extends Pantalla implements Screen {
     private void generarWrumpers() {
         Wrumper w = new Wrumper();
         w.setPos(w.getX(), w.getY()-17);
+        if(nivel==1){
+            w.setPos(w.getX(), w.getY()+18);
+        }
         enemigos.add(w);
     }
 
