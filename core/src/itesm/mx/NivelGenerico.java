@@ -286,13 +286,13 @@ public class NivelGenerico extends Pantalla implements Screen {
             Texture texturaVida = new Texture("Botones/Btn_Nivel1/Vida.png");
             Sprite sprite = new Sprite(texturaVida);
             if(i==0){
-                sprite.setPosition(100, ALTO-150);
+                sprite.setPosition(25, ALTO-100);
             }
             else if(i==1){
-                sprite.setPosition(200, ALTO-150);
+                sprite.setPosition(150, ALTO-100);
             }
             else{
-                sprite.setPosition(300, ALTO-150);
+                sprite.setPosition(275, ALTO-100);
             }
 
             vidas.add(sprite);
