@@ -23,8 +23,6 @@ public class NivelGenerico extends Pantalla implements Screen {
     private boolean pausa=false;
     private Elya testE;
     private LinkedList<Item> listaItems;
-    private float tiempoParaVoladores;
-    private float tiempoParaWrumpers;
     private LinkedList<Wrumper> enemigos;
     private LinkedList<Volador> voladores;
     public LinkedList<BolaRaven> bolasRaven;
@@ -50,14 +48,10 @@ public class NivelGenerico extends Pantalla implements Screen {
     private Texto texto;
     private Raven bossNivel;
     public Nube nube1,nube2;
+    private float timerAnimAtaque=0;
     public String rutaFondo;
-    float timerAnimAtaque = 0;
 
-    public NivelGenerico(Principal principal) {
-        this.principal = principal;
-        rutaFondo="Nivel4/Nivel4.png";
-    }
-
+    public NivelGenerico(Principal principal){this.principal=principal;}
     public NivelGenerico(Principal principal, int nivel) {
         this.principal = principal;
         switch (nivel) {
@@ -78,11 +72,11 @@ public class NivelGenerico extends Pantalla implements Screen {
     }
     @Override
     public void show() {
-        System.out.println(rutaFondo);
         nube1=new Nube(2,250,40,.8f);
         nube2=new Nube(2,700,600,.8f);
         nube1.activarRandom(false);
         nube2.activarRandom(false);
+
         inicializarShow();
         vidas = new LinkedList<Sprite>();
         timerEnemigos = 0;
@@ -314,29 +308,30 @@ public class NivelGenerico extends Pantalla implements Screen {
 
         // Acción botón Izquierda
         btnIzq.addListener(new ClickListener(){
-                               public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
-                                   super.touchDown(event,x,y,pointer,button);
-                                   if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                                       if(testE.getX()<ANCHO-70){
-                                           testE.setEstado(PersonajeEstado.caminandoReversa);
-                                       }
-                                   }
+            public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
+                super.touchDown(event,x,y,pointer,button);
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.caminandoReversa);
+                    }
+                }
 
-                                   return true;}
-                               public void touchUp(InputEvent event,float x,float y,int pointer,int button){
-                                   //super.touchUp(event,x,y,pointer,button);
-                                   if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                                       if(testE.getX()<ANCHO-70){
-                                           testE.setEstado(PersonajeEstado.quieto); }
-                                   }
-                               }
-                           }
+                return true;}
+                public void touchUp(InputEvent event,float x,float y,int pointer,int button){
+                //super.touchUp(event,x,y,pointer,button);
+                    if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                        if(testE.getX()<ANCHO-70){
+                            testE.setEstado(PersonajeEstado.quieto); }
+                    }
+            }
+            }
         );
 
     }
 
     private void crearBotonAtacar(){
         // Botón derecha
+
         Texture texturaBtnAtac = new Texture("Botones/Btn_Nivel1/Btn_Ataque.png");
         TextureRegion textureRegionBtnAtac = new TextureRegion(texturaBtnAtac);
         TextureRegionDrawable textureRegionDrawableBtnAtac = new TextureRegionDrawable(textureRegionBtnAtac);
@@ -350,7 +345,6 @@ public class NivelGenerico extends Pantalla implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //Responder al evento del botón
                 if(testE.derecha==true){
                     testE.setEstado(PersonajeEstado.atacando);
                 }
@@ -359,6 +353,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                     testE.setEstado(PersonajeEstado.atacandoReversa);
                 }
                 timerAnimAtaque = 0;
+                //Responder al evento del botón
                 int direc = 1;
                 if(testE.getEstado()==PersonajeEstado.caminandoReversa || testE.derecha==false){
                     direc = -1;
@@ -388,26 +383,26 @@ public class NivelGenerico extends Pantalla implements Screen {
         // Acción botón derecha para movimiento
         btnDer.addListener(new ClickListener(){
 
-                               public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
-                                   super.touchDown(event,x,y,pointer,button);
-                                   if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                                       if(testE.getX()<ANCHO-70){
-                                           testE.setEstado(PersonajeEstado.caminandoNormal);
-                                       }
-                                   }
+            public boolean touchDown(InputEvent event,float x,float y,int pointer, int button){
+                super.touchDown(event,x,y,pointer,button);
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.caminandoNormal);
+                    }
+                }
 
-                                   return true;
-                               }
-                               public void touchUp(InputEvent event,float x,float y,int pointer,int button){
-                                   //super.touchUp(event,x,y,pointer,button);
-                                   if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
-                                       if(testE.getX()<ANCHO-70){
-                                           testE.setEstado(PersonajeEstado.quieto);
-                                       }
-                                   }
-                               }
+                return true;
+            }
+            public void touchUp(InputEvent event,float x,float y,int pointer,int button){
+                //super.touchUp(event,x,y,pointer,button);
+                if(testE.getEstado()!=PersonajeEstado.muriendo && testE.getEstado()!=PersonajeEstado.muerto) {
+                    if(testE.getX()<ANCHO-70){
+                        testE.setEstado(PersonajeEstado.quieto);
+                    }
+                }
+            }
 
-                           }
+        }
         );
         //btnDer.addListener()
 
@@ -417,8 +412,9 @@ public class NivelGenerico extends Pantalla implements Screen {
 
     @Override
     public void render(float delta) {
+        System.out.println(testE.getEstado());
         if(!pausa) {
-            if(testE.getEstado()==PersonajeEstado.atacando || testE.getEstado()==PersonajeEstado.atacandoReversa){
+            if(testE.getEstado()==PersonajeEstado.atacando){
                 timerAnimAtaque += delta;
             }
 
@@ -426,7 +422,6 @@ public class NivelGenerico extends Pantalla implements Screen {
                 testE.setEstado(PersonajeEstado.quieto);
                 timerAnimAtaque = 0;
             }
-
 
             Gdx.input.setInputProcessor(stage);
             borrarPantalla(0f, 0f, 0f);
