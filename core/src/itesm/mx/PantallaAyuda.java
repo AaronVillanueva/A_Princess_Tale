@@ -10,6 +10,7 @@ public class PantallaAyuda extends Pantalla implements Screen {
     public void show() {
         inicializarShow();
         crearFondo("Pantallas/PantallaAyuda.png");
+        crearRegreso();
     }
 
     @Override
@@ -17,6 +18,7 @@ public class PantallaAyuda extends Pantalla implements Screen {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         batch.draw(textFondo, 0, 0);
+        spriteRegresar.draw(batch);
         batch.end();
     }
 

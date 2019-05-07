@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 //Pantalla genérica
 public abstract class Pantalla implements Screen {
+    public boolean efectosSonidos;
+    public boolean musica;
     public static final int ANCHO = 1280;
     public static final int ALTO = 720;
     public OrthographicCamera camara; //cámara
@@ -24,16 +27,25 @@ public abstract class Pantalla implements Screen {
     protected Texture textFondo;
     protected Principal principal;
     public Texture cielo;
+    public Sprite spriteRegresar;
+
 
 
     public void dispose(){
         batch.dispose();
         textFondo.dispose();
         cielo.dispose();
+
     }
 
     //Este metodo recibe una string (InternalPath) para agregar el fondo a la Pantalla
     //Las convenciones al día 15 de Febrero son "Pantalla/Pantalla####.png"
+    public void crearRegreso(){
+        Texture texturaRegresar= new Texture("Botones/Btn_Menu/Btn_Regresar.png");
+        spriteRegresar = new Sprite(texturaRegresar);
+        spriteRegresar.setPosition(20, ALTO-160);
+
+    }
     public void crearFondo(String fondo){
         textFondo = new Texture(fondo);
         cielo=new Texture("Cielo.png");

@@ -14,6 +14,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
         nube2=new Nube(1,650,550,.7f);
         nube3=new Nube(2,1200,450,.8f);
         crearFondo("Pantallas/Pantalla_Creditos.png");
+        crearRegreso();
     }
 //
     @Override
@@ -26,6 +27,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
         nube2.draw(batch,7);
         nube3.draw(batch,4);
         batch.draw(textFondo, 0, 0);
+        spriteRegresar.draw(batch);
         batch.end();
     }
 

@@ -14,6 +14,7 @@ public class PantallaControles extends Pantalla implements Screen {
         nube3=new Nube(1,900,600,.8f);
         inicializarShow();
         crearFondo("Pantallas/Pantalla_Controles.png");
+        crearRegreso();
     }
 
     @Override
@@ -25,6 +26,7 @@ public class PantallaControles extends Pantalla implements Screen {
         nube2.draw(batch,3);
         nube3.draw(batch,4);
         batch.draw(textFondo, 0, 0);
+        spriteRegresar.draw(batch);
         batch.end();
     }
 

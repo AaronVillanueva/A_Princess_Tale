@@ -687,9 +687,8 @@ public class TestNivel2 extends Pantalla implements Screen {
         @Override
         public boolean keyDown(int keycode) {
 
-            if (keycode== Input.Keys.RIGHT){
-                return true;
-            }
+            
+
             return false;
         }
 

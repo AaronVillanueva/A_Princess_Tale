@@ -983,8 +983,9 @@ public class NivelGenerico extends Pantalla implements Screen {
         @Override
         public boolean keyDown(int keycode) {
 
-            if (keycode== Input.Keys.RIGHT){
-                return true;
+            if (keycode== Input.Keys.BACK){
+                principal.setScreen(new PantallaMenu(principal));
+
             }
             return false;
         }
