@@ -2,9 +2,17 @@ package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class PantallaHistoria extends Pantalla {
     float contadorTiempo = 0;
+    private Stage stage;
 
     public PantallaHistoria(Principal principal){
         this.principal = principal;
@@ -14,9 +22,31 @@ public class PantallaHistoria extends Pantalla {
     public void show() {
         inicializarShow();
         crearFondo("Historia/Historia1.png");
+        stage = new Stage(vista);
+        crearBoton();
 
     }
+    public void crearBoton(){
+        // Botón Nivel1
+        Texture texturaBtn = new Texture("Botones/Btn_Historia/Btn_Saltar.png");
+        TextureRegion textureRegionBtn = new TextureRegion(texturaBtn);
+        TextureRegionDrawable textureRegionDrawableBtn = new TextureRegionDrawable(textureRegionBtn);
+        ImageButton btn = new ImageButton(textureRegionDrawableBtn);
+        btn.setPosition(ANCHO/2-120, ALTO/2+240);
 
+        btn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //Responder al evento del botón
+                principal.setScreen(new PantallaMenu(principal));
+            }
+        });
+
+        stage.addActor(btn);
+
+
+    }
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
@@ -28,6 +58,7 @@ public class PantallaHistoria extends Pantalla {
         batch.begin();
         batch.draw(textFondo, 0,0);
         batch.end();
+        stage.draw();
 
     }
 
