@@ -705,7 +705,7 @@ public class NivelGenerico extends Pantalla implements Screen {
             batch.begin();
             spritePausa.draw(batch);
             batch.end();
-            crearPausa();
+            //crearPausa();
             Gdx.input.setInputProcessor(escenaPausa);
             escenaPausa.draw();
             checarTeclaRegreso();
