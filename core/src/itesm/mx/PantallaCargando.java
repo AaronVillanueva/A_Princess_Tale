@@ -71,7 +71,7 @@ public class PantallaCargando extends Pantalla implements Screen{
         contadorTiempo += delta;
         if(contadorTiempo>=2){
             //Contó 2 segundos
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaHistoria(principal));
         }
     }
 
