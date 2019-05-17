@@ -22,6 +22,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
     public ImageButton btnMusicaApagada;
     public ImageButton btnSonidoE;
     public ImageButton btnSonidoA;
+
     @Override
     public void show() {
         inicializarShow();
@@ -32,8 +33,17 @@ public class PantallaAjustes extends Pantalla implements Screen {
 
         crearFondo("Pantallas/Pantalla_Configuracion.png");
        crearRegresar();
-        crearMusicaEncendida();
-        crearMusicaApagada();
+       if(Pantalla.playMusica){
+           crearMusicaApagada();
+           crearMusicaEncendida();
+       }else if (!Pantalla.playMusica){
+
+           crearMusicaEncendida();
+           crearMusicaApagada();
+
+       }
+
+
         crearEfectosEncendidos();
         crearEfectosApagados();
         Gdx.input.setInputProcessor(configuracion);
@@ -58,6 +68,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //Responder al evento del botón
                 btnSonidoE.setVisible(true);
                 btnSonidoA.setVisible(false);
+                Pantalla.playMusica = false;
             }
         });
     }
@@ -81,6 +92,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //Responder al evento del botón
                 btnSonidoE.setVisible(false);
                 btnSonidoA.setVisible(true);
+                Pantalla.playMusica = true;
             }
         });
     }

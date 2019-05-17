@@ -2,6 +2,7 @@ package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,6 +16,7 @@ public class PantallaMenu extends Pantalla {
 
     private Stage stage;
     Nube nube1,nube2;
+    private Music musica;
 
     public PantallaMenu(Principal principal){
         this.principal=principal;
@@ -26,7 +28,10 @@ public class PantallaMenu extends Pantalla {
         nube2=new Nube(2,500,500,.6f);
         //inicializa camara,camara update,batch y vista
         inicializarShow();
-
+        musica = Gdx.audio.newMusic(Gdx.files.internal("Musica/musicaMenu.mp3"));
+        musica.setLooping(true);
+        musica.setVolume(1f);
+        musica.play();
         stage = new Stage(vista);
         crearBotones();
         crearFondo("Pantallas/Pantalla_Menu.png");
@@ -79,7 +84,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new Pantalla_Niveles(principal));
+                principal.setScreen(new Pantalla_Niveles(principal, musica));
             }
         });
 

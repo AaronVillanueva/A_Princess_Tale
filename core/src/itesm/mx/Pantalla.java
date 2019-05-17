@@ -28,6 +28,7 @@ public abstract class Pantalla implements Screen {
     protected Principal principal;
     public Texture cielo;
     public Sprite spriteRegresar;
+    public static boolean playMusica;
 
 
 

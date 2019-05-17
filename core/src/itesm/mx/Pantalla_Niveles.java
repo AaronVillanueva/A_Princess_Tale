@@ -3,6 +3,7 @@ package itesm.mx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,9 +17,11 @@ public class Pantalla_Niveles extends Pantalla {
 
     private Stage stage;
     Nube nube1,nube2;
+    private Music musica;
 
-    public Pantalla_Niveles(Principal principal){
+    public Pantalla_Niveles(Principal principal, Music musica){
         this.principal=principal;
+        this.musica = musica;
     }
 
     @Override
@@ -49,6 +52,7 @@ public class Pantalla_Niveles extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new NivelGenerico(principal, 1));
             }
         });
@@ -67,6 +71,7 @@ public class Pantalla_Niveles extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new NivelGenerico(principal, 2));
             }
         });
@@ -85,6 +90,7 @@ public class Pantalla_Niveles extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new NivelGenerico(principal, 3));
             }
         });
@@ -103,6 +109,7 @@ public class Pantalla_Niveles extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new NivelGenerico(principal, 4));
             }
         });
