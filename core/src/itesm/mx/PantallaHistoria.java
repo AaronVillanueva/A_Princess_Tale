@@ -24,6 +24,7 @@ public class PantallaHistoria extends Pantalla {
         crearFondo("Historia/Historia1.png");
         stage = new Stage(vista);
         crearBoton();
+        Gdx.input.setInputProcessor(stage);
 
     }
     public void crearBoton(){

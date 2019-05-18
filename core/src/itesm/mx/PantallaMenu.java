@@ -93,6 +93,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new PantallaControles(principal));
             }
         });
@@ -102,6 +103,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new PantallaAjustes(principal));
             }
         });
@@ -111,6 +113,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new PantallaCreditos(principal));
             }
         });

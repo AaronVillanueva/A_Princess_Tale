@@ -3,6 +3,7 @@ package itesm.mx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 
 public class PantallaCreditos extends Pantalla implements Screen {
     public Nube nube1,nube2,nube3;
