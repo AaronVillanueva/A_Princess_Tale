@@ -28,7 +28,6 @@ public abstract class Pantalla implements Screen {
     protected Principal principal;
     public Texture cielo;
     public Sprite spriteRegresar;
-    public static boolean playMusica;
 
 
 
@@ -96,7 +95,7 @@ public abstract class Pantalla implements Screen {
 
             if(v3.y<=ALTO-20 && v3.y>=ALTO-160 && v3.x<=195 && v3.x>=20){
                 //Quiere jugar
-                principal.setScreen( new PantallaMenu(principal));
+                principal.setScreen( new PantallaMenu(principal, true));
             }
             return true;
 

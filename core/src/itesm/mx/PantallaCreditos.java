@@ -7,8 +7,11 @@ import com.badlogic.gdx.audio.Music;
 
 public class PantallaCreditos extends Pantalla implements Screen {
     public Nube nube1,nube2,nube3;
+    public boolean playMusica;
 
-    public PantallaCreditos(Principal principal){this.principal=principal;}
+    public PantallaCreditos(Principal principal, boolean playMusica){
+        this.principal=principal;
+        this.playMusica = playMusica;}
 
     @Override
     public void show() {
@@ -37,7 +40,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
 
     private void checarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }
 

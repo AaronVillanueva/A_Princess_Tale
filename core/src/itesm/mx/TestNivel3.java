@@ -156,7 +156,7 @@ public class TestNivel3 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, true));
 
             }
         });
@@ -210,7 +210,7 @@ public class TestNivel3 extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, true));
 
             }
         });

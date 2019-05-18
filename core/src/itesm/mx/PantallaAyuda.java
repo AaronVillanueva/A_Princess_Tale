@@ -5,8 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 
 public class PantallaAyuda extends Pantalla implements Screen {
+    public boolean playMusica;
 
-    public PantallaAyuda(Principal principal){this.principal=principal;}
+    public PantallaAyuda(Principal principal, boolean playMusica){
+        this.principal=principal;
+        this.playMusica = playMusica;
+
+    }
 
     @Override
     public void show() {
@@ -27,7 +32,7 @@ public class PantallaAyuda extends Pantalla implements Screen {
 
     private void checarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }
 

@@ -18,10 +18,12 @@ public class Pantalla_Niveles extends Pantalla {
     private Stage stage;
     Nube nube1,nube2;
     private Music musica;
+    private boolean playMusica;
 
-    public Pantalla_Niveles(Principal principal, Music musica){
+    public Pantalla_Niveles(Principal principal, Music musica, boolean playMusica){
         this.principal=principal;
         this.musica = musica;
+        this.playMusica = playMusica;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Pantalla_Niveles extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new NivelGenerico(principal, 1));
+                principal.setScreen(new NivelGenerico(principal, 1, playMusica));
             }
         });
 
@@ -72,7 +74,7 @@ public class Pantalla_Niveles extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new NivelGenerico(principal, 2));
+                principal.setScreen(new NivelGenerico(principal, 2, playMusica));
             }
         });
 
@@ -91,7 +93,7 @@ public class Pantalla_Niveles extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new NivelGenerico(principal, 3));
+                principal.setScreen(new NivelGenerico(principal, 3, playMusica));
             }
         });
 
@@ -110,7 +112,7 @@ public class Pantalla_Niveles extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new NivelGenerico(principal, 4));
+                principal.setScreen(new NivelGenerico(principal, 4, playMusica));
             }
         });
 
@@ -141,7 +143,7 @@ public class Pantalla_Niveles extends Pantalla {
 
     private void checarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }
 

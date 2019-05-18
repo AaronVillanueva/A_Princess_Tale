@@ -17,8 +17,10 @@ public class PantallaMenu extends Pantalla {
     private Stage stage;
     Nube nube1,nube2;
     private Music musica;
+    private boolean playMusica;
 
-    public PantallaMenu(Principal principal){
+    public PantallaMenu(Principal principal, boolean playMusica){
+        this.playMusica = playMusica;
         this.principal=principal;
     }
 
@@ -31,7 +33,9 @@ public class PantallaMenu extends Pantalla {
         musica = Gdx.audio.newMusic(Gdx.files.internal("Musica/musicaMenu.mp3"));
         musica.setLooping(true);
         musica.setVolume(1f);
-        musica.play();
+        if(playMusica){
+            musica.play();
+        }
         stage = new Stage(vista);
         crearBotones();
         crearFondo("Pantallas/Pantalla_Menu.png");
@@ -84,7 +88,7 @@ public class PantallaMenu extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new Pantalla_Niveles(principal, musica));
+                principal.setScreen(new Pantalla_Niveles(principal, musica, playMusica));
             }
         });
 
@@ -94,7 +98,7 @@ public class PantallaMenu extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new PantallaControles(principal));
+                principal.setScreen(new PantallaControles(principal, playMusica));
             }
         });
 
@@ -114,7 +118,7 @@ public class PantallaMenu extends Pantalla {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 musica.stop();
-                principal.setScreen(new PantallaCreditos(principal));
+                principal.setScreen(new PantallaCreditos(principal, playMusica));
             }
         });
 

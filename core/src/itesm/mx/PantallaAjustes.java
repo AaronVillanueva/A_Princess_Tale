@@ -22,6 +22,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
     public ImageButton btnMusicaApagada;
     public ImageButton btnSonidoE;
     public ImageButton btnSonidoA;
+    public boolean playMusica = true;
 
     @Override
     public void show() {
@@ -33,10 +34,10 @@ public class PantallaAjustes extends Pantalla implements Screen {
 
         crearFondo("Pantallas/Pantalla_Configuracion.png");
        crearRegresar();
-       if(Pantalla.playMusica){
+       if(playMusica){
            crearMusicaApagada();
            crearMusicaEncendida();
-       }else if (!Pantalla.playMusica){
+       }else if (!playMusica){
 
            crearMusicaEncendida();
            crearMusicaApagada();
@@ -68,7 +69,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //Responder al evento del botón
                 btnSonidoE.setVisible(true);
                 btnSonidoA.setVisible(false);
-                Pantalla.playMusica = false;
+
             }
         });
     }
@@ -92,7 +93,6 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //Responder al evento del botón
                 btnSonidoE.setVisible(false);
                 btnSonidoA.setVisible(true);
-                Pantalla.playMusica = true;
             }
         });
     }
@@ -113,7 +113,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, playMusica));
             }
         });
     }
@@ -140,6 +140,8 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //btnMusicaApagada.setZIndex(9000);
                 //btnMusicaEncendida.toFront();
                 musica=true;
+                playMusica = true;
+
 
             }
         });
@@ -165,7 +167,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
                 //btnMusicaApagada.toFront();
                 btnMusicaEncendida.setVisible(false);
                 btnMusicaApagada.setVisible(true);
-
+                playMusica = false;
                musica=false;
 
             }
@@ -198,7 +200,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
 
     private void checarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }
 

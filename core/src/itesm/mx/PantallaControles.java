@@ -7,8 +7,11 @@ import com.badlogic.gdx.Screen;
 public class PantallaControles extends Pantalla implements Screen {
 
     public Nube nube1,nube2,nube3;
+    public boolean playMusica;
 
-    public PantallaControles(Principal principal){this.principal=principal;}
+    public PantallaControles(Principal principal, boolean playMusica){
+        this.playMusica = playMusica;
+        this.principal=principal;}
     @Override
     public void show() {
         nube1=new Nube(1,300,400,.8f);
@@ -35,7 +38,7 @@ public class PantallaControles extends Pantalla implements Screen {
 
     private void cehcarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }
 

@@ -40,7 +40,7 @@ public class PantallaHistoria extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, true));
             }
         });
 
@@ -65,7 +65,7 @@ public class PantallaHistoria extends Pantalla {
 
     private void checarCambioPantalla() {
         if(contadorTiempo>45){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, true));
         }
     }
 

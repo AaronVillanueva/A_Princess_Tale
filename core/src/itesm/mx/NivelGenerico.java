@@ -58,13 +58,14 @@ public class NivelGenerico extends Pantalla implements Screen {
     float timerAnimAtaque = 0;
     public int nivel = 0;
     private Music music;
+    private boolean playMusica;
 
     public NivelGenerico(Principal principal) {
         this.principal = principal;
         rutaFondo="Nivel4/Nivel4.png";
     }
 
-    public NivelGenerico(Principal principal, int nivel) {
+    public NivelGenerico(Principal principal, int nivel, boolean playMusica) {
         this.principal = principal;
         switch (nivel) {
             case 1:
@@ -90,6 +91,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         }
         System.out.println("ini"+rutaFondo);
         this.nivel = nivel;
+        this.playMusica = playMusica;
     }
     @Override
     public void show() {
@@ -157,7 +159,9 @@ public class NivelGenerico extends Pantalla implements Screen {
 
         music.setLooping(true);
         music.setVolume(1f);
-        music.play();
+        if(playMusica){
+            music.play();
+        }
     }
 
     private void configurarEscenaGano() {
@@ -183,7 +187,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 music.stop();
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, playMusica));
 
             }
         });
@@ -206,7 +210,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new NivelGenerico(principal,nivel));
+                principal.setScreen(new NivelGenerico(principal,nivel, playMusica));
 
             }
         });
@@ -229,7 +233,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 music.stop();
-                principal.setScreen(new NivelGenerico(principal,nivel+1));
+                principal.setScreen(new NivelGenerico(principal,nivel+1, playMusica));
 
 
             }
@@ -282,7 +286,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
 
-                principal.setScreen(new NivelGenerico(principal,nivel));
+                principal.setScreen(new NivelGenerico(principal,nivel, playMusica));
 
             }
         });
@@ -304,7 +308,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 music.stop();
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, playMusica));
 
             }
         });
@@ -358,7 +362,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 music.stop();
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, playMusica));
 
 
             }
@@ -382,7 +386,7 @@ public class NivelGenerico extends Pantalla implements Screen {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
                 music.stop();
-                principal.setScreen(new NivelGenerico(principal, nivel));
+                principal.setScreen(new NivelGenerico(principal, nivel, playMusica));
 
             }
         });
@@ -725,7 +729,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&(pausa!=false)){
-            principal.setScreen(new PantallaMenu(principal));
+            principal.setScreen(new PantallaMenu(principal, playMusica));
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&pausa==false){
             pausa=true;
@@ -1149,7 +1153,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         public boolean keyDown(int keycode) {
 
             if (keycode== Input.Keys.BACK){
-                principal.setScreen(new PantallaMenu(principal));
+                principal.setScreen(new PantallaMenu(principal, playMusica));
                 return true;
             }
             return false;
