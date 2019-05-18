@@ -549,6 +549,12 @@ public class NivelGenerico extends Pantalla implements Screen {
                 timerAnimAtaque = 0;
             }
 
+            if(testE.getX()+testE.sprite.getWidth() > Pantalla.ANCHO){
+                testE.setPos(Pantalla.ANCHO-testE.sprite.getWidth(),testE.getY());
+            }
+            if(testE.getX() < 0){
+                testE.setPos(0,testE.getY());
+            }
 
             Gdx.input.setInputProcessor(stage);
             borrarPantalla(0f, 0f, 0f);
