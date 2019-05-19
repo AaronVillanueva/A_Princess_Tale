@@ -1,6 +1,7 @@
 package itesm.mx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class PantallaHistoria extends Pantalla {
     float contadorTiempo = 0;
     private Stage stage;
+    private Music musica;
 
     public PantallaHistoria(Principal principal){
         this.principal = principal;
@@ -25,6 +27,8 @@ public class PantallaHistoria extends Pantalla {
         stage = new Stage(vista);
         crearBoton();
         Gdx.input.setInputProcessor(stage);
+        musica = Gdx.audio.newMusic(Gdx.files.internal("Musica/historiaMusic.mp3"));
+        musica.play();
 
     }
     public void crearBoton(){
@@ -40,6 +44,7 @@ public class PantallaHistoria extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //Responder al evento del botón
+                musica.stop();
                 principal.setScreen(new PantallaMenu(principal, true));
             }
         });
@@ -65,6 +70,7 @@ public class PantallaHistoria extends Pantalla {
 
     private void checarCambioPantalla() {
         if(contadorTiempo>45){
+            musica.stop();
             principal.setScreen(new PantallaMenu(principal, true));
         }
     }
