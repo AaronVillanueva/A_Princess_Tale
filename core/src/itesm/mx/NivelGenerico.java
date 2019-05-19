@@ -703,11 +703,16 @@ public class NivelGenerico extends Pantalla implements Screen {
                 escenaPerdio.draw();
                 Gdx.input.setInputProcessor(escenaPerdio);
             }
-            if(timerGanar > 120 && perdio == false){
+            if(timerGanar > 120 && perdio == false && nivel !=4){
                 Gdx.input.setInputProcessor(escenaGano);
               escenaGano.draw();
-
             }
+
+            if(timerGanar > 120 && perdio == false && nivel ==4){
+                music.stop();
+                principal.setScreen(new PantallaFinal(principal));
+            }
+
             checarTeclaRegreso();
 
         }
