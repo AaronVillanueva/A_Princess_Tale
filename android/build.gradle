@@ -1,12 +1,5 @@
 android {
-    signingConfigs{
-        config{
-            keyAlias 'key0'
-            keyPassword '123456'
-            storeFile file('C:\\Users\\jaimi\\StudioProjects\\A_Princess_Tale\\Key_Princess_Tales.jks')
-            storePassword '123456'
-        }
-   }
+
     buildToolsVersion "28.0.3"
     compileSdkVersion 28
     sourceSets {

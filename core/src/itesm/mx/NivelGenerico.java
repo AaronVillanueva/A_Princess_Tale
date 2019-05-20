@@ -595,51 +595,52 @@ public class NivelGenerico extends Pantalla implements Screen {
                 }
             }
 
-
-            timerEnemigos += delta;
-            timerVoladores += delta;
-            if (timerEnemigos >= tiempoParaWrumpers) {
-                generarWrumpers();
-                timerEnemigos = 0;
-            }
-            if(timerVoladores>=tiempoParaVoladores){
-                generarVoladores();
-                timerVoladores=0;
-            }
-
-            procesoAtaqueRaven();
-
-            generarItems();
-            batch.setProjectionMatrix(camara.combined);
-            desplazarItem();
-
-            for (Wrumper wrumper : enemigos) {
-                wrumper.rastrearPrincesa(testE);
-            }
-            for(Volador volador: voladores){
-                volador.rastrearPrincesa(testE);
-            }
-            procesoBoss();
-            for (int i = enemigos.size() - 1; i >= 0; i--) {
-                Wrumper wrumper = enemigos.get(i);
-                if (wrumper.estado == PersonajeEstado.muerto) {
-                    enemigos.remove(i);
-                    System.out.println("ded");
+            if(perdio!=true&&gano!=true) {
+                timerEnemigos += delta;
+                timerVoladores += delta;
+                if (timerEnemigos >= tiempoParaWrumpers) {
+                    generarWrumpers();
+                    timerEnemigos = 0;
                 }
-            }
-
-            for (int i = voladores.size() - 1; i >= 0; i--) {
-                Volador volador = voladores.get(i);
-                if (volador.estado == PersonajeEstado.muerto) {
-                    voladores.remove(i);
-                    System.out.println("ded");
+                if (timerVoladores >= tiempoParaVoladores) {
+                    generarVoladores();
+                    timerVoladores = 0;
                 }
+
+                procesoAtaqueRaven();
+
+                generarItems();
+                batch.setProjectionMatrix(camara.combined);
+                desplazarItem();
+
+
+                for (Wrumper wrumper : enemigos) {
+                    wrumper.rastrearPrincesa(testE);
+                }
+                for (Volador volador : voladores) {
+                    volador.rastrearPrincesa(testE);
+                }
+                procesoBoss();
+                for (int i = enemigos.size() - 1; i >= 0; i--) {
+                    Wrumper wrumper = enemigos.get(i);
+                    if (wrumper.estado == PersonajeEstado.muerto) {
+                        enemigos.remove(i);
+                        System.out.println("ded");
+                    }
+                }
+
+                for (int i = voladores.size() - 1; i >= 0; i--) {
+                    Volador volador = voladores.get(i);
+                    if (volador.estado == PersonajeEstado.muerto) {
+                        voladores.remove(i);
+                        System.out.println("ded");
+                    }
+                }
+                verificarColisionEnemigos();
+                verificarColisionItems();
+                verificarColisionFlechas();
+
             }
-            verificarColisionEnemigos();
-            verificarColisionItems();
-            verificarColisionFlechas();
-
-
             batch.begin();
             batch.draw(cielo, 0, 0);
             if(nivel == 2){
