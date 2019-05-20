@@ -41,6 +41,7 @@ public class PantallaMenu extends Pantalla {
         crearFondo("Pantallas/Pantalla_Menu.png");
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(false);
     }
 
     private void crearBotones() {

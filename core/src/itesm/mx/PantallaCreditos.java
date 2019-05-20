@@ -21,6 +21,7 @@ public class PantallaCreditos extends Pantalla implements Screen {
         nube3=new Nube(2,1200,450,.8f);
         crearFondo("Pantallas/Pantalla_Creditos.png");
         crearRegreso();
+        Gdx.input.setCatchBackKey(true);
     }
 //
     @Override

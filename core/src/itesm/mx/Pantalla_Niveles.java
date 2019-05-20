@@ -37,6 +37,7 @@ public class Pantalla_Niveles extends Pantalla {
         crearBotones();
         crearFondo("Pantallas/Pantalla_SeleccionaNivel.png");
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void crearBotones() {
