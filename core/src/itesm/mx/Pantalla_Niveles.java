@@ -144,6 +144,7 @@ public class Pantalla_Niveles extends Pantalla {
 
     private void checarRegreso() {
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            musica.stop();
             principal.setScreen(new PantallaMenu(principal, playMusica));
         }
     }

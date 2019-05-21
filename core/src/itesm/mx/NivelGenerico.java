@@ -136,6 +136,7 @@ public class NivelGenerico extends Pantalla implements Screen {
         bossNivel1 = new Keeper1();
         bossNivel2 = new Keeper2();
         bossNivel3 = new Keeper3();
+        bossNivel3.setPos(bossNivel3.getX(), bossNivel3.getY()-15);
 
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
