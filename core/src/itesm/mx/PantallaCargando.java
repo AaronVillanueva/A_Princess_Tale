@@ -69,7 +69,7 @@ public class PantallaCargando extends Pantalla implements Screen{
 
         //prueba tiempo
         contadorTiempo += delta;
-        if(contadorTiempo>=10){
+        if(contadorTiempo>=4){
             //Contó 2 segundos
             principal.setScreen(new PantallaHistoria(principal));
         }

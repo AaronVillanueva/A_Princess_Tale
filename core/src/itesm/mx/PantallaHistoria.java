@@ -69,7 +69,7 @@ public class PantallaHistoria extends Pantalla {
     }
 
     private void checarCambioPantalla() {
-        if(contadorTiempo>=30){
+        if(contadorTiempo>=35){
             musica.stop();
             principal.setScreen(new PantallaMenu(principal, true));
         }
@@ -83,11 +83,12 @@ public class PantallaHistoria extends Pantalla {
             crearFondo("Historia/Historia2.2.png");
         }
         else if(contadorTiempo>=20 && contadorTiempo<=20.1){
-            crearFondo("Historia/Historia3.png");
-        }
-        /*else if(contadorTiempo>=30 && contadorTiempo<35){
             crearFondo("Historia/Historia4.png");
         }
+        else if(contadorTiempo>=25 && contadorTiempo<25.1){
+            crearFondo("Historia/Historia3.png");
+        }
+        /*
         else if(contadorTiempo>=35 && contadorTiempo<40){
             crearFondo("Historia/Historia5.png");
         }

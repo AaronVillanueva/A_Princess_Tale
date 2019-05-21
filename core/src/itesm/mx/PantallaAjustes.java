@@ -59,7 +59,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
         btnSonidoA = new ImageButton(textureRegionDrawableBtnSonidoA);
         btnSonidoA.setPosition(560, 150);
 
-        configuracion.addActor(btnSonidoA);
+        //configuracion.addActor(btnSonidoA);
 
         // Acción botón Perder
         btnSonidoE.addListener(new ClickListener(){
@@ -83,7 +83,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
          btnSonidoE = new ImageButton(textureRegionDrawableBtnSonidoE);
         btnSonidoE.setPosition(560, 150);
 
-        configuracion.addActor(btnSonidoE);
+        //configuracion.addActor(btnSonidoE);
 
         // Acción botón Perder
         btnSonidoE.addListener(new ClickListener(){
