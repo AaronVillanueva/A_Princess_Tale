@@ -20,6 +20,7 @@ public class PantallaControles extends Pantalla implements Screen {
         inicializarShow();
         crearFondo("Pantallas/Pantalla_Controles.png");
         crearRegreso();
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class PantallaControles extends Pantalla implements Screen {
         spriteRegresar.draw(batch);
         batch.end();
         cehcarRegreso();
+
     }
 
     private void cehcarRegreso() {

@@ -18,6 +18,7 @@ public class PantallaAyuda extends Pantalla implements Screen {
         inicializarShow();
         crearFondo("Pantallas/PantallaAyuda.png");
         crearRegreso();
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override

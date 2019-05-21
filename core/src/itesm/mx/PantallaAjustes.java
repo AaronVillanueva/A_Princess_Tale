@@ -48,6 +48,7 @@ public class PantallaAjustes extends Pantalla implements Screen {
         crearEfectosEncendidos();
         crearEfectosApagados();
         Gdx.input.setInputProcessor(configuracion);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void crearEfectosApagados() {
