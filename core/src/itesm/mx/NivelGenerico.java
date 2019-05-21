@@ -736,6 +736,7 @@ public class NivelGenerico extends Pantalla implements Screen {
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&(pausa!=false)){
+            music.stop();
             principal.setScreen(new PantallaMenu(principal, playMusica));
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.BACK)&&pausa==false){
